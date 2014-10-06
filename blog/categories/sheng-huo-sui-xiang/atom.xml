@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Cai Yi Li]]></title>
-  <link href="http://caiyili.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: 生活随想 | Cai Yi Li]]></title>
+  <link href="http://caiyili.github.io/blog/categories/sheng-huo-sui-xiang/atom.xml" rel="self"/>
   <link href="http://caiyili.github.io/"/>
   <updated>2014-10-06T19:57:25+08:00</updated>
   <id>http://caiyili.github.io/</id>
@@ -58,15 +58,6 @@
 <p>在这个世界里，信任真的是越来越珍贵了。</p>
 
 <p>我想到的是，让爱情上要赢得信任，先为她/他做出改变；事业人要赢得信任，先变优秀。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Hello World]]></title>
-    <link href="http://caiyili.github.io/blog/2014/09/18/hello-world/"/>
-    <updated>2014-09-18T14:46:04+08:00</updated>
-    <id>http://caiyili.github.io/blog/2014/09/18/hello-world</id>
-    <content type="html"><![CDATA[<p>第一篇博客</p>
 ]]></content>
   </entry>
   
