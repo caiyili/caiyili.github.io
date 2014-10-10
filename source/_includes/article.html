@@ -10,6 +10,7 @@
       {% endif %}
     {% endif %}
     {% unless page.meta == false %}
+      {% if index %}
       <p class="meta">
         {% include post/date.html %}{{ time }}
         {% if site.disqus_short_name and page.comments != false and post.comments != false and site.disqus_show_comment_count == true %}
@@ -17,6 +18,7 @@
              data-disqus-identifier="{% if post.meta.disqus_id %}{{ post.meta.disqus_id }}{% else %}{{ site.url }}{{ post.url }}{% endif %}">Comments</a>
         {% endif %}
       </p>
+      {% endif %}
     {% endunless %}
   </header>
 {% endunless %}

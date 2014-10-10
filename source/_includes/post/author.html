@@ -17,7 +17,7 @@
   {% if googleplus_user and googleplus_user != "ignore" %}
     <a href="https://plus.google.com/{{ googleplus_user }}" rel="author">{{ author }}</a>
   {% else %}
-    {{ author }}
+  <a href="https://github.com/{{ author }}" rel="author">@{{ author }}</a>
   {% endif %}
   </span></span>
 {% endif %}
