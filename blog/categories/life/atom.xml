@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[空心菜]]></title>
-  <link href="http://caiyili.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Life | 空心菜]]></title>
+  <link href="http://caiyili.github.io/blog/categories/life/atom.xml" rel="self"/>
   <link href="http://caiyili.github.io/"/>
   <updated>2014-12-31T04:16:16+08:00</updated>
   <id>http://caiyili.github.io/</id>
@@ -87,16 +87,7 @@
 愿经历的第一天，都有沉淀，都可以像相册一样回来翻看。</p>
 
 <p>后面插播一张软件园湖边的美景  <br/>
-<img src="http://caiyili.github.io/images/my-2014/ruanjianyuan.jpg" title="软件园" alt="&quot;软件园&quot;" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Hello World]]></title>
-    <link href="http://caiyili.github.io/blog/2014/09/18/hello-world/"/>
-    <updated>2014-09-18T14:46:04+08:00</updated>
-    <id>http://caiyili.github.io/blog/2014/09/18/hello-world</id>
-    <content type="html"><![CDATA[<p>我的第一篇博客!</p>
+<img src="/images/my-2014/ruanjianyuan.jpg" title="软件园" alt="&quot;软件园&quot;" /></p>
 ]]></content>
   </entry>
   
