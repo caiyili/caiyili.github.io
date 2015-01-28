@@ -15,6 +15,8 @@ categories: []
   - 添加了关于页面
   - 修改了时间显示格式，参考[https://github.com/octopress/date-format](https://github.com/octopress/date-format)
 * 2014-12-31: 写下2014年年终总结
+* 2015-01-28：买了一个域名[yilli.net](http://yilli.net)
+  - 本来以为要备案什么的比较麻烦，发现其实在万网上买挺简单的
 
 
 ### 友情链接
