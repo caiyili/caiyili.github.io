@@ -4,7 +4,7 @@
   <title><![CDATA[伊利]]></title>
   <link href="http://caiyili.github.io/atom.xml" rel="self"/>
   <link href="http://caiyili.github.io/"/>
-  <updated>2015-01-29T00:02:48+08:00</updated>
+  <updated>2015-01-29T02:10:48+08:00</updated>
   <id>http://caiyili.github.io/</id>
   <author>
     <name><![CDATA[caiyili]]></name>
@@ -88,6 +88,30 @@
 
 <p>后面插播一张软件园湖边的美景  <br/>
 <img src="http://caiyili.github.io/images/my-2014/ruanjianyuan.jpg" title="软件园" alt="&quot;软件园&quot;" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Test]]></title>
+    <link href="http://caiyili.github.io/blog/2014/09/18/test/"/>
+    <updated>2014-09-18T14:46:04+08:00</updated>
+    <id>http://caiyili.github.io/blog/2014/09/18/test</id>
+    <content type="html"><![CDATA[<div id="myContent"></div>
+
+
+<div id="contentToWrite" style="display:none">
+去年今日此门中， <br>
+人面桃花相映红。 <br>
+人面不知何处去， <br>
+桃花依照笑春风。 <br>
+ 
+</div>
+
+
+<script>
+writeContent("contentToWrite","myContent",true) ;
+</script>
+
 ]]></content>
   </entry>
   
