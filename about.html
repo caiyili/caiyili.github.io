@@ -108,9 +108,25 @@
 
 <ul>
 <li>本来以为要备案什么的比较麻烦，发现其实在万网上买挺简单的</li>
+<li>用rake部署后发现yilli.net访问不了，因为rake deploy把仓库里面的CNAME给删除了，改了一下Rakefile解决了</li>
 </ul>
 </li>
 </ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">FileList</span><span class="o">[</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">args</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="s2">/**/.*&quot;</span><span class="o">].</span><span class="n">exclude</span><span class="p">(</span><span class="s2">&quot;**/.&quot;</span><span class="p">,</span> <span class="s2">&quot;**/..&quot;</span><span class="p">,</span> <span class="s2">&quot;**/.DS_Store&quot;</span><span class="p">,</span> <span class="s2">&quot;**/._*&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">cp_r</span> <span class="n">file</span><span class="p">,</span> <span class="n">file</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/</span><span class="si">#{</span><span class="n">args</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="sr">/</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">args</span><span class="o">.</span><span class="n">dest</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">unless</span> <span class="no">File</span><span class="o">.</span><span class="n">directory?</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'><span class="no">FileList</span><span class="o">[</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">args</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="s2">/CNAME&quot;</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">cp_r</span> <span class="n">file</span><span class="p">,</span> <span class="n">file</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/</span><span class="si">#{</span><span class="n">args</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="sr">/</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">args</span><span class="o">.</span><span class="n">dest</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">unless</span> <span class="no">File</span><span class="o">.</span><span class="n">directory?</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h3>友情链接</h3>
