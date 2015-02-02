@@ -4,7 +4,7 @@
   <title><![CDATA[伊利]]></title>
   <link href="http://caiyili.github.io/atom.xml" rel="self"/>
   <link href="http://caiyili.github.io/"/>
-  <updated>2015-02-02T11:31:19+08:00</updated>
+  <updated>2015-02-02T13:50:45+08:00</updated>
   <id>http://caiyili.github.io/</id>
   <author>
     <name><![CDATA[caiyili]]></name>
@@ -12,6 +12,70 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Cat-with-color]]></title>
+    <link href="http://caiyili.github.io/blog/2015/02/02/cat-with-color/"/>
+    <updated>2015-02-02T13:20:18+08:00</updated>
+    <id>http://caiyili.github.io/blog/2015/02/02/cat-with-color</id>
+    <content type="html"><![CDATA[<p>让cat出来的结果有语法高亮功能。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># Colored up cat!</span>
+</span><span class='line'><span class="c"># You must install Pygments first </span>
+</span><span class='line'><span class="nb">alias </span><span class="nv">c</span><span class="o">=</span><span class="s1">&#39;pygmentize -O style=monokai -f console256 -g&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其实不是用pygmentize代替cat。这样查看一个文件<code>c index.php</code>就是带语法高亮的了。</p>
+
+<p>首先要安装pygments，实际上下载一个就可以。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>wget https://pypi.python.org/packages/source/P/Pygments/Pygments-2.0.2.tar.gz#md5<span class="o">=</span>238587a1370d62405edabd0794b3ec4a
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>解压后就有一个<code>pygmentize</code>的脚本，就可以直接使用了</p>
+
+<p>高亮后的结果可以用more页，我这环境用less好像有点问题，以后再看吧。</p>
+
+<p>另外让less出来的结果显示文件行号，可以在.bashrc中添加如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">export </span><span class="nv">LESS</span><span class="o">=</span><span class="s2">&quot; -R -N &quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>还有一堆其它的系统变量可以控制<code>less</code>显示，比如结合<code>source-highlight</code>让<code>less</code>支持语法高亮。
+(以后再研究。。。)</p>
+
+<p>另外用<code>less</code>打开一个文件，按<code>v</code>可以直接进入以<code>vim</code>编辑的模式。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ctags-vim]]></title>
+    <link href="http://caiyili.github.io/blog/2015/02/02/ctags-vim/"/>
+    <updated>2015-02-02T13:09:12+08:00</updated>
+    <id>http://caiyili.github.io/blog/2015/02/02/ctags-vim</id>
+    <content type="html"><![CDATA[<p>记一下今天学会的一些小技能</p>
+
+<ul>
+<li><code>ctags</code>生成指定语言的<code>tags</code>，<code>ctags -R --languages=php</code></li>
+<li>用vim根据<code>tags</code>文件直接打开某一个类/方法。
+
+<ul>
+<li><code>vim -t getInstance</code> 打开函数名为<code>getInstance</code>的文件并自动跳转到这个函数( 要在<code>tags</code>文件存在的目录)。</li>
+<li>如果有多个会让你选择，打开后可以用<code>:tn</code>,<code>:tp</code>,<code>:ts</code>选择前一个、后一个、列表选择</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[My 2014]]></title>

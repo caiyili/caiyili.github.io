@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Cat | 伊利]]></title>
+  <link href="http://caiyili.github.io/blog/categories/cat/atom.xml" rel="self"/>
+  <link href="http://caiyili.github.io/"/>
+  <updated>2015-02-02T13:50:45+08:00</updated>
+  <id>http://caiyili.github.io/</id>
+  <author>
+    <name><![CDATA[caiyili]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Cat-with-color]]></title>
+    <link href="http://caiyili.github.io/blog/2015/02/02/cat-with-color/"/>
+    <updated>2015-02-02T13:20:18+08:00</updated>
+    <id>http://caiyili.github.io/blog/2015/02/02/cat-with-color</id>
+    <content type="html"><![CDATA[<p>让cat出来的结果有语法高亮功能。
+&#8220;`sh</p>
+
+<h1>Colored up cat!</h1>
+
+<h1>You must install Pygments first</h1>
+
+<p>alias c=&lsquo;pygmentize -O style=monokai -f console256 -g&rsquo;
+<code>``
+其实不是用pygmentize代替cat。这样查看一个文件</code>c index.php`就是带语法高亮的了。</p>
+
+<p>首先要安装pygments，实际上下载一个就可以。</p>
+
+<pre><code class="sh">wget https://pypi.python.org/packages/source/P/Pygments/Pygments-2.0.2.tar.gz#md5=238587a1370d62405edabd0794b3ec4a
+</code></pre>
+
+<p>解压后就有一个<code>pygmentize</code>的脚本，就可以直接使用了</p>
+
+<p>高亮后的结果可以用more页，我这环境用less好像有点问题，以后再看吧。</p>
+
+<p>另外让less出来的结果显示文件行号，可以在.bashrc中添加如下：
+<code>sh
+export LESS=" -R -N "
+</code>
+还有一堆其它的系统变量可以控制<code>less</code>显示，比如结合<code>source-highlight</code>让<code>less</code>支持语法高亮。
+(以后再研究。。。)</p>
+
+<p>另外用<code>less</code>打开一个文件，按<code>v</code>可以直接进入以<code>vim</code>编辑的模式。</p>
+]]></content>
+  </entry>
+  
+</feed>

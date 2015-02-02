@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ctags | 伊利]]></title>
+  <link href="http://caiyili.github.io/blog/categories/ctags/atom.xml" rel="self"/>
+  <link href="http://caiyili.github.io/"/>
+  <updated>2015-02-02T13:50:45+08:00</updated>
+  <id>http://caiyili.github.io/</id>
+  <author>
+    <name><![CDATA[caiyili]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Ctags-vim]]></title>
+    <link href="http://caiyili.github.io/blog/2015/02/02/ctags-vim/"/>
+    <updated>2015-02-02T13:09:12+08:00</updated>
+    <id>http://caiyili.github.io/blog/2015/02/02/ctags-vim</id>
+    <content type="html"><![CDATA[<p>记一下今天学会的一些小技能</p>
+
+<ul>
+<li><code>ctags</code>生成指定语言的<code>tags</code>，<code>ctags -R --languages=php</code></li>
+<li>用vim根据<code>tags</code>文件直接打开某一个类/方法。
+
+<ul>
+<li><code>vim -t getInstance</code> 打开函数名为<code>getInstance</code>的文件并自动跳转到这个函数( 要在<code>tags</code>文件存在的目录)。</li>
+<li>如果有多个会让你选择，打开后可以用<code>:tn</code>,<code>:tp</code>,<code>:ts</code>选择前一个、后一个、列表选择</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
