@@ -4,7 +4,7 @@
   <title><![CDATA[伊利]]></title>
   <link href="http://caiyili.github.io/atom.xml" rel="self"/>
   <link href="http://caiyili.github.io/"/>
-  <updated>2015-01-29T02:10:48+08:00</updated>
+  <updated>2015-02-02T11:31:19+08:00</updated>
   <id>http://caiyili.github.io/</id>
   <author>
     <name><![CDATA[caiyili]]></name>
@@ -92,11 +92,21 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Test]]></title>
-    <link href="http://caiyili.github.io/blog/2014/09/18/test/"/>
+    <title type="html"><![CDATA[Test-js打字机]]></title>
+    <link href="http://caiyili.github.io/blog/2014/09/18/test-typewriter/"/>
     <updated>2014-09-18T14:46:04+08:00</updated>
-    <id>http://caiyili.github.io/blog/2014/09/18/test</id>
-    <content type="html"><![CDATA[<div id="myContent"></div>
+    <id>http://caiyili.github.io/blog/2014/09/18/test-typewriter</id>
+    <content type="html"><![CDATA[<!-- more -->
+
+
+<p><link href="http://caiyili.github.io/stylesheets/typewriter.css" media="screen, projection" rel="stylesheet" type="text/css"></p>
+
+<script src="http://caiyili.github.io/javascripts/typewriter.js" type="text/javascript"></script>
+
+
+
+
+<div id="myContent"></div>
 
 
 <div id="contentToWrite" style="display:none">
