@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Cat-with-color - 伊利</title>
+  <title>有语法高亮的cat和less - 伊利</title>
   <meta name="author" content="caiyili">
 
   
-  <meta name="description" content="让cat出来的结果有语法高亮功能。 1
+  <meta name="description" content="让cat支持语法高亮 1
 2
 3
 # Colored up cat!
@@ -89,7 +89,7 @@
   <header>
     
       
-        <h1 class="entry-title">Cat-with-color</h1>
+        <h1 class="entry-title">有语法高亮的cat和less</h1>
       
     
     
@@ -98,7 +98,7 @@
   </header>
 
 
-<div class="entry-content"><p>让cat出来的结果有语法高亮功能。</p>
+<div class="entry-content"><h3>让cat支持语法高亮</h3>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -109,7 +109,10 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>其实不是用pygmentize代替cat。这样查看一个文件<code>c index.php</code>就是带语法高亮的了。</p>
+<p>其实是用pygmentize代替cat。这样查看一个文件<code>c index.php</code>就是带语法高亮的了。</p>
+
+<!-- more -->
+
 
 <p>首先要安装pygments，实际上下载一个就可以。</p>
 
@@ -118,19 +121,27 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>解压后就有一个<code>pygmentize</code>的脚本，就可以直接使用了</p>
+<p>解压后就有一个<code>pygmentize</code>的脚本，就可以直接使用了。<br/>
+高亮后的结果可以用more翻页。</p>
 
-<p>高亮后的结果可以用more页，我这环境用less好像有点问题，以后再看吧。</p>
+<h3>让less支持语法高亮</h3>
 
-<p>另外让less出来的结果显示文件行号，可以在.bashrc中添加如下：</p>
+<p>如果让<code>less</code>命令支持语法高亮，可以参考这篇文章<a href="http://blog.kuaiwan.com/less-with-syntax-highlight-and-line-number.html">点击这里</a>，
+这里面是结合<code>source-highlight</code>使<code>less</code>具有语法高亮功能。<br/>
+不过我尝试安装<code>source-highlight</code>失败了，因为要先安装<code>boost</code>，比较麻烦。。。<br/>
+看它的实现原理是，<code>less</code>支持一个叫做<code>input preprocessor</code>的东西，在<code>less</code>处理前对文件进行预处理，既然这样，那应该也可以用
+<code>pygmentize</code>进行预处理吧，于是我改成了<code>pygmentize</code>。试了一下，果然可以，比安装<code>source-highlight</code>简单多了。</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">export </span><span class="nv">LESS</span><span class="o">=</span><span class="s2">&quot; -R -N &quot;</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># less hightlight</span>
+</span><span class='line'><span class="c">#export LESSOPEN=&quot;| /usr/share/source-highlight/src-hilite-lesspipe.sh %s&quot;</span>
+</span><span class='line'><span class="nb">export </span><span class="nv">LESSOPEN</span><span class="o">=</span><span class="s2">&quot;| pygmentize %s&quot;</span>
+</span><span class='line'><span class="nb">export </span><span class="nv">LESS</span><span class="o">=</span><span class="s2">&quot; -R -N &quot;</span>
 </span></code></pre></td></tr></table></div></figure>
 
-
-<p>还有一堆其它的系统变量可以控制<code>less</code>显示，比如结合<code>source-highlight</code>让<code>less</code>支持语法高亮。
-(以后再研究。。。)</p>
 
 <p>另外用<code>less</code>打开一个文件，按<code>v</code>可以直接进入以<code>vim</code>编辑的模式。</p>
 </div>
@@ -176,7 +187,7 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2015/02/02/ctags-vim/" title="Previous Post: ctags-vim">&laquo; ctags-vim</a>
+        <a class="basic-alignment left" href="/blog/2015/02/02/ctags-vim/" title="Previous Post: ctags配合vim">&laquo; ctags配合vim</a>
       
       
     </p>
