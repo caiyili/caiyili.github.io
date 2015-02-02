@@ -1,0 +1,2 @@
+# new post 
+rake new_post["title"]
