@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ctags-vim"
+title: "ctags配合vim"
 date: 2015-02-02 13:09:12 +0800
 comments: true
 categories: [ctags,vim]
