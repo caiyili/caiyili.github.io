@@ -15,17 +15,12 @@ categories: []
   - 添加了关于页面
   - 修改了时间显示格式，参考[https://github.com/octopress/date-format](https://github.com/octopress/date-format)
 * 2014-12-31: 写下2014年年终总结
-* 2015-01-28：买了一个域名[yilli.net](http://yilli.net)
+* 2015-01-28: 买了一个域名[yilli.net](http://yilli.net)
   - 本来以为要备案什么的比较麻烦，发现其实在万网上买挺简单的
   - 用rake部署后发现yilli.net访问不了，因为rake deploy把仓库里面的CNAME给删除了，改了一下Rakefile解决了
-```ruby
-FileList["#{args.source}/**/.*"].exclude("**/.", "**/..", "**/.DS_Store", "**/._*").each do |file|
-  cp_r file, file.gsub(/#{args.source}/, "#{args.dest}") unless File.directory?(file)
-end
-FileList["#{args.source}/CNAME"].each do |file|
-  cp_r file, file.gsub(/#{args.source}/, "#{args.dest}") unless File.directory?(file)
-end
-```
+* 2015-02-02: 今天继续对网站的性能做了一些优化
+  - 用chrome看网络请求，发现有一个请求gstatic的字体的比较慢，发现是在几个css里面有引用，直接删掉了。
+  - 再排查，发现比较慢的是disqus的一些统计的js，感觉这个评论功能其它比较鸡肋，直接把评论功能去掉了。
 
 
 ### 友情链接
