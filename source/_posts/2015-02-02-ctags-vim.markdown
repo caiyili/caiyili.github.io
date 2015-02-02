@@ -1,0 +1,14 @@
+---
+layout: post
+title: "ctags-vim"
+date: 2015-02-02 13:09:12 +0800
+comments: true
+categories: [ctags,vim]
+---
+记一下今天学会的一些小技能  
+
+* `ctags`生成指定语言的`tags`，```ctags -R --languages=php```
+* 用vim根据`tags`文件直接打开某一个类/方法。
+    - `vim -t getInstance` 打开函数名为`getInstance`的文件并自动跳转到这个函数( 要在`tags`文件存在的目录)。
+    - 如果有多个会让你选择，打开后可以用`:tn`,`:tp`,`:ts`选择前一个、后一个、列表选择
+
