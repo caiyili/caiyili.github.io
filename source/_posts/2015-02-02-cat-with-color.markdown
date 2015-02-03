@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "有语法高亮的cat和less"
+title: "让less&cat具有语法高亮功能"
 date: 2015-02-02 13:20:18 +0800
 comments: true
 categories: [shell,less,cat]
