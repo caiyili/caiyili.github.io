@@ -1,0 +1,17 @@
+---
+layout: post
+title: "nginx模块"
+date: 2015-02-13 17:51:07 +0800
+published: true
+categories: [nginx]
+---
+
+### 几个nginx模块 
+
+* `ngx_http_split_clients_module` 
+    - 可用于做分流量A/B test，根据ip分配流量。
+* `ngx_http_geoip_module`
+    - 根据ip确定地域等信息。依赖于`MaxMind`数据库文件。
+* `ngx_http_empty_gif_module`
+    - 提供一个1小像素的小图，一般用作统计。
+

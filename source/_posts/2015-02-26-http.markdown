@@ -1,0 +1,16 @@
+---
+layout: post
+title: "http/1.1"
+date: 2015-02-26 10:32:21 +0800
+published: true
+categories: [http]
+---
+
+* MIME
+    - Multipurpose Internet Mail Extensions
+    - 多用途互联网邮件扩展类型
+* GMT 
+    - Greenwich Mean Time
+    - 格林尼治时间 
+
+

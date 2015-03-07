@@ -2,7 +2,7 @@
 layout: post
 title: "关于网站性能优化的几点思考"
 date: 2015-02-04 00:34:38 +0800
-published: true
+published: false
 categories: [js,网站性能]
 ---
 本篇文章主要记录一下近期在网站性能优化方面接触到的一些东西，以及自己的一些总结感想。  
