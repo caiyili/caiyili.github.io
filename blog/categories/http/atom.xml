@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Http | 伊利]]></title>
+  <link href="http://caiyili.github.io/blog/categories/http/atom.xml" rel="self"/>
+  <link href="http://caiyili.github.io/"/>
+  <updated>2015-03-07T20:01:06+08:00</updated>
+  <id>http://caiyili.github.io/</id>
+  <author>
+    <name><![CDATA[caiyili]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[http/1.1]]></title>
+    <link href="http://caiyili.github.io/blog/2015/02/26/http/"/>
+    <updated>2015-02-26T10:32:21+08:00</updated>
+    <id>http://caiyili.github.io/blog/2015/02/26/http</id>
+    <content type="html"><![CDATA[<ul>
+<li>MIME
+
+<ul>
+<li>Multipurpose Internet Mail Extensions</li>
+<li>多用途互联网邮件扩展类型</li>
+</ul>
+</li>
+<li>GMT
+
+<ul>
+<li>Greenwich Mean Time</li>
+<li>格林尼治时间</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
