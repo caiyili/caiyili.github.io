@@ -4,7 +4,7 @@ title: "刘娅婷-HR-求职简历 两年HR从业经验"
 date: 2015-07-02 00:01:30 +0800
 published: true
 categories: 
-description: "刘娅婷-HR-求职简历 两年HR从业经验"
+description: "刘娅婷-HR-求职简历 两年HR工作经验"
 ---
 # 刘娅婷-HR-求职简历
 <img height="100px" src="/images/lyt-avatar.jpg">
