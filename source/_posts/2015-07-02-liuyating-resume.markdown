@@ -9,6 +9,7 @@ description: "刘娅婷-HR-求职简历 两年HR工作经验"
 # 刘娅婷-HR-求职简历[北京]
 <img height="100px" src="/images/lyt-avatar.jpg">
 
+*联系电话*：13590716509  
 *E-mail*：cscliuyating@qq.com   
 *通讯地址*：北京市昌平区沙河县于辛家园   
 *出生年月*：1990.12     
