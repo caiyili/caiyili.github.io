@@ -1,0 +1,14 @@
+---
+layout: post
+title: "tmux使用笔记"
+date: 2015-08-11 20:57:36 +0800
+published: true
+categories: 
+---
+
+之前使用tmux，有一点感觉很不方便，就是输出的东西，要查看时总得进入copy模式。没法使用鼠标直接向上翻。  
+今天无意中发现可以配置这个，参考[这里](http://www.opstool.com/article/253)
+```
+set-window-option -g mode-mouse on
+```
+其实就是鼠标往上滑的时候自动进入了copy模式
