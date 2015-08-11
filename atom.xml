@@ -4,7 +4,7 @@
   <title><![CDATA[伊利]]></title>
   <link href="http://caiyili.github.io/atom.xml" rel="self"/>
   <link href="http://caiyili.github.io/"/>
-  <updated>2015-08-11T21:08:54+08:00</updated>
+  <updated>2015-08-11T21:15:12+08:00</updated>
   <id>http://caiyili.github.io/</id>
   <author>
     <name><![CDATA[caiyili]]></name>
@@ -90,7 +90,9 @@
     <link href="http://caiyili.github.io/blog/2015/02/03/zero-width-space/"/>
     <updated>2015-02-03T10:42:26+08:00</updated>
     <id>http://caiyili.github.io/blog/2015/02/03/zero-width-space</id>
-    <content type="html"><![CDATA[<p>一个零宽字符<code>\u200B</code> <a href="http://www.fileformat.info/info/unicode/char/200B/index.htm">http://www.fileformat.info/info/unicode/char/200B/index.htm</a></p>
+    <content type="html"><![CDATA[<p>零宽字符<code>\u200B</code> <a href="http://www.fileformat.info/info/unicode/char/200B/index.htm">http://www.fileformat.info/info/unicode/char/200B/index.htm</a></p>
+
+<p>取反字符<code>\u200E</code> <a href="http://www.fileformat.info/info/unicode/char/200E/index.htm">http://www.fileformat.info/info/unicode/char/200E/index.htm</a></p>
 ]]></content>
   </entry>
   
