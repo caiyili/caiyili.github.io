@@ -1,0 +1,17 @@
+---
+layout: post
+title: "vim"
+date: 2015-09-06 23:18:42 +0800
+published: true
+categories: 
+---
+
+vim使用
+
+## 祼vim的使用
+
+### 打开文件
+
+* vim /path/to/file; vim src/www.xxx/app/service/page/a/b.php
+* vim :find/:sfind/:tabfind; 
+* tags vim :tag/tjump $tagname
