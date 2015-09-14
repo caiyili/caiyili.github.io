@@ -9,10 +9,9 @@
   <meta name="author" content="caiyili">
 
   
-  <meta name="description" content="之前使用tmux，有一点感觉很不方便，就是输出的东西，要查看时总得进入copy模式。没法使用鼠标直接向上翻。
-今天无意中发现可以配置这个，参考这里 1
-set-window-option -g mode-mouse on 其实就是鼠标往上滑的时候自动进入了copy模式
-">
+  <meta name="description" content="vim使用 祼vim的使用 打开文件 vim /path/to/file; vim src/www.xxx/app/service/page/a/b.php
+vim :find/:sfind/:tabfind;
+tags vim :tag/tjump $tagname ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +82,195 @@ set-window-option -g mode-mouse on 其实就是鼠标往上滑的时候自动进
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/09/06/vim/">vim</a></h1>
+    
+    
+      
+      <p class="meta">
+        
+
+
+
+
+2015-09-06 23:18:42 +0800
+        
+      </p>
+      
+    
+  </header>
+
+
+  <div class="entry-content"><p>vim使用</p>
+
+<h2>祼vim的使用</h2>
+
+<h3>打开文件</h3>
+
+<ul>
+<li>vim /path/to/file; vim src/www.xxx/app/service/page/a/b.php</li>
+<li>vim :find/:sfind/:tabfind;</li>
+<li>tags vim :tag/tjump $tagname</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/09/06/ssh/">ssh</a></h1>
+    
+    
+      
+      <p class="meta">
+        
+
+
+
+
+2015-09-06 22:16:48 +0800
+        
+      </p>
+      
+    
+  </header>
+
+
+  <div class="entry-content"><h2>ssh(Secure Shell)</h2>
+
+<h3>ssh简介</h3>
+
+<p>传统网络服务程序(ftp/telnet/&hellip;)本质上是不安全的，使用明文传输口令和数据，可以被截获。<br/>
+安全验证方式也有其弱点，容易受到“中间人”攻击。<br/>
+ssh可以:</p>
+
+<ul>
+<li>把把传输的数据进行安全加密。</li>
+<li>数据经过压缩传输，更快。</li>
+</ul>
+
+
+<p>ssh应用</p>
+
+<ul>
+<li>slogin/ssh/scp/sftp</li>
+</ul>
+
+
+<h3>ssh远程登录</h3>
+
+<ul>
+<li>基于口令(用户名/密码认证)</li>
+<li>基于密匙(公钥/私钥认证)
+
+<ul>
+<li>ssh-keygen 生成密匙对</li>
+<li>对私钥的加密，防止私钥被盗。</li>
+<li>ssh-agent/ssh-add 密匙高速缓存</li>
+<li>~/.ssh/config 管理链接</li>
+</ul>
+</li>
+</ul>
+
+
+<p>总结：
+telnet/ftp  : 不安全  <br/>
+    |<br/>
+ssh ：加密传输，密码认证麻烦，可能受到“中间人”攻击  <br/>
+    |<br/>
+密匙认证(ssh-keygen)：私钥丢失的话危害极大<br/>
+    |<br/>
+私匙加密：每次输入麻烦<br/>
+    |<br/>
+ssh-agent：高速缓存解密后的key<br/>
+    |<br/>
+如何让ssh-agent每次只启动一个?<br/>
+多个ssh共享链接<br/>
+ssh转发</p>
+
+<p>~/.ssh/config配置示例</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Host *
+</span><span class='line'>    ControlMaster auto
+</span><span class='line'>    ControlPath /tmp/ssh_%h_%p_%r.rc
+</span><span class='line'>Host vpc
+</span><span class='line'>    HostName vpc.xxx.com
+</span><span class='line'>    Port 22
+</span><span class='line'>    User caiyili
+</span><span class='line'>    IdentityFile ~/.ssh/caiyili.pem
+</span><span class='line'>
+</span><span class='line'>Host dev
+</span><span class='line'>    HostName 172.16.2.9
+</span><span class='line'>    User caiyili
+</span><span class='line'>    Port 22
+</span><span class='line'>    ForwardAgent yes
+</span><span class='line'>    ProxyCommand ssh -i ~/.ssh/caiyili.pem caiyili@vpc.xxx.com -W %h:%p</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>远程命令执行</h3>
+
+<ul>
+<li>多台机器上执行同一命令</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/sh
+</span><span class='line'>
+</span><span class='line'>cmd=${1:-"pwd"}
+</span><span class='line'>for m in `cat machine.txt`; do 
+</span><span class='line'>    echo "=====$m cmd:'$cmd'===="
+</span><span class='line'>    ssh $m "$cmd"
+</span><span class='line'>done</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>diff本机和远程机器文件</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh user@host cat /path/to/file | diff /path/to/localfile -</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -436,38 +624,9 @@ set-window-option -g mode-mouse on 其实就是鼠标往上滑的时候自动进
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/09/18/hello-world/">Hello world</a></h1>
-    
-    
-      
-      <p class="meta">
-        
-
-
-
-
-2014-09-18 14:46:04 +0800
-        
-      </p>
-      
-    
-  </header>
-
-
-  <div class="entry-content"><p>我的第一篇博客!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/posts/2">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     

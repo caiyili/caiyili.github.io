@@ -5,14 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>tmux使用笔记 伊利</title>
+  <title>vim 伊利</title>
   <meta name="author" content="caiyili">
 
   
-  <meta name="description" content="之前使用tmux，有一点感觉很不方便，就是输出的东西，要查看时总得进入copy模式。没法使用鼠标直接向上翻。
-今天无意中发现可以配置这个，参考这里 1
-set-window-option -g mode-mouse on 其实就是鼠标往上滑的时候自动进入了copy模式
-">
+  <meta name="description" content="vim使用 祼vim的使用 打开文件 vim /path/to/file; vim src/www.xxx/app/service/page/a/b.php
+vim :find/:sfind/:tabfind;
+tags vim :tag/tjump $tagname ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +20,7 @@ set-window-option -g mode-mouse on 其实就是鼠标往上滑的时候自动进
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://caiyili.github.io/blog/2015/08/11/tmux">
+  <link rel="canonical" href="http://caiyili.github.io/blog/2015/09/06/vim">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="伊利" type="application/atom+xml">
@@ -87,7 +86,7 @@ set-window-option -g mode-mouse on 其实就是鼠标往上滑的时候自动进
   <header>
     
       
-        <h1 class="entry-title">tmux使用笔记</h1>
+        <h1 class="entry-title">vim</h1>
       
     
     
@@ -96,14 +95,18 @@ set-window-option -g mode-mouse on 其实就是鼠标往上滑的时候自动进
   </header>
 
 
-<div class="entry-content"><p>之前使用tmux，有一点感觉很不方便，就是输出的东西，要查看时总得进入copy模式。没法使用鼠标直接向上翻。<br/>
-今天无意中发现可以配置这个，参考<a href="http://www.opstool.com/article/253">这里</a></p>
+<div class="entry-content"><p>vim使用</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>set-window-option -g mode-mouse on</span></code></pre></td></tr></table></div></figure>
+<h2>祼vim的使用</h2>
 
+<h3>打开文件</h3>
 
-<p>其实就是鼠标往上滑的时候自动进入了copy模式</p>
+<ul>
+<li>vim /path/to/file; vim src/www.xxx/app/service/page/a/b.php</li>
+<li>vim :find/:sfind/:tabfind;</li>
+<li>tags vim :tag/tjump $tagname</li>
+</ul>
+
 </div>
 
 
@@ -126,7 +129,7 @@ set-window-option -g mode-mouse on 其实就是鼠标往上滑的时候自动进
 
 
 
-2015-08-11 20:57:36 +0800
+2015-09-06 23:18:42 +0800
       
 
 
@@ -141,10 +144,8 @@ set-window-option -g mode-mouse on 其实就是鼠标往上滑的时候自动进
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2015/02/26/http/" title="Previous Post: http/1.1">&laquo; http/1.1</a>
+        <a class="basic-alignment left" href="/blog/2015/09/06/ssh/" title="Previous Post: ssh">&laquo; ssh</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2015/09/06/ssh/" title="Next Post: ssh">ssh &raquo;</a>
       
     </p>
   </footer>
