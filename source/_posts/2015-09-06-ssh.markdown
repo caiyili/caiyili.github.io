@@ -11,6 +11,9 @@ categories:
 ### ssh简介
 传统网络服务程序(ftp/telnet/...)本质上是不安全的，使用明文传输口令和数据，可以被截获。  
 安全验证方式也有其弱点，容易受到“中间人”攻击。  
+
+<!-- more -->
+
 ssh可以:  
 
 * 把把传输的数据进行安全加密。
@@ -30,9 +33,10 @@ ssh应用
     - ~/.ssh/config 管理链接
 
 总结：
+```
 telnet/ftp  : 不安全    
     |  
-ssh ：加密传输，密码认证麻烦，可能受到“中间人”攻击    
+ssh ：加密传输，密码认证麻烦
     |  
 密匙认证(ssh-keygen)：私钥丢失的话危害极大  
     |  
@@ -40,9 +44,10 @@ ssh ：加密传输，密码认证麻烦，可能受到“中间人”攻击
     |  
 ssh-agent：高速缓存解密后的key  
     |  
-如何让ssh-agent每次只启动一个?  
-多个ssh共享链接  
-ssh转发  
+keychain(永久存储解密后的密钥)
+    | 
+共享链接
+```
 
 ~/.ssh/config配置示例
 ```
@@ -59,7 +64,7 @@ Host dev
     HostName 172.16.2.9
     User caiyili
     Port 22
-    ForwardAgent yes
+    ForwardAgent no
     ProxyCommand ssh -i ~/.ssh/caiyili.pem caiyili@vpc.xxx.com -W %h:%p
 ```
 

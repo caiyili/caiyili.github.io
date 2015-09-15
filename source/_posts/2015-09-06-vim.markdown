@@ -3,7 +3,7 @@ layout: post
 title: "vim"
 date: 2015-09-06 23:18:42 +0800
 published: true
-categories: 
+categories: [vim]
 ---
 
 vim使用
@@ -12,6 +12,33 @@ vim使用
 
 ### 打开文件
 
-* vim /path/to/file; vim src/www.xxx/app/service/page/a/b.php
-* vim :find/:sfind/:tabfind; 
-* tags vim :tag/tjump $tagname
+<!-- more -->
+
+* vim 输入完整路径
+    - vim /path/to/file; vim src/www.xxx/app/service/page/a/b.php
+* vim 内部的find命令
+    - vim :find/:sfind/:tabfind *path*; :[n]find
+    - 命令行模式补全
+        - <c-d> 列出候选列表
+        - set wildmenu|nowildmenu; set wildmode=full|longest|list
+    - 与内部的gf(:h gf)命令一致
+        - ~/.vimrc:4
+
+* NERDTree[插件] 通过目录树打开
+    - :NERDTree
+* ctrlp[插件]
+    - 可以模糊匹配——最长公共子串
+* 使用tags
+    - tags vim :tag/tselect/tjump $tagname
+    - vim -t $tagname
+    - $tagname可以使用模式(:h tag-regexp) 
+        - tag main
+        - tag /^getIns // starts with get
+        - tag /norm //including "id_norm"
+
+
+### vim寄存器的使用
+* 复制(:h yank)
+    -  ("ap) 复制当前行/粘贴当前行
+    - (:h yank)
+* 粘贴(:h paste)
