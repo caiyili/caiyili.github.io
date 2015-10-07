@@ -47,12 +47,12 @@ vim使用
         - tag /^getIns // starts with get
         - tag /norm //including "id_norm"
 
-### 移动
+### 移动 motion
 * 基本移动
     - h l j k 
     - H: 移动到当前窗口的top [count]行
     - L: 移动到当前窗口的bottom [count]行
-    - J: Join当前行与下一行(:h J)，周(:3,5j)
+    - J: Join当前行与下一行(:h J)，同(:3,5j)
 * 行内移动
     - f, F, //移动当前光标后面的,号
     - t, T, //移动到当前当标后面的,号前一个
@@ -74,6 +74,30 @@ vim使用
     - zt/z<CR> 把cursor移到到窗口顶部，区别是是否改变列值
     - z./zz 把当前行移动到窗口中间
 
+### 文本对象 text-object
+* 以一定的标准分隔符来区分一段文本，比如：一个单词，一句话，一个段落...
+* vim的编辑命令 <number><command><text-object or motion>
+    - 参考(:h text-object) (:h motion)
+* 编辑命令
+    - y yank
+    - d delete
+    - c change 替换
+    - v 选中 v:characterwise V:line-wise <ctrl-v>:block-wise
+* 操作对象
+    - w/W 一个单词
+    - b/B 在括号里面的，同()/{}
+    - <>/{}/()/[] 相匹配的括号里面
+    - '/" 引号引起来的
+    - s/S 一个句子, 以'.','!','?'结尾(:h sentence)
+    - p/P 段落, 以空行分隔
+    - <tag> html和xml标签里面
+* 操作范围
+    - i inner, 不包含空格或包围符本身
+    - a around, 包括空格或包围符本身
+* 举例
+    - diw di(  ci{ yi" //  "copy this"
+    - daw dap da( // (delete this)
+    - (:h motion) 把括号里面的内容当vim命令去执行，`"ayi( @a` // nmap hp yi(@"<cr>
 
 ### vim寄存器的使用
 * 所有可用的寄存器`{a-zA-Z0-9.%#:-"}`
@@ -115,7 +139,7 @@ vim使用
         - 可以输入一段vim脚本
     - 只读寄存器
         - % 当前文件名 
-        - # 轮换文件名
+        - `#` 轮换文件名
         - . 上次插入的文本
         - : 上次执行的ex命令
         - / 上次执行的查找 (如何在命令行里快速输入上次查找的字符)
