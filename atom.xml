@@ -4,7 +4,7 @@
   <title><![CDATA[伊利]]></title>
   <link href="http://caiyili.github.io/atom.xml" rel="self"/>
   <link href="http://caiyili.github.io/"/>
-  <updated>2015-09-14T16:41:37+08:00</updated>
+  <updated>2015-10-07T22:50:33+08:00</updated>
   <id>http://caiyili.github.io/</id>
   <author>
     <name><![CDATA[caiyili]]></name>
@@ -20,14 +20,404 @@
     <id>http://caiyili.github.io/blog/2015/09/06/vim</id>
     <content type="html"><![CDATA[<p>vim使用</p>
 
-<h2>祼vim的使用</h2>
-
 <h3>打开文件</h3>
+
+<!-- more -->
+
+
+<ul>
+<li>vim 输入完整路径
 
 <ul>
 <li>vim /path/to/file; vim src/www.xxx/app/service/page/a/b.php</li>
-<li>vim :find/:sfind/:tabfind;</li>
-<li>tags vim :tag/tjump $tagname</li>
+<li>vim /path/to/file +n; 打开指定文件，并跳转到第n行</li>
+<li>vim /path/to/file +/regexp; 打开指定文件，并跳转到搜索 regexp行</li>
+</ul>
+</li>
+<li><p>vim 内部的find命令</p>
+
+<ul>
+<li>vim :find/:sfind/:tabfind <filename>; 根据文件名称查找，会查找<path>(:h path)目录下的。</li>
+<li><code>:set path+=**</code>, 设备path包含的目录。通配符<code>*</code>配置所有文件名，<code>**</code>配置所有递归目录。具体的可以(:h wildcard)</li>
+<li>如果查找到多个，可以使用 [n]find 定位到第几个——无法直接把所有查到的结果列出来，但可以使用模糊匹配选择</li>
+<li>命令行模糊补全
+
+<ul>
+<li><c-d> 列出候选列表,<tab>选择列表</li>
+<li>set wildmenu|nowildmenu; 是否开启模糊查找</li>
+<li>set wildmode=full|longest|list; 候选列表的模式</li>
+<li>set wildchar=<tab> ;开始补全的起始键</li>
+</ul>
+</li>
+<li>与内部的gf(:h gf)命令一致
+
+<ul>
+<li>~/.vimrc:4</li>
+<li>~/.bash_profile 在新窗口中打开可以 <ctrl-w>gf</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>NERDTree[<em>插件</em>] 通过目录树打开</p>
+
+<ul>
+<li>:NERDTree</li>
+</ul>
+</li>
+<li>ctrlp[<em>插件</em>]
+
+<ul>
+<li>可以模糊匹配——最长公共子串</li>
+</ul>
+</li>
+<li>使用tags
+
+<ul>
+<li>current-directory
+
+<ul>
+<li>:cd 切换目录</li>
+<li>:pwd 输出当前目录</li>
+</ul>
+</li>
+<li>:set tags+=/path/to/tagfile 需要生成tags文件
+
+<ul>
+<li>set tags+=./tags</li>
+<li>set tags+=~/share/tags 查看一些公共的函数库</li>
+</ul>
+</li>
+<li>tags vim :ta[g]/ts[elect]/tj[ump] <tagname></li>
+<li>vim -t <tagname></li>
+<li><tagname>可以使用模式(:h tag-regexp)
+
+<ul>
+<li>tag main</li>
+<li>tag /^getIns // starts with get</li>
+<li>tag /norm //including &ldquo;id_norm&rdquo;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>移动 motion</h3>
+
+<ul>
+<li>基本移动
+
+<ul>
+<li>h l j k</li>
+<li>H: 移动到当前窗口的top [count]行</li>
+<li>L: 移动到当前窗口的bottom [count]行</li>
+<li>J: Join当前行与下一行(:h J)，同(:3,5j)</li>
+</ul>
+</li>
+<li>行内移动
+
+<ul>
+<li>f, F, //移动当前光标后面的,号</li>
+<li>t, T, //移动到当前当标后面的,号前一个</li>
+<li>; 重复上一次行业查找</li>
+<li>, 倒退一次</li>
+</ul>
+</li>
+<li>整个单词地移动
+
+<ul>
+<li>w 下一个单词的开头，W 下一个字符串开头</li>
+<li>e 下一个单词结尾</li>
+<li>b 往前移动</li>
+</ul>
+</li>
+<li>来回跳转jumplist
+
+<ul>
+<li>Ctrl-O 在jumplist里面后退[count]</li>
+<li>Ctrl-I 在jumplist前进[count]</li>
+<li>ju[mps] 显示jumplist</li>
+</ul>
+</li>
+<li>修改列表changes
+
+<ul>
+<li>g; 跳转到前一次修改的地方</li>
+<li>g, 跳转到后一次修改的地方</li>
+<li>:changes 显示修改列表</li>
+</ul>
+</li>
+<li>移动窗口(:h scroll-cursor)
+
+<ul>
+<li>zt/z<CR> 把cursor移到到窗口顶部，区别是是否改变列值</li>
+<li>z./zz 把当前行移动到窗口中间</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>文本对象 text-object</h3>
+
+<ul>
+<li>以一定的标准分隔符来区分一段文本，比如：一个单词，一句话，一个段落&hellip;</li>
+<li>vim的编辑命令 <number><command><text-object or motion>
+
+<ul>
+<li>参考(:h text-object) (:h motion)</li>
+</ul>
+</li>
+<li>编辑命令
+
+<ul>
+<li>y yank</li>
+<li>d delete</li>
+<li>c change 替换</li>
+<li>v 选中 v:characterwise V:line-wise <ctrl-v>:block-wise</li>
+</ul>
+</li>
+<li>操作对象
+
+<ul>
+<li>w/W 一个单词</li>
+<li>b/B 在括号里面的，同()/{}</li>
+<li>&lt;>/{}/()/[] 相匹配的括号里面</li>
+<li>&lsquo;/&ldquo; 引号引起来的</li>
+<li>s/S 一个句子, 以&#8217;.&lsquo;,&rsquo;!&lsquo;,&rsquo;?&lsquo;结尾(:h sentence)</li>
+<li>p/P 段落, 以空行分隔</li>
+<li><tag> html和xml标签里面</li>
+</ul>
+</li>
+<li>操作范围
+
+<ul>
+<li>i inner, 不包含空格或包围符本身</li>
+<li>a around, 包括空格或包围符本身</li>
+</ul>
+</li>
+<li>举例
+
+<ul>
+<li>diw di(  ci{ yi&#8221; //  &ldquo;copy this&rdquo;</li>
+<li>daw dap da( // (delete this)</li>
+<li>(:h motion) 把括号里面的内容当vim命令去执行，<code>"ayi( @a</code> // nmap hp yi(@&ldquo;<cr></li>
+</ul>
+</li>
+</ul>
+
+
+<h3>vim寄存器的使用</h3>
+
+<ul>
+<li>所有可用的寄存器<code>{a-zA-Z0-9.%#:-"}</code>
+
+<ul>
+<li>:reg {arg} 显示寄存器里面的内容</li>
+</ul>
+</li>
+<li>普通模式下
+
+<ul>
+<li>复制(:h yank)
+
+<ul>
+<li>[&ldquo;x]y{motion} 把{motion}中包含的内容复制到x寄存器.x如果未指定则使用默认的&#8221;寄存器</li>
+<li>x如果是大写X，则表示以append的方式复制</li>
+</ul>
+</li>
+<li>粘贴(:h paste)
+
+<ul>
+<li>[&ldquo;x]p 把x寄存器里面的内容粘贴到cursor之后</li>
+<li>[&ldquo;x]P 把x寄存器里面的内容粘贴到cursor之前</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>选择模式下
+
+<ul>
+<li>复制
+
+<ul>
+<li>{Visual}[&ldquo;x]y 选择模式下的复制</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>命令行模式下
+
+<ul>
+<li>复制
+
+<ul>
+<li>[line]yank x ;把[line]行复制到x寄存器</li>
+<li>[line]yank X ;append的方式复制</li>
+</ul>
+</li>
+<li>粘贴
+
+<ul>
+<li>[line]put[!] x ;把x寄存器的内容粘贴到[line]行之前</li>
+</ul>
+</li>
+<li>移动
+
+<ul>
+<li>[range]m[line] 把[range]中指定的行移动到第[line]行</li>
+<li>[range]t[line] 把[range]中指定的行复制到每[line]行</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>插入模式下</p>
+
+<ul>
+<li>粘贴
+
+<ul>
+<li><c-r>x 把x寄存器的内容粘贴到光标位置</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>特殊寄存器总结(:h quote0)</p>
+
+<ul>
+<li>无名寄存器(&ldquo;&rdquo;)
+
+<ul>
+<li>x s d{motion} c{motion} y{motion}命令以及他们对应的大写命令都会覆盖无名寄存器</li>
+</ul>
+</li>
+<li>复制专用寄存器(&ldquo;0)
+
+<ul>
+<li>y{motion} 不仅会复制到无名寄存器，同时也会复制一份到复制专用寄存器</li>
+</ul>
+</li>
+<li>黑洞寄存器<code>("_)</code>
+
+<ul>
+<li>&ldquo;_d{motion} 删除该文本，不保存副本，不会覆盖无名寄存器</li>
+</ul>
+</li>
+<li>系统剪贴板(&ldquo;+) <code>("*)</code>
+
+<ul>
+<li><code>+</code> 系统剪切板 <code>*</code> 主剪切板, 在windows和mac中无区别</li>
+<li>查看vim是否被激活，(:version) 命令，找xterm_clipboard</li>
+</ul>
+</li>
+<li>表达式寄存器(&ldquo;=)
+
+<ul>
+<li>可以输入一段vim脚本</li>
+</ul>
+</li>
+<li>只读寄存器
+
+<ul>
+<li>% 当前文件名</li>
+<li><code>#</code> 轮换文件名</li>
+<li>. 上次插入的文本</li>
+<li>: 上次执行的ex命令</li>
+<li>/ 上次执行的查找 (如何在命令行里快速输入上次查找的字符)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>宏</h3>
+
+<ul>
+<li>最简单的宏<code>.</code>
+
+<ul>
+<li><code>.</code> 命令——重复上次的修改
+
+<ul>
+<li>($a, $b), ($a, $b); 把括号里面的内容改为($a)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>录制宏
+
+<ul>
+<li>q{register} xxxx  q</li>
+</ul>
+</li>
+<li>回放宏
+
+<ul>
+<li>@{register}</li>
+</ul>
+</li>
+<li>宏的使用举例</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>程方鹤  961552258
+</span><span class='line'>熊利               500118888
+</span><span class='line'>黄汉华               581392038
+</span><span class='line'>陶冶（增加）               916976488
+</span><span class='line'>许磊               874901218
+</span><span class='line'>刘艳峰               373722748
+</span><span class='line'>贺诚彰               583275308
+</span><span class='line'>林元               793808678
+</span><span class='line'>何彦辛               833153378
+</span><span class='line'>赵御博               916794588
+</span><span class='line'>肖清武               667396418</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>961552258,//1. 程方鹤
+</span><span class='line'>500118888,//2. 熊利
+</span><span class='line'>581392038,//3. 黄汉华
+</span><span class='line'>916976488,//4. 陶冶（增加）
+</span><span class='line'>874901218,//5. 许磊
+</span><span class='line'>373722748,//6. 刘艳峰
+</span><span class='line'>583275308,//7. 贺诚彰
+</span><span class='line'>793808678,//8. 林元
+</span><span class='line'>833153378,//9. 何彦辛
+</span><span class='line'>916794588,//10. 赵御博
+</span><span class='line'>667396418,//11. 肖清武</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>使用技巧
+
+<ul>
+<li>使用兼容性更好的移动方式——放弃使用hljk移动，多使用f/t/w/b/e/0/$这种</li>
+<li>让你的操作可重复</li>
+</ul>
+</li>
 </ul>
 
 ]]></content>
@@ -43,8 +433,12 @@
 <h3>ssh简介</h3>
 
 <p>传统网络服务程序(ftp/telnet/&hellip;)本质上是不安全的，使用明文传输口令和数据，可以被截获。<br/>
-安全验证方式也有其弱点，容易受到“中间人”攻击。<br/>
-ssh可以:</p>
+安全验证方式也有其弱点，容易受到“中间人”攻击。</p>
+
+<!-- more -->
+
+
+<p>ssh可以:</p>
 
 <ul>
 <li>把把传输的数据进行安全加密。</li>
@@ -75,20 +469,43 @@ ssh可以:</p>
 </ul>
 
 
-<p>总结：
-telnet/ftp  : 不安全  <br/>
-    |<br/>
-ssh ：加密传输，密码认证麻烦，可能受到“中间人”攻击  <br/>
-    |<br/>
-密匙认证(ssh-keygen)：私钥丢失的话危害极大<br/>
-    |<br/>
-私匙加密：每次输入麻烦<br/>
-    |<br/>
-ssh-agent：高速缓存解密后的key<br/>
-    |<br/>
-如何让ssh-agent每次只启动一个?<br/>
-多个ssh共享链接<br/>
-ssh转发</p>
+<p>总结：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>telnet/ftp  : 不安全    
+</span><span class='line'>    |  
+</span><span class='line'>ssh ：加密传输，密码认证麻烦
+</span><span class='line'>    |  
+</span><span class='line'>密匙认证(ssh-keygen)：私钥丢失的话危害极大  
+</span><span class='line'>    |  
+</span><span class='line'>私匙加密：每次输入麻烦  
+</span><span class='line'>    |  
+</span><span class='line'>ssh-agent：高速缓存解密后的key  
+</span><span class='line'>    |  
+</span><span class='line'>keychain(永久存储解密后的密钥)
+</span><span class='line'>    | 
+</span><span class='line'>共享链接</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>ssh_config 管理链接</h3>
+
+<ul>
+<li>可以给需要链接的远程机器取别名，登录更方便</li>
+<li>需要连接到同一台机器多次时，可以配置链接共享，减少链接资源以及每次链接等待的时间</li>
+</ul>
+
 
 <p>~/.ssh/config配置示例</p>
 
@@ -120,7 +537,7 @@ ssh转发</p>
 </span><span class='line'>    HostName 172.16.2.9
 </span><span class='line'>    User caiyili
 </span><span class='line'>    Port 22
-</span><span class='line'>    ForwardAgent yes
+</span><span class='line'>    ForwardAgent no
 </span><span class='line'>    ProxyCommand ssh -i ~/.ssh/caiyili.pem caiyili@vpc.xxx.com -W %h:%p</span></code></pre></td></tr></table></div></figure>
 
 
@@ -371,6 +788,66 @@ ssh转发</p>
 </ul>
 </li>
 </ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[test-impress.js]]></title>
+    <link href="http://caiyili.github.io/blog/2015/02/01/test-impressjs/"/>
+    <updated>2015-02-01T14:46:04+08:00</updated>
+    <id>http://caiyili.github.io/blog/2015/02/01/test-impressjs</id>
+    <content type="html"><![CDATA[<!-- more -->
+
+
+<p><link href="http://caiyili.github.io/stylesheets/impress-demo.css" rel="stylesheet" /></p>
+
+<div class="impress-not-supported">
+</div>
+
+
+<p>　　<div id="impress"></p>
+
+<div class="step" data-x="0" data-y="0">
+    slide1
+</div>
+
+
+<div class="step" data-x="1500" data-y="0">
+This is slide 2
+</div>
+
+
+<div class="step" data-x="2500" data-y="-400">
+This is slide 3
+</div>
+
+
+<div class="step" data-x="3500" data-y="-800" data-scale="0.5">
+This is slide 4
+</div>
+
+
+<div class="step" data-x="10000" data-y="-800" data-rotate="90">
+This is slide 5
+</div>
+
+
+<div class="step" data-x="-1200" data-y="0" 
+data-rotate-x="30" data-rotate-y="-30" data-rotate-z="90" data-scale="4">
+　　This is slide 6
+</div>
+
+
+<div id="overview" class="step" data-x="-200" data-y="-500" data-scale="3"></div>
+
+
+<p></div></p>
+
+<script src="http://caiyili.github.io/javascripts/libs/impress.js"></script>
+
+
+<script>impress().init();</script>
 
 ]]></content>
   </entry>

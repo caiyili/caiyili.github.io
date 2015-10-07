@@ -10,8 +10,7 @@
 
   
   <meta name="description" content="ssh(Secure Shell) ssh简介 传统网络服务程序(ftp/telnet/&hellip;)本质上是不安全的，使用明文传输口令和数据，可以被截获。
-安全验证方式也有其弱点，容易受到“中间人”攻击。
-ssh可以: 把把传输的数据进行安全加密。
+安全验证方式也有其弱点，容易受到“中间人”攻击。 ssh可以: 把把传输的数据进行安全加密。
 数据经过压缩传输，更快。 ssh应用 &hellip;">
   
 
@@ -101,8 +100,12 @@ ssh可以: 把把传输的数据进行安全加密。
 <h3>ssh简介</h3>
 
 <p>传统网络服务程序(ftp/telnet/&hellip;)本质上是不安全的，使用明文传输口令和数据，可以被截获。<br/>
-安全验证方式也有其弱点，容易受到“中间人”攻击。<br/>
-ssh可以:</p>
+安全验证方式也有其弱点，容易受到“中间人”攻击。</p>
+
+<!-- more -->
+
+
+<p>ssh可以:</p>
 
 <ul>
 <li>把把传输的数据进行安全加密。</li>
@@ -133,20 +136,43 @@ ssh可以:</p>
 </ul>
 
 
-<p>总结：
-telnet/ftp  : 不安全  <br/>
-    |<br/>
-ssh ：加密传输，密码认证麻烦，可能受到“中间人”攻击  <br/>
-    |<br/>
-密匙认证(ssh-keygen)：私钥丢失的话危害极大<br/>
-    |<br/>
-私匙加密：每次输入麻烦<br/>
-    |<br/>
-ssh-agent：高速缓存解密后的key<br/>
-    |<br/>
-如何让ssh-agent每次只启动一个?<br/>
-多个ssh共享链接<br/>
-ssh转发</p>
+<p>总结：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>telnet/ftp  : 不安全    
+</span><span class='line'>    |  
+</span><span class='line'>ssh ：加密传输，密码认证麻烦
+</span><span class='line'>    |  
+</span><span class='line'>密匙认证(ssh-keygen)：私钥丢失的话危害极大  
+</span><span class='line'>    |  
+</span><span class='line'>私匙加密：每次输入麻烦  
+</span><span class='line'>    |  
+</span><span class='line'>ssh-agent：高速缓存解密后的key  
+</span><span class='line'>    |  
+</span><span class='line'>keychain(永久存储解密后的密钥)
+</span><span class='line'>    | 
+</span><span class='line'>共享链接</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>ssh_config 管理链接</h3>
+
+<ul>
+<li>可以给需要链接的远程机器取别名，登录更方便</li>
+<li>需要连接到同一台机器多次时，可以配置链接共享，减少链接资源以及每次链接等待的时间</li>
+</ul>
+
 
 <p>~/.ssh/config配置示例</p>
 
@@ -178,7 +204,7 @@ ssh转发</p>
 </span><span class='line'>    HostName 172.16.2.9
 </span><span class='line'>    User caiyili
 </span><span class='line'>    Port 22
-</span><span class='line'>    ForwardAgent yes
+</span><span class='line'>    ForwardAgent no
 </span><span class='line'>    ProxyCommand ssh -i ~/.ssh/caiyili.pem caiyili@vpc.xxx.com -W %h:%p</span></code></pre></td></tr></table></div></figure>
 
 
