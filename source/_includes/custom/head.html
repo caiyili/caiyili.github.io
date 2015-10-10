@@ -1,7 +1,11 @@
 <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+{% if page.nostyle %}
+{% else %}
+<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 <link href="/stylesheets/libs/a.css" rel="stylesheet" type="text/css">
 <link href="/stylesheets/libs/b.css" rel="stylesheet" type="text/css">
 <link href="/stylesheets/libs/c.css" rel="stylesheet" type="text/css">
+{% endif %}
 
 <!--- MathJax Configuration -->
 <script type="text/javascript" src="/javascripts/libs/MathJax.js"></script>
