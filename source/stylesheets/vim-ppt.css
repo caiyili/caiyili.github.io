@@ -1,0 +1,35 @@
+#impress .slide h1 {
+    font-size: 64px;
+    text-align: center;
+    margin-top: 200px;
+}
+
+#impress .slide h2 {
+    font-size: 48px;
+    text-align: right;
+    margin-top: 50px;
+    margin-right: 200px;
+}
+
+#impress .slide h3 {
+    font-size: 48px;
+    text-align: center;
+}
+
+#impress .slide ul {
+    margin-left: 20px;
+    list-style: disc inside;
+}
+#impress .slide ul li{
+    margin-top: 20px;
+}
+#impress .slide ul.big li {
+    margin-top: 50px;
+}
+#impress .slide ul ul{
+    list-style: circle inside;
+    margin-left: 40px;
+}
+#impress .slide ul ul li{
+    margin-top: 15px;
+}

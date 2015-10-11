@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>vim</title>
+    
+    <meta name="description" content="" />
+    <meta name="author" content="Bartek Szopka" />
+
+    <link href="/stylesheets/libs/googleapis.fonts.css" rel="stylesheet" />
+    <link href="/stylesheets/impress-demo.css" rel="stylesheet" />
+    <link href="/stylesheets/vim-ppt.css" rel="stylesheet" />
+    
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+</head>
+
+<body class="impress-not-supported">
+
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+<!-- impress div start !-->
+<div id="impress">
+
+<div id="start" class="step slide" data-x="0" data-y="0" data-scale="1">
+    <h1>vim神器分享</h1>
+    <br /><br />
+    <h2>——蔡宜利 </h2>
+</div>
+
+<div id="brief" class="step slide" data-x="1000" data-y="0" data-scale="1">
+    <h3>vim简介</h3>
+	<ul>
+		<li> vim的作者Bram Moolenaar </li>
+		<li> 最开始是作为VI IMitation发布(1988)，后来更改为VI IMproved。1992年第一次发布到Unix系统，就受到极大欢迎，风头盖过了VI，成为最受欢迎的编辑器之一。 </li>
+		<li> 作者支持慈善，帮忙Uganda的孤儿。 </li>
+		<li> http://www.moolenaar.net/interv_czech_en.html  </li>
+		<li> 引用知乎里面的一句话：http://www.zhihu.com/question/35100740  “从大二开始，结识了 GNU/Linux， 开始使用 GCC 编译C代码， 开始用VI写代码。 没想到17年后，我依然在使用这些伟大的工具。 依然记得第一次打开VI， 完全不知道怎么退出。 只能用 CTRL+Z 退到后台，然后再 kill 掉。 ” </li>
+	</ul>
+</div>
+
+
+<div id="outline" class="step slide" data-x="2000" data-y="0" data-scale="1">
+	<h3>本次分享的主要内容</h3>
+	<ul class="big">
+		<li>打开文件</li>
+		<li>移动光标</li>
+		<li>插入代码</li>
+		<li>寄存器</li>
+		<li>宏</li>
+		<li>ex命令</li>
+	</ul>
+</div>
+
+
+<div id="open" class="step slide" data-x="3000" data-y="0" data-scale="1">
+	<h3>打开文件</h3>
+	<ul>
+		<li>输入完整路径</li>
+		<li>vim /path/to/file</li>
+		<li>vim /path/to/file +20 //打开并定位到20行</li>
+		<li>vim /path/to/file +/str //打开并搜索str</li>
+		<li>vim /path/to/file +“cmd” //打开并执行命令cmd</li>
+	</ul>
+</div>
+
+
+<div id="plugin" class="step slide" data-x="4000" data-y="0" data-scale="1">
+	<h3>几个插件</h3>
+	<ul>
+	<li>NERDTree</li>
+	  <ul>
+		<li>目录树形式</li>
+		<li>https://github.com/scrooloose/nerdtree.git </li>
+		<li>多个窗口间操作，一般是以{c-w}开头{c-w}({c-h}|{c-k}|{c-r})</li>
+	  </ul>
+	<li>ctrlp</li>
+	<li>
+      <ul>
+		<li>模糊查找</li>
+		<li>https://github.com/kien/ctrlp.vim.git</li>
+	  </ul>
+	</li>
+	<li>MRU</li>
+	<li>
+	  <ul>
+		<li>Most Recently Used </li>
+		<li>https://github.com/yegappan/mru.git </li>
+	  </ul>
+	</li>
+	<ul>
+</div>
+
+
+<div id="find" class="step slide" data-x="5000" data-y="0" data-scale="1">
+	<h3>find命令</h3>
+	<ul>
+	<li>:find/:sfind/:tabfind {filename} </li>
+		<ul>
+			<li>在path目录下去查找文件名为{filename}的文件</li>
+			<li>:set path+=** 就可以在当前目录下递归查找。</li>
+		</ul>
+	<li>如果有多个匹配</li>
+	<ul>
+		<li>使用菜单栏自动补全完整路径。</li>
+		<li>{c-d}列出候选项；{tab}补全</li>
+		<li>设置项:set wildmenu/wildmode/wildchar</li>
+	</ul>
+	<li>gf</li>
+		<ul>
+			<li>~/.vimrc:4  按gf打开光标下文件。</li>
+			<li>gF打开并跳转到指定行;{c-w}gf在新窗口中打开。</li>
+		</ul>
+	</ul>
+</div>
+
+
+<div id="tags" class="step slide" data-x="6000" data-y="0" data-scale="1">
+	<h3>tags（墙裂推荐）</h3>
+<ul>
+	<li>首先设置tags文件</li>
+	<ul>
+		<li>:set tags+=/path/to/tagfile </li>
+		<li>需要生成tags文件，保证vim能找到tags文件</li>
+	</ul>
+	<li>normal模式下进入某个函数/类</li>
+	<ul>
+		<li>{c-]}/g{c-]}进入某一个函数；{c-o}回退；{c-i}前进；</li>
+	</ul>
+	<li>通过ex命令进入某个函数/类</li>
+	<ul>
+		<li>:ta[g]/:ts[elect]/:tj[ump] {tag-regexp} </li>
+		<li>:stag 在split窗口中打开；:ptag 在预览窗口中打开。</li>
+	</ul>
+	<li>打开vim并直接查找某个函数/类</li>
+	<ul>
+		<li>vim -t /{tag-regexp} 直接打开并查找到某个索引项</li>
+	</ul>
+	<li>{tag-regexp}: main  /^getIns  /norm </li>
+</ul>
+</div>
+
+
+<div id="" class="step slide" data-x="-1000" data-y="0" data-scale="1">
+        start
+</div>
+
+
+<div id="" class="step slide" data-x="-1000" data-y="0" data-scale="1">
+        start
+</div>
+
+
+<div id="" class="step slide" data-x="-1000" data-y="0" data-scale="1">
+        start
+</div>
+
+
+<div id="" class="step slide" data-x="-1000" data-y="0" data-scale="1">
+        start
+</div>
+
+
+<div id="" class="step slide" data-x="-1000" data-y="0" data-scale="1">
+        start
+</div>
+
+
+<div id="" class="step slide" data-x="-1000" data-y="0" data-scale="1">
+        start
+</div>
+
+
+<div id="" class="step slide" data-x="-1000" data-y="0" data-scale="1">
+        start
+</div>
+
+
+<div id="" class="step slide" data-x="-1000" data-y="0" data-scale="1">
+        start
+</div>
+
+
+<div id="" class="step slide" data-x="-1000" data-y="0" data-scale="1">
+        start
+</div>
+
+
+<div id="" class="step slide" data-x="-1000" data-y="0" data-scale="1">
+        start
+</div>
+
+
+<div id="" class="step slide" data-x="-1000" data-y="0" data-scale="1">
+        start
+</div>
+
+
+<div id="" class="step slide" data-x="-1000" data-y="0" data-scale="1">
+        start
+</div>
+
+
+
+<!-- impress div end !-->
+</div>
+
+<script src="/javascripts/libs/impress.js"></script>
+<script>impress().init();</script>
+
+</body>
+</html>
