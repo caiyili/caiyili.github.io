@@ -26,6 +26,10 @@
 #impress .slide ul.big li {
     margin-top: 50px;
 }
+#impress .slide ul.small li {
+    margin-top: 10px;
+    font-size: 24px;
+}
 #impress .slide ul ul{
     list-style: circle inside;
     margin-left: 40px;
