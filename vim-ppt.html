@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>vim</title>
+    
+    <meta name="description" content="" />
+    <meta name="author" content="Bartek Szopka" />
+
+    <link href="/stylesheets/libs/googleapis.fonts.css" rel="stylesheet" />
+    <link href="/stylesheets/impress-demo.css" rel="stylesheet" />
+    <link href="/stylesheets/vim-ppt.css" rel="stylesheet" />
+    
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+</head>
+
+<body class="impress-not-supported">
+
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+<!-- impress div start !-->
+<div id="impress">
+
+<div id="start" class="step slide" data-x="0" data-y="0" data-scale="1">
+    <h1>vim神器分享</h1>
+    <br /><br />
+    <h2>—— 蔡宜利 </h2>
+</div>
+
+<div id="brief" class="step slide" data-x="1000" data-y="0" data-scale="1">
+    <h3>vim简介</h3>
+	<ul>
+		<li> vim的作者Bram Moolenaar </li>
+		<li> 最开始是作为VI IMitation发布(1988)，后来更改为VI IMproved。1992年第一次发布到Unix系统，就受到极大欢迎，风头盖过了VI，成为最受欢迎的编辑器之一。 </li>
+		<li> 作者支持慈善，帮忙Uganda的孤儿。 </li>
+		<li> http://www.moolenaar.net/interv_czech_en.html  </li>
+		<li> 引用知乎里面的一句话：http://www.zhihu.com/question/35100740  "从大二开始，结识了 GNU/Linux， 开始使用 GCC 编译C代码， 开始用VI写代码。 没想到17年后，我依然在使用这些伟大的工具。 依然记得第一次打开VI， 完全不知道怎么退出。 只能用 CTRL+Z 退到后台，然后再 kill 掉。 " </li>
+	</ul>
+</div>
+
+
+<div id="outline" class="step slide" data-x="2000" data-y="0" data-scale="1">
+	<h3>本次分享的主要内容</h3>
+	<ul class="big">
+		<li>打开文件</li>
+		<li>移动光标</li>
+		<li>插入代码</li>
+		<li>寄存器</li>
+		<li>宏</li>
+		<li>ex命令</li>
+	</ul>
+</div>
+
+
+<div id="open" class="step slide" data-x="3000" data-y="0" data-scale="1">
+	<h3>打开文件</h3>
+	<ul>
+		<li>输入完整路径</li>
+		<li>vim /path/to/file</li>
+		<li>vim /path/to/file +20 //打开并定位到20行</li>
+		<li>vim /path/to/file +/str //打开并搜索str</li>
+		<li>vim /path/to/file +"cmd" //打开并执行命令cmd</li>
+	</ul>
+</div>
+
+
+<div id="plugin" class="step slide" data-x="4000" data-y="0" data-scale="1">
+	<h3>几个插件</h3>
+	<ul>
+	<li>NERDTree</li>
+	  <ul>
+		<li>目录树形式</li>
+        <li><a href="https://github.com/scrooloose/nerdtree.git">https://github.com/scrooloose/nerdtree.git</a> </li>
+		<li>多个窗口间操作，一般是以{c-w}开头{c-w}({c-h}|{c-k}|{c-r})</li>
+	  </ul>
+	<li>ctrlp</li>
+      <ul>
+		<li>模糊查找</li>
+        <li><a href="https://github.com/kien/ctrlp.vim.git">https://github.com/kien/ctrlp.vim.git</a></li>
+	  </ul>
+	<li>MRU</li>
+	  <ul>
+		<li>Most Recently Used </li>
+        <li><a href="https://github.com/yegappan/mru.git">https://github.com/yegappan/mru.git</a></li>
+	  </ul>
+	<ul>
+</div>
+
+
+<div id="find" class="step slide" data-x="5000" data-y="0" data-scale="1">
+	<h3>find命令</h3>
+	<ul>
+	<li>:find/:sfind/:tabfind {filename} </li>
+		<ul>
+			<li>在path目录下去查找文件名为{filename}的文件</li>
+			<li>:set path+=** 就可以在当前目录下递归查找。</li>
+		</ul>
+	<li>如果有多个匹配</li>
+	<ul>
+		<li>使用菜单栏自动补全完整路径。</li>
+		<li>{c-d}列出候选项；{tab}补全</li>
+		<li>设置项:set wildmenu/wildmode/wildchar</li>
+	</ul>
+	<li>gf</li>
+		<ul>
+			<li>~/.vimrc:4  按gf打开光标下文件。</li>
+			<li>gF打开并跳转到指定行;{c-w}gf在新窗口中打开。</li>
+		</ul>
+	</ul>
+</div>
+
+
+<div id="tags" class="step slide" data-x="6000" data-y="0" data-scale="1">
+	<h3>tags（墙裂推荐）</h3>
+<ul>
+	<li>首先设置tags文件</li>
+	<ul>
+		<li>:set tags+=/path/to/tagfile </li>
+		<li>需要生成tags文件，保证vim能找到tags文件</li>
+	</ul>
+	<li>normal模式下进入某个函数/类</li>
+	<ul>
+		<li>{c-]}/g{c-]}进入某一个函数；{c-o}回退；{c-i}前进；</li>
+	</ul>
+	<li>通过ex命令进入某个函数/类</li>
+	<ul>
+		<li>:ta[g]/:ts[elect]/:tj[ump] {tag-regexp} </li>
+		<li>:stag 在split窗口中打开；:ptag 在预览窗口中打开。</li>
+	</ul>
+	<li>打开vim并直接查找某个函数/类</li>
+	<ul>
+		<li>vim -t /{tag-regexp} 直接打开并查找到某个索引项</li>
+	</ul>
+	<li>{tag-regexp}: main  /^getIns  /norm </li>
+</ul>
+</div>
+
+
+<div id="base-move" class="step slide" data-x="7000" data-y="0" data-scale="1">
+    <h3>移动光标</h3>
+    <ul >
+        <li>normal模式下移动光标</li>
+        <ul>
+            <li>k j h l  ;上下左右</li>
+            <li>0 $ ;行首行尾 </li>
+            <li>g0/g$/gj/gk ;物理行的操作</li>
+            <li>w/W b/B e/E 整个单词/字串的移动</li>
+            <li>[num]G ;直接跳转到[num]行</li>
+            <li>%: 跳转到匹配的对应符号{}/()/&lt;&gt;/...</li>
+        </ul>
+        <li>命令模式</li>
+        <ul>
+            <li>:[num] ;命令模式下直接输入行号跳转到[num]行</li>
+            <li>:+/-[num] ;当前行+/-[num]行</li>
+        </ul>
+    </ul>
+</div>
+
+
+<div id="search" class="step slide" data-x="8000" data-y="0" data-scale="1">
+    <h3>查找&amp;搜索</h3>
+    <ul>
+        <li>单行内的查找</li>
+        <ul>
+            <li>f/F{char}移动到某个字符</li>
+            <li>t/T{char}移动到字符之前的一个字符</li>
+            <li>";"重复上次查找，","反向查找</li>
+            <li>dt)  delete直到下一个"之前</li>
+        </ul>
+        <li>多行之间搜索</li>
+        <ul>
+            <li>/pattern 正向查找; ?pattern 反向查找</li>
+            <li>:set hlsearch(搜索高亮); :set incsearch(实时搜索)</li>
+            <li>n重复，N反向</li>
+            <li>*/# 查找光标下面的词</li>
+        </ul>
+    </ul>
+</div>
+
+
+<div id="motion" class="step slide" data-x="9000" data-y="0" data-scale="1">
+    <h3>motion</h3>
+    <ul>
+        <li>motion指一次光标移动，可以接在一些特定命令后面</li>
+        <li>用法:{number}{command}[text-object or motion]</li>
+        <ul>
+            <li>{command}：y:复制，d:删除，c:替换，v:选中 ……</li>
+            <li>{motion}：上/下/左/右/查找/搜索/跳转……</li>
+        </ul>
+        <li>举个栗子</li>
+        <ul>
+            <li>yl 复制到下一行 (dl/yh/y20G/ggyG)</li>
+            <li>df, 修改到到一个"," (dt"/df,/cF;)</li>
+            <li>cw 修改一个单词</li>   
+            <li>d/function 删除到下一个function</li>  
+            <li>v% 选中到下一个匹配的括号</li> 
+        </ul>
+    </ul>
+</div>
+
+
+<div id="text-object" class="step slide" data-x="10000" data-y="0" data-scale="1">
+<h3>文本对象</h3>
+<ul class="small">
+	<li>以一定标准分隔符来标识一段文本。</li>
+	<li>操作范围</li>
+	<ul>
+		<li>i: inner, 不包含空格或包围符本身</li>
+		<li>a: around, 包括空格或包围符本身</li>
+	</ul>
+	<li>操作对象</li>
+	<ul>
+		<li>w/s/p/&lt;([{/t （单词/句子/段落/块/tag）</li>
+		<li>word/sentence/paragraph/block/tag</li>
+	</ul>
+	<li>举个栗子</li>
+	<ul>
+		<li>daw: delete a word，删除光标下的一个单词</li>
+		<li>ci(: change inner () ，修改()里面的内容</li>
+		<li>yi": yank inner "   复制双引号里面的字符串</li>
+	</ul>
+	<li>好处：极大提高工作效率，操作更具有可重复性</li>
+</ul>
+</div>
+
+
+<div id="register" class="step slide" data-x="12000" data-y="0" data-scale="1">
+<h3>寄存器</h3>
+<ul class="small">
+	<li>所有可用的寄存器{a-zA-Z0-9.%#:-"}</li>
+	<li>:reg {name}  显示寄存器里面的内容</li>
+	<li>把内容复制到指定寄存器x</li>
+	<ul>
+		<li>normal模式下："xy{motion}</li>
+		<li>view模式下：{visual}"xy </li>
+		<li>命令模式：:[range]yank x </li>
+	</ul>
+	<li>把寄存器x里面的内容粘贴出来</li>
+	<ul>
+		<li>normal模式："xp</li>
+		<li>view模式：{visual}"xp //与normal模式类似</li>
+		<li>命令模式：[line]put x //把x寄存器的内容粘贴到[line]行</li>
+		<li>插入模式：{c-r}x //插入x寄存器里面的内容</li>
+		<li>把内容粘贴到命令行里面：:{c-r}x</li>
+	</ul>
+	<li>总结：normal模式下的有名寄存器的操作都是以引号+寄存器名开头</li>
+</ul>
+</div>
+
+
+<div id="special-reg" class="step slide" data-x="13000" data-y="0" data-scale="1">
+<h3>特殊寄存器</h3>
+<ul class="small">
+	<li>无名寄存器("")：x s d c y命令都会覆盖无名寄存器</li>
+	<li>复制专用寄存器("0)：y同时复制到无名寄存器和复制专用寄存器</li>
+	<li>黑洞寄存器("_)："_d{motion} 删除该文本，不会覆盖无名寄存器</li>
+	<li>系统剪贴板("+) ("*)</li>
+	<ul>
+		<li>+ 系统剪切板 * 主剪切板, 在windows和mac中无区别</li>
+		<li>查看vim是否被激活，(:version) 命令，找xterm_clipboard</li>
+	</ul>
+	<li>表达式寄存器("=)：可以输入一段vim脚本（注：特别有用！！！）</li>
+	<li>只读寄存器</li>
+	<ul>
+		<li>% 当前文件名</li>
+		<li># 轮换文件名</li>
+		<li>. 上次插入的文本</li>
+		<li>: 上次执行的ex命令</li>
+		<li>/ 上次执行的查找 (如何在命令行里快速输入上次查找的字符)</li>
+	</ul>
+</ul>
+</div>
+
+
+<div id="micro" class="step slide" data-x="14000" data-y="0" data-scale="1">
+<h3>宏</h3>
+<ul>
+	<li>构造可重复的命令，让vim去做吧</li>
+	<li>最简单的宏：”.”</li>
+	<li>录制宏:</li>
+	<ul>
+		<li>q{register} xxxx q</li>
+	</ul>
+		<li>回放宏：</li>
+	<ul>
+		<li>@{register}</li>
+		<li>@@重复上次回放的宏</li>
+	</ul>
+		<li>举例：</li>
+	<ul>
+		<li>给多行加注释</li>
+		<li>在多行上面执行相同的操作</li>
+	</ul>
+</ul>
+</div>
+
+
+<div id="ex" class="step slide" data-x="15000" data-y="0" data-scale="1">
+<h3>ex命令</h3>
+<ul class="small">
+	<li>起源于ex编辑器</li>
+	<li>在满屏编辑器之前，与计算机是靠打印在终端来沟通，以行为向导</li>
+	<li>基本命令</li>
+	<ul>
+		<li>ex /path/to/file</li>
+		<li>1,3p //打印第1-3行</li>
+		<li>3s/dev/dev2 //把第3行的dev替换为dev2</li>
+		<li>2m4  //第二行移动到第4行</li>
+		<li>3co5/3t5   //第3行copy到第5行</li>
+		<li>/pattern/d  //搜索到下一个包含pattern的行删除掉</li>
+		<li>1,/pattern/p </li>
+	</ul>
+	<li>行寻址符号：”.”当前行，”$”最后一行，”%”每一行，/pattern/ 匹配到pattern的行。可组合使用</li>
+</ul>
+</div>
+
+
+<div id="ex2" class="step slide" data-x="16000" data-y="0" data-scale="1">
+<h3>两个强大的ex命令</h3>
+<ul>
+	<li>:substitute 替换</li>
+	<ul>
+		<li>:10,20s/dev-m/test-m/g</li>
+		<li>:.s/\v([0-9]+)/"\1"/g 给当前行数字加上双引号</li>
+	</ul>
+	<li>:global全局命令</li>
+	<ul>
+		<li>默认作用范围是整个文件</li>
+		<li>:[range]global[!] /pattern/ [cmd]</li>
+		<li>:g/re/p   全局搜索re匹配的并print出来——这就是grep</li>
+		<li>:g!(或:v) 与g相反</li>
+	</ul>
+</ul>
+</div>
+
+
+<div id="q-a" class="step slide" data-x="17000" data-y="0" data-scale="1">
+	<h1> Q&amp;A </h3>
+	<h2>谢谢</h2>
+</div>
+
+
+<div id="overview" class="step slide" data-x="18000" data-y="0" data-scale="1">
+</div>
+
+
+<!-- impress div end !-->
+</div>
+
+<script src="/javascripts/libs/impress.js"></script>
+<script>impress().init();</script>
+
+</body>
+</html>
