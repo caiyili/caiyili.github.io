@@ -8,6 +8,8 @@ categories: [vim]
 
 vim使用
 
+vim-ppt地址： http://yilli.net/vim-ppt.html  
+
 ### 打开文件
 
 <!-- more -->
