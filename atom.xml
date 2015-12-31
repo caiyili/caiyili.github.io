@@ -4,7 +4,7 @@
   <title><![CDATA[伊利]]></title>
   <link href="http://caiyili.github.io/atom.xml" rel="self"/>
   <link href="http://caiyili.github.io/"/>
-  <updated>2015-11-03T16:27:25+08:00</updated>
+  <updated>2016-01-01T02:01:59+08:00</updated>
   <id>http://caiyili.github.io/</id>
   <author>
     <name><![CDATA[caiyili]]></name>
@@ -14,22 +14,11 @@
 
   
   <entry>
-    <title type="html"><![CDATA[git]]></title>
-    <link href="http://caiyili.github.io/blog/2015/11/02/git/"/>
-    <updated>2015-11-02T21:57:09+08:00</updated>
-    <id>http://caiyili.github.io/blog/2015/11/02/git</id>
-    <content type="html"><![CDATA[<p>git分享ppt: <a href="http://yilli.net/assets/gitlab-code-review-simple.pdf">http://yilli.net/assets/gitlab-code-review-simple.pdf</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[vim]]></title>
     <link href="http://caiyili.github.io/blog/2015/09/06/vim/"/>
     <updated>2015-09-06T23:18:42+08:00</updated>
     <id>http://caiyili.github.io/blog/2015/09/06/vim</id>
     <content type="html"><![CDATA[<p>vim使用</p>
-
-<p>vim-ppt地址： <a href="http://yilli.net/vim-ppt.html">http://yilli.net/vim-ppt.html</a></p>
 
 <h3>打开文件</h3>
 
