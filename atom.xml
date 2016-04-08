@@ -4,7 +4,7 @@
   <title><![CDATA[伊利]]></title>
   <link href="http://caiyili.github.io/atom.xml" rel="self"/>
   <link href="http://caiyili.github.io/"/>
-  <updated>2016-01-01T02:11:14+08:00</updated>
+  <updated>2016-04-08T18:16:37+08:00</updated>
   <id>http://caiyili.github.io/</id>
   <author>
     <name><![CDATA[caiyili]]></name>
@@ -14,412 +14,457 @@
 
   
   <entry>
+    <title type="html"><![CDATA[mysql]]></title>
+    <link href="http://caiyili.github.io/blog/2016/01/04/mysql/"/>
+    <updated>2016-01-04T16:59:57+08:00</updated>
+    <id>http://caiyili.github.io/blog/2016/01/04/mysql</id>
+    <content type="html"><![CDATA[<h2>mysql架构组成</h2>
+
+<h3>mysql物理文件组成</h3>
+
+<!-- more -->
+
+
+<h4>日志文件</h4>
+
+<ul>
+<li>错误日志</li>
+<li>二进制日志(binlog)</li>
+<li>更新日志（5.0之前）</li>
+<li>查询日志</li>
+<li>慢查询日志(slow query log): mysql提供了专门用来分析慢查询日志的工具mysqlslowdump</li>
+<li>innodb的在线redo日志(innodb redo log)</li>
+</ul>
+
+
+<h4>数据文件</h4>
+
+<p>每个数据库会在定义好的数据目录下存在一个以数据库名命名的文件夹，用来存放该数据库中的各种表数据文件。</p>
+
+<table>
+<thead>
+<tr>
+<th> 扩展名 </th>
+<th> 引擎   </th>
+<th> 简介                                                         </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> .frm   </td>
+<td> ALL    </td>
+<td> 不论什么引擎，每个表一个以表名命名的.frm文件，记录表结构信息 </td>
+</tr>
+<tr>
+<td> .MYD   </td>
+<td> MyISAM </td>
+<td> 每个MyISAM有一个.MYD文件与之对应                             </td>
+</tr>
+<tr>
+<td> .MYI   </td>
+<td> MyISAM </td>
+<td> 引擎专用，存放MyISAM索引相关信息                             </td>
+</tr>
+<tr>
+<td> .ibd   </td>
+<td> Innodb </td>
+<td> 可以配置为每个表一个数据文件，也可以所有表共享一个           </td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>Replication相关文件</h4>
+
+<ol>
+<li>master.info文件：存在slave端数据目录下。</li>
+<li>relay log 和relay log index:</li>
+<li>relay-log.info</li>
+</ol>
+
+
+<h3>MYSQL Server系统架构</h3>
+
+<ol>
+<li>SQL Layer</li>
+<li>Storage Engine Layer</li>
+</ol>
+
+
+<p><em>Query Cache模块</em></p>
+
+<blockquote><p>将客户端提交给MYSQL的Select类Query请求的返回结果集cache到内存中，与该query的一个hash值做一个对应。
+该Query所取数据的基表发生任何数据变化后，Myql会自动使该query cache失效。
+Query Cache对性能提高非常显著，但对内存的消耗也非常大。</p></blockquote>
+
+<p><em>存储引擎接口模块</em></p>
+
+<blockquote><p>目前各种数据库产品中，基本上只有MYSQL可以实现底层的数据存储引擎的插件式管理。</p></blockquote>
+
+<h3>Mysql自带工具使用介绍</h3>
+
+<ol>
+<li>mysql
+
+<ul>
+<li><code>-E, --vertical</code> 所有结果按<code>/G;</code>的形式显示</li>
+<li><code>-H, --html</code>和<code>-X, --xml</code>，结果以html/xml形式显示</li>
+<li><code>--prompt=name</code>，显示的提示符</li>
+<li><code>--tee=filename</code>, 把屏幕输出的结果全部保存在文件filename中</li>
+</ul>
+</li>
+<li>mysqladmin</li>
+<li>mysqldump</li>
+<li>mysqlimport</li>
+<li>mysqlbinlog</li>
+<li>mysqlcheck
+
+<ul>
+<li>check, repair, analyze, optimize</li>
+</ul>
+</li>
+<li>myisampack</li>
+<li>mysqlhotcopy
+
+<ul>
+<li>由perl编写，对MyISAM存储引擎的表进行备份</li>
+</ul>
+</li>
+</ol>
+
+
+<h3>MySQL存储引擎</h3>
+
+<p>MyISAM, Innodb, NDB Cluster, Maria, Falcon, Memory, Archive, Merge, Federated</p>
+
+<h4>MyISAM引擎</h4>
+
+<p>每个表有且仅有三个文件。</p>
+
+<ol>
+<li>.frm结构定义文件</li>
+<li>.MYI索引数据</li>
+<li>.MYD表数据</li>
+</ol>
+
+
+<p>MyISAM支持以下三种类型的索引</p>
+
+<table>
+<thead>
+<tr>
+<th> 索引      </th>
+<th> 使用   </th>
+<th> 简介                                   </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> B-Tree    </td>
+<td> 最常用 </td>
+<td> 一个索引的所有字段之和不能超过1000字节 </td>
+</tr>
+<tr>
+<td> R-Tree    </td>
+<td> 很少用 </td>
+<td>                                        </td>
+</tr>
+<tr>
+<td> Full-Text </td>
+<td> like时 </td>
+<td> 全文索引，解决like查询低效的问题       </td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>Innodb存储引擎简介</h4>
+
+<ol>
+<li>数据和索引文件存放到一起。</li>
+<li>每个表单独放还是所有表放一起可配置。</li>
+<li>可以设置自动扩展，设置文件的最大大小。</li>
+</ol>
+
+
+<table>
+<thead>
+<tr>
+<th> 功能     </th>
+<th> 描述                         </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 支持事务 </td>
+<td> SQL92标准定义的4个级别都支持 </td>
+</tr>
+<tr>
+<td> 行锁     </td>
+<td> 通过索引来完成的             </td>
+</tr>
+<tr>
+<td> 实现外键 </td>
+<td>                              </td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>Merge表存储引擎</h4>
+
+<p>本身并不存储数据，merge两个结构相同的基表。</p>
+
+<h4>Archive存储引擎</h4>
+
+<p>只支持添加与查询，不支持删除、更新。存储空间小。</p>
+
+<h4>BLACKHOLE存储引擎</h4>
+
+<p>跟/dev/null类似，所有进去的东西都没有。但会记录binlog。可以用来：
+1. 检索sql语法
+2. 排查性能问题</p>
+
+<h4>Mysql权限系统</h4>
+
+<p>Mysql的权限系统在实现上比较简单，相关权限信息主要存储在几个被称为grant tables的系统表中，即：
+<code>mysql.user mysql.db mysql.host mysql.table_priv mysql.column_priv</code>，由于权限信息数据量比较小，而且访问频繁。所以每次启动mysql时就加load到内存中。
+因此我们手机修改权限相关表后都需要执行<code>flush privileges</code>。</p>
+
+<ol>
+<li>Global Level</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>grant select,update,delete,insert on *.* to 'root'@'localhost'</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Database Level</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>grant alter on test.* to 'mysql'@'localhost'</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Table Level</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>grant index on test.t1 to 'test'@'localhost'</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Column Level</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>grant select(id,value) on test.t2 to 'abc'@'localhost'</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Routine Level</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>grant execute on test.p1 to 'abc'@'localhost'</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>Grant权限
+在授权语句后面添加<code>WITH GRANT OPTION</code>，将自己拥有的任何权限全部授予其它任何用户。</li>
+</ol>
+
+
+<h4>影响Mysql Server性能的相关因素</h4>
+
+<ol>
+<li>需求对性能的影响</li>
+<li>系统架构及实现对性能的影响
+
+<ul>
+<li>程序实现上过渡讲究OO</li>
+<li>过渡弱化sql功能</li>
+<li>过渡强化sql功能</li>
+</ul>
+</li>
+<li>Query语句对系统性能的影响
+
+<ul>
+<li>查看执行计划</li>
+<li>实际执行的profile信息(<code>set profiling=1;show profiles; show profile CPU,BLOCK IO io for query 1</code>)</li>
+</ul>
+</li>
+<li>Schema设计对系统的性能影响
+
+<ul>
+<li>大字段分离（垂直分表）</li>
+</ul>
+</li>
+<li>硬件资源(io/cpu/内存)</li>
+</ol>
+
+
+<h4>Mysql数据库锁定机制</h4>
+
+<p>mysql各存储引擎使用了三种类型的锁定机制：行级锁定、页级锁定和表级锁定。
+MyISAM一般是表级锁，Innodb是有行级锁和表级锁。行级锁使用的是索引，如果没有索引，则会升级为表级锁。</p>
+
+<h4>Mysql的数据库query优化</h4>
+
+<p>Mysql的Query Tree使用LEX和YACC分析工具实现。Mysql Query Tree实现生成的详细信息可参考《Expert Mysql》。</p>
+
+<p>Mysql的join</p>
+
+<blockquote><p>目前只有nest loop join这一种方式</p></blockquote>
+
+<p>Mysql的排序</p>
+
+<blockquote><ol>
+<li>索引本身是有序的；</li>
+<li>将要排序的字段取出来排序，再根据指针去取数据；</li>
+<li>一次性取出筛选字段和要排序的字段，排完序直接从内存里面取数据；(mysql4.1之后)</li>
+</ol>
+</blockquote>
+
+<p>Mysq建索引的原则
+1. 频繁查询条件的字段
+2. 唯一性太差的字段不适合单独创建索引
+3. 频繁更新的不适合建索引</p>
+
+<p>单键索引还是组合索引</p>
+
+<blockquote><p>组合索引检索效率高，但由于包含的字段多，这些字段更新，都需要更新索引。</p></blockquote>
+
+<p>Order By的优化
+1. 使用索引，索引是有序的
+2. 增大<code>max_length_for_sort_data</code>，使取出完整数据后返回，减少io
+3. 减少返回的字段（同上）
+4. 增大<code>sort_buffer_size</code>，减少排序过程中mysql对数据的分段，分段会使mysql不得不使用临时表</p>
+
+<p>Group By的实现与优化
+1. 使用松散(Loose)索引实现group by
+    - Mysql完全使用索引实现group by时，不需要扫描全部索引
+    - <code>idx_gid_uid_time(g_id,u_id,create_time)</code>; <code>select gid,uid,max(create_time) group by gid,uid</code>
+2. 使用了紧凑索引实现group by（即全索引扫描）
+3. 使用临时表实现group by</p>
+
+<p>优化建议
+1. 尽量使用索引
+2. 不能用索引时，增加<code>sort_buffer_size</code>。不要大结果集的group by，因为如果超过系统设置的临时表大小，会把临时表数据copy到磁盘上操作
+3. 无法复用索引时避免filesort操作的小技巧：在sql后面加一个<code>order by null</code>;</p>
+
+<p>Distinct的实现与优化
+1. distinct的实现与Group by类似，区别在于不能用索引时不一定需要filesort.</p>
+
+<h4>Mysql Schema设计的性能优化</h4>
+
+<h4>Mysql Server的性能优化</h4>
+
+<ol>
+<li>日志打开与否</li>
+<li>主从复制的设置</li>
+<li>Query Cache的使用
+
+<ul>
+<li>cache后面的表有任何变化都会导致cache失效</li>
+<li>通过sql hint的形式(<code>SQL_CACHE</code>/<code>SQL_NO_CACHE</code>)指定mysql是否使用cache</li>
+</ul>
+</li>
+</ol>
+
+
+<h4>Mysql 主从同步</h4>
+
+<p>复制方案：
+1. Slave的io线程连上主库，请求从指定日志文件指定位置之后的日志内容
+2. Master接收请求，返回相关信息
+3. Slave的io线程收到信息，写到Relay Log的最末端
+4. Slave的sql线程检测到Relay Log中新增加的内容后，解析该log的真实sql，并在自身执行</p>
+
+<p>复制级别：
+1. Row Level: 每一行的修改变更复制过去（不需要保持上下文，但有些变更数据量特别大）
+2. Statement Level: sql回放（需要保持上下文环境）</p>
+
+<p>常规的复制架构
+1. Dual Master复制架构(Master-Master)
+    - 双重主机备份，一般只写一台
+2. 级联复制架构(Master-Slaves-Slaves)
+    - Master上连太多的Slaves时，复制就占用太多资源，很容易引起延时
+    - 先在Master上挂少数Salves，再在Slaves上挂二级Salves
+3. Dual Master与级联复制结合架构(Master-Master-Slaves)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ssh]]></title>
+    <link href="http://caiyili.github.io/blog/2016/01/04/ssh/"/>
+    <updated>2016-01-04T09:08:12+08:00</updated>
+    <id>http://caiyili.github.io/blog/2016/01/04/ssh</id>
+    <content type="html"><![CDATA[<p>ssh权威指南笔记</p>
+
+<h2>第一章 ssh简介</h2>
+
+<p>ssh是一种协议，涉及认证(authentication)、加密(encryption)、和网络上传输的完整性(integrity)</p>
+
+<!-- more -->
+
+
+<ul>
+<li>相关内容
+rsh命令族
+
+<blockquote><p>rsh/rlogin/rcp是ssh1客户端ssh/slogin/scp的前身.</p></blockquote></li>
+</ul>
+
+
+<p>PGP(Pretty Good Privacy)</p>
+
+<blockquote><p>是一个在多种计算机平台使用的能用加密程序。</p></blockquote>
+
+<p>IPSEC(Internet Protocol Security)</p>
+
+<blockquote><p>解决网络安全性的，由IETF工作组开发，包含在IP层实现的认证和加密.IPSEC可以从一个不可以网络安全地连接到远程网络中。
+也可以连接到整个网络，这就是VPN的思想.
+IPSEC可以使用Authentication Header的方法单独提供认证，也可以使用一种称为封装安全负载(Encapsulated Security Payload, ESP)的协议提供认证和加密。</p></blockquote>
+
+<p>SSL(Secure Socket Layer)</p>
+
+<blockquote><p>安全套接字层协议，是一种认证和加密技术。最初用来在web客户端和服务器之间增加HTTP协议的安全性。
+在IETF标准中的编号是RFC-2246，名为TLS(Transfer Layer Security)
+SSL通常使用一个数字证书(digital certificate)来表明自己身份。只有可信第三方存在，SSL才是安全的.</p></blockquote>
+
+<h2>第二章 ssh使用</h2>
+
+<p>ssh登录、scp、密钥认证、ssh-agent</p>
+
+<h2>第三章 ssh内幕</h2>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[git]]></title>
+    <link href="http://caiyili.github.io/blog/2015/11/02/git/"/>
+    <updated>2015-11-02T21:57:09+08:00</updated>
+    <id>http://caiyili.github.io/blog/2015/11/02/git</id>
+    <content type="html"><![CDATA[<p>git分享ppt: <a href="http://yilli.net/assets/gitlab-code-review-simple.pdf">http://yilli.net/assets/gitlab-code-review-simple.pdf</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[vim]]></title>
     <link href="http://caiyili.github.io/blog/2015/09/06/vim/"/>
     <updated>2015-09-06T23:18:42+08:00</updated>
     <id>http://caiyili.github.io/blog/2015/09/06/vim</id>
     <content type="html"><![CDATA[<p>vim使用</p>
 
-<h3>打开文件</h3>
-
-<!-- more -->
-
-
-<ul>
-<li>vim 输入完整路径
-
-<ul>
-<li>vim /path/to/file; vim src/www.xxx/app/service/page/a/b.php</li>
-<li>vim /path/to/file +n; 打开指定文件，并跳转到第n行</li>
-<li>vim /path/to/file +/regexp; 打开指定文件，并跳转到搜索 regexp行</li>
-</ul>
-</li>
-<li><p>vim 内部的find命令</p>
-
-<ul>
-<li>vim :find/:sfind/:tabfind <filename>; 根据文件名称查找，会查找<path>(:h path)目录下的。</li>
-<li><code>:set path+=**</code>, 设备path包含的目录。通配符<code>*</code>配置所有文件名，<code>**</code>配置所有递归目录。具体的可以(:h wildcard)</li>
-<li>如果查找到多个，可以使用 [n]find 定位到第几个——无法直接把所有查到的结果列出来，但可以使用模糊匹配选择</li>
-<li>命令行模糊补全
-
-<ul>
-<li><c-d> 列出候选列表,<tab>选择列表</li>
-<li>set wildmenu|nowildmenu; 是否开启模糊查找</li>
-<li>set wildmode=full|longest|list; 候选列表的模式</li>
-<li>set wildchar=<tab> ;开始补全的起始键</li>
-</ul>
-</li>
-<li>与内部的gf(:h gf)命令一致
-
-<ul>
-<li>~/.vimrc:4</li>
-<li>~/.bash_profile 在新窗口中打开可以 <ctrl-w>gf</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>NERDTree[<em>插件</em>] 通过目录树打开</p>
-
-<ul>
-<li>:NERDTree</li>
-</ul>
-</li>
-<li>ctrlp[<em>插件</em>]
-
-<ul>
-<li>可以模糊匹配——最长公共子串</li>
-</ul>
-</li>
-<li>使用tags
-
-<ul>
-<li>current-directory
-
-<ul>
-<li>:cd 切换目录</li>
-<li>:pwd 输出当前目录</li>
-</ul>
-</li>
-<li>:set tags+=/path/to/tagfile 需要生成tags文件
-
-<ul>
-<li>set tags+=./tags</li>
-<li>set tags+=~/share/tags 查看一些公共的函数库</li>
-</ul>
-</li>
-<li>tags vim :ta[g]/ts[elect]/tj[ump] <tagname></li>
-<li>vim -t <tagname></li>
-<li><tagname>可以使用模式(:h tag-regexp)
-
-<ul>
-<li>tag main</li>
-<li>tag /^getIns // starts with get</li>
-<li>tag /norm //including &ldquo;id_norm&rdquo;</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>移动 motion</h3>
-
-<ul>
-<li>基本移动
-
-<ul>
-<li>h l j k</li>
-<li>H: 移动到当前窗口的top [count]行</li>
-<li>L: 移动到当前窗口的bottom [count]行</li>
-<li>J: Join当前行与下一行(:h J)，同(:3,5j)</li>
-</ul>
-</li>
-<li>行内移动
-
-<ul>
-<li>f, F, //移动当前光标后面的,号</li>
-<li>t, T, //移动到当前当标后面的,号前一个</li>
-<li>; 重复上一次行业查找</li>
-<li>, 倒退一次</li>
-</ul>
-</li>
-<li>整个单词地移动
-
-<ul>
-<li>w 下一个单词的开头，W 下一个字符串开头</li>
-<li>e 下一个单词结尾</li>
-<li>b 往前移动</li>
-</ul>
-</li>
-<li>来回跳转jumplist
-
-<ul>
-<li>Ctrl-O 在jumplist里面后退[count]</li>
-<li>Ctrl-I 在jumplist前进[count]</li>
-<li>ju[mps] 显示jumplist</li>
-</ul>
-</li>
-<li>修改列表changes
-
-<ul>
-<li>g; 跳转到前一次修改的地方</li>
-<li>g, 跳转到后一次修改的地方</li>
-<li>:changes 显示修改列表</li>
-</ul>
-</li>
-<li>移动窗口(:h scroll-cursor)
-
-<ul>
-<li>zt/z<CR> 把cursor移到到窗口顶部，区别是是否改变列值</li>
-<li>z./zz 把当前行移动到窗口中间</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>文本对象 text-object</h3>
-
-<ul>
-<li>以一定的标准分隔符来区分一段文本，比如：一个单词，一句话，一个段落&hellip;</li>
-<li>vim的编辑命令 <number><command><text-object or motion>
-
-<ul>
-<li>参考(:h text-object) (:h motion)</li>
-</ul>
-</li>
-<li>编辑命令
-
-<ul>
-<li>y yank</li>
-<li>d delete</li>
-<li>c change 替换</li>
-<li>v 选中 v:characterwise V:line-wise <ctrl-v>:block-wise</li>
-</ul>
-</li>
-<li>操作对象
-
-<ul>
-<li>w/W 一个单词</li>
-<li>b/B 在括号里面的，同()/{}</li>
-<li>&lt;>/{}/()/[] 相匹配的括号里面</li>
-<li>&lsquo;/&ldquo; 引号引起来的</li>
-<li>s/S 一个句子, 以&#8217;.&lsquo;,&rsquo;!&lsquo;,&rsquo;?&lsquo;结尾(:h sentence)</li>
-<li>p/P 段落, 以空行分隔</li>
-<li><tag> html和xml标签里面</li>
-</ul>
-</li>
-<li>操作范围
-
-<ul>
-<li>i inner, 不包含空格或包围符本身</li>
-<li>a around, 包括空格或包围符本身</li>
-</ul>
-</li>
-<li>举例
-
-<ul>
-<li>diw di(  ci{ yi&#8221; //  &ldquo;copy this&rdquo;</li>
-<li>daw dap da( // (delete this)</li>
-<li>(:h motion) 把括号里面的内容当vim命令去执行，<code>"ayi( @a</code> // nmap hp yi(@&ldquo;<cr></li>
-</ul>
-</li>
-</ul>
-
-
-<h3>vim寄存器的使用</h3>
-
-<ul>
-<li>所有可用的寄存器<code>{a-zA-Z0-9.%#:-"}</code>
-
-<ul>
-<li>:reg {arg} 显示寄存器里面的内容</li>
-</ul>
-</li>
-<li>普通模式下
-
-<ul>
-<li>复制(:h yank)
-
-<ul>
-<li>[&ldquo;x]y{motion} 把{motion}中包含的内容复制到x寄存器.x如果未指定则使用默认的&#8221;寄存器</li>
-<li>x如果是大写X，则表示以append的方式复制</li>
-</ul>
-</li>
-<li>粘贴(:h paste)
-
-<ul>
-<li>[&ldquo;x]p 把x寄存器里面的内容粘贴到cursor之后</li>
-<li>[&ldquo;x]P 把x寄存器里面的内容粘贴到cursor之前</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>选择模式下
-
-<ul>
-<li>复制
-
-<ul>
-<li>{Visual}[&ldquo;x]y 选择模式下的复制</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>命令行模式下
-
-<ul>
-<li>复制
-
-<ul>
-<li>[line]yank x ;把[line]行复制到x寄存器</li>
-<li>[line]yank X ;append的方式复制</li>
-</ul>
-</li>
-<li>粘贴
-
-<ul>
-<li>[line]put[!] x ;把x寄存器的内容粘贴到[line]行之前</li>
-</ul>
-</li>
-<li>移动
-
-<ul>
-<li>[range]m[line] 把[range]中指定的行移动到第[line]行</li>
-<li>[range]t[line] 把[range]中指定的行复制到每[line]行</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>插入模式下</p>
-
-<ul>
-<li>粘贴
-
-<ul>
-<li><c-r>x 把x寄存器的内容粘贴到光标位置</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>特殊寄存器总结(:h quote0)</p>
-
-<ul>
-<li>无名寄存器(&ldquo;&rdquo;)
-
-<ul>
-<li>x s d{motion} c{motion} y{motion}命令以及他们对应的大写命令都会覆盖无名寄存器</li>
-</ul>
-</li>
-<li>复制专用寄存器(&ldquo;0)
-
-<ul>
-<li>y{motion} 不仅会复制到无名寄存器，同时也会复制一份到复制专用寄存器</li>
-</ul>
-</li>
-<li>黑洞寄存器<code>("_)</code>
-
-<ul>
-<li>&ldquo;_d{motion} 删除该文本，不保存副本，不会覆盖无名寄存器</li>
-</ul>
-</li>
-<li>系统剪贴板(&ldquo;+) <code>("*)</code>
-
-<ul>
-<li><code>+</code> 系统剪切板 <code>*</code> 主剪切板, 在windows和mac中无区别</li>
-<li>查看vim是否被激活，(:version) 命令，找xterm_clipboard</li>
-</ul>
-</li>
-<li>表达式寄存器(&ldquo;=)
-
-<ul>
-<li>可以输入一段vim脚本</li>
-</ul>
-</li>
-<li>只读寄存器
-
-<ul>
-<li>% 当前文件名</li>
-<li><code>#</code> 轮换文件名</li>
-<li>. 上次插入的文本</li>
-<li>: 上次执行的ex命令</li>
-<li>/ 上次执行的查找 (如何在命令行里快速输入上次查找的字符)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>宏</h3>
-
-<ul>
-<li>最简单的宏<code>.</code>
-
-<ul>
-<li><code>.</code> 命令——重复上次的修改
-
-<ul>
-<li>($a, $b), ($a, $b); 把括号里面的内容改为($a)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>录制宏
-
-<ul>
-<li>q{register} xxxx  q</li>
-</ul>
-</li>
-<li>回放宏
-
-<ul>
-<li>@{register}</li>
-</ul>
-</li>
-<li>宏的使用举例</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>程方鹤  961552258
-</span><span class='line'>熊利               500118888
-</span><span class='line'>黄汉华               581392038
-</span><span class='line'>陶冶（增加）               916976488
-</span><span class='line'>许磊               874901218
-</span><span class='line'>刘艳峰               373722748
-</span><span class='line'>贺诚彰               583275308
-</span><span class='line'>林元               793808678
-</span><span class='line'>何彦辛               833153378
-</span><span class='line'>赵御博               916794588
-</span><span class='line'>肖清武               667396418</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>961552258,//1. 程方鹤
-</span><span class='line'>500118888,//2. 熊利
-</span><span class='line'>581392038,//3. 黄汉华
-</span><span class='line'>916976488,//4. 陶冶（增加）
-</span><span class='line'>874901218,//5. 许磊
-</span><span class='line'>373722748,//6. 刘艳峰
-</span><span class='line'>583275308,//7. 贺诚彰
-</span><span class='line'>793808678,//8. 林元
-</span><span class='line'>833153378,//9. 何彦辛
-</span><span class='line'>916794588,//10. 赵御博
-</span><span class='line'>667396418,//11. 肖清武</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>使用技巧
-
-<ul>
-<li>使用兼容性更好的移动方式——放弃使用hljk移动，多使用f/t/w/b/e/0/$这种</li>
-<li>让你的操作可重复</li>
-</ul>
-</li>
-</ul>
-
+<p>vim-ppt地址： <a href="http://yilli.net/vim-ppt.html">http://yilli.net/vim-ppt.html</a></p>
 ]]></content>
   </entry>
   

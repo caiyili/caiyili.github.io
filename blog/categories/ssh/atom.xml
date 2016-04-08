@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ssh | 伊利]]></title>
+  <link href="http://caiyili.github.io/blog/categories/ssh/atom.xml" rel="self"/>
+  <link href="http://caiyili.github.io/"/>
+  <updated>2016-04-08T18:16:37+08:00</updated>
+  <id>http://caiyili.github.io/</id>
+  <author>
+    <name><![CDATA[caiyili]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[ssh]]></title>
+    <link href="http://caiyili.github.io/blog/2016/01/04/ssh/"/>
+    <updated>2016-01-04T09:08:12+08:00</updated>
+    <id>http://caiyili.github.io/blog/2016/01/04/ssh</id>
+    <content type="html"><![CDATA[<p>ssh权威指南笔记</p>
+
+<h2>第一章 ssh简介</h2>
+
+<p>ssh是一种协议，涉及认证(authentication)、加密(encryption)、和网络上传输的完整性(integrity)</p>
+
+<!-- more -->
+
+
+<ul>
+<li>相关内容
+rsh命令族
+
+<blockquote><p>rsh/rlogin/rcp是ssh1客户端ssh/slogin/scp的前身.</p></blockquote></li>
+</ul>
+
+
+<p>PGP(Pretty Good Privacy)</p>
+
+<blockquote><p>是一个在多种计算机平台使用的能用加密程序。</p></blockquote>
+
+<p>IPSEC(Internet Protocol Security)</p>
+
+<blockquote><p>解决网络安全性的，由IETF工作组开发，包含在IP层实现的认证和加密.IPSEC可以从一个不可以网络安全地连接到远程网络中。
+也可以连接到整个网络，这就是VPN的思想.
+IPSEC可以使用Authentication Header的方法单独提供认证，也可以使用一种称为封装安全负载(Encapsulated Security Payload, ESP)的协议提供认证和加密。</p></blockquote>
+
+<p>SSL(Secure Socket Layer)</p>
+
+<blockquote><p>安全套接字层协议，是一种认证和加密技术。最初用来在web客户端和服务器之间增加HTTP协议的安全性。
+在IETF标准中的编号是RFC-2246，名为TLS(Transfer Layer Security)
+SSL通常使用一个数字证书(digital certificate)来表明自己身份。只有可信第三方存在，SSL才是安全的.</p></blockquote>
+
+<h2>第二章 ssh使用</h2>
+
+<p>ssh登录、scp、密钥认证、ssh-agent</p>
+
+<h2>第三章 ssh内幕</h2>
+]]></content>
+  </entry>
+  
+</feed>
