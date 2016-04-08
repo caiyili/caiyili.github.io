@@ -1,0 +1,233 @@
+---
+layout: post
+title: "mysql"
+date: 2016-01-04 16:59:57 +0800
+published: true
+categories: ["mysql"]
+---
+
+## mysql架构组成
+
+### mysql物理文件组成
+
+<!-- more -->
+
+#### 日志文件
+
+- 错误日志
+- 二进制日志(binlog)
+- 更新日志（5.0之前）
+- 查询日志
+- 慢查询日志(slow query log): mysql提供了专门用来分析慢查询日志的工具mysqlslowdump
+- innodb的在线redo日志(innodb redo log)
+
+#### 数据文件
+每个数据库会在定义好的数据目录下存在一个以数据库名命名的文件夹，用来存放该数据库中的各种表数据文件。
+
+| 扩展名 | 引擎   | 简介                                                         |
+|--------|--------|--------------------------------------------------------------|
+| .frm   | ALL    | 不论什么引擎，每个表一个以表名命名的.frm文件，记录表结构信息 |
+| .MYD   | MyISAM | 每个MyISAM有一个.MYD文件与之对应                             |
+| .MYI   | MyISAM | 引擎专用，存放MyISAM索引相关信息                             |
+| .ibd   | Innodb | 可以配置为每个表一个数据文件，也可以所有表共享一个           |
+
+#### Replication相关文件
+
+1. master.info文件：存在slave端数据目录下。
+2. relay log 和relay log index: 
+3. relay-log.info
+
+### MYSQL Server系统架构
+
+1. SQL Layer
+2. Storage Engine Layer
+
+*Query Cache模块*  
+>将客户端提交给MYSQL的Select类Query请求的返回结果集cache到内存中，与该query的一个hash值做一个对应。
+该Query所取数据的基表发生任何数据变化后，Myql会自动使该query cache失效。
+Query Cache对性能提高非常显著，但对内存的消耗也非常大。
+
+*存储引擎接口模块*
+>目前各种数据库产品中，基本上只有MYSQL可以实现底层的数据存储引擎的插件式管理。
+
+### Mysql自带工具使用介绍
+
+1. mysql 
+    - `-E, --vertical` 所有结果按`/G;`的形式显示
+    - `-H, --html`和`-X, --xml`，结果以html/xml形式显示
+    - `--prompt=name`，显示的提示符
+    - `--tee=filename`, 把屏幕输出的结果全部保存在文件filename中
+2. mysqladmin
+3. mysqldump
+4. mysqlimport
+5. mysqlbinlog
+6. mysqlcheck
+    - check, repair, analyze, optimize
+7. myisampack
+8. mysqlhotcopy
+    - 由perl编写，对MyISAM存储引擎的表进行备份
+
+### MySQL存储引擎
+MyISAM, Innodb, NDB Cluster, Maria, Falcon, Memory, Archive, Merge, Federated
+
+#### MyISAM引擎
+每个表有且仅有三个文件。
+
+1. .frm结构定义文件
+2. .MYI索引数据
+3. .MYD表数据
+
+MyISAM支持以下三种类型的索引
+
+| 索引      | 使用   | 简介                                   |
+|-----------|--------|----------------------------------------|
+| B-Tree    | 最常用 | 一个索引的所有字段之和不能超过1000字节 |
+| R-Tree    | 很少用 |                                        |
+| Full-Text | like时 | 全文索引，解决like查询低效的问题       |
+
+#### Innodb存储引擎简介
+
+1. 数据和索引文件存放到一起。
+2. 每个表单独放还是所有表放一起可配置。
+3. 可以设置自动扩展，设置文件的最大大小。
+
+| 功能     | 描述                         |
+|----------|------------------------------|
+| 支持事务 | SQL92标准定义的4个级别都支持 |
+| 行锁     | 通过索引来完成的             |
+| 实现外键 |                              |
+
+#### Merge表存储引擎
+本身并不存储数据，merge两个结构相同的基表。
+
+#### Archive存储引擎
+只支持添加与查询，不支持删除、更新。存储空间小。
+
+#### BLACKHOLE存储引擎
+跟/dev/null类似，所有进去的东西都没有。但会记录binlog。可以用来：
+1. 检索sql语法
+2. 排查性能问题
+
+#### Mysql权限系统
+Mysql的权限系统在实现上比较简单，相关权限信息主要存储在几个被称为grant tables的系统表中，即：
+`mysql.user mysql.db mysql.host mysql.table_priv mysql.column_priv`，由于权限信息数据量比较小，而且访问频繁。所以每次启动mysql时就加load到内存中。
+因此我们手机修改权限相关表后都需要执行`flush privileges`。
+
+1. Global Level
+
+```
+grant select,update,delete,insert on *.* to 'root'@'localhost'
+```
+
+2. Database Level
+
+```
+grant alter on test.* to 'mysql'@'localhost'
+```
+
+3. Table Level
+
+```
+grant index on test.t1 to 'test'@'localhost'
+```
+
+4. Column Level
+
+```
+grant select(id,value) on test.t2 to 'abc'@'localhost'
+```
+
+5. Routine Level
+
+```
+grant execute on test.p1 to 'abc'@'localhost'
+```
+
+6. Grant权限
+在授权语句后面添加`WITH GRANT OPTION`，将自己拥有的任何权限全部授予其它任何用户。
+
+#### 影响Mysql Server性能的相关因素
+
+1. 需求对性能的影响
+2. 系统架构及实现对性能的影响
+    - 程序实现上过渡讲究OO
+    - 过渡弱化sql功能
+    - 过渡强化sql功能
+3. Query语句对系统性能的影响
+    - 查看执行计划
+    - 实际执行的profile信息(`set profiling=1;show profiles; show profile CPU,BLOCK IO io for query 1`)
+4. Schema设计对系统的性能影响
+    - 大字段分离（垂直分表）
+5. 硬件资源(io/cpu/内存)
+
+#### Mysql数据库锁定机制
+mysql各存储引擎使用了三种类型的锁定机制：行级锁定、页级锁定和表级锁定。
+MyISAM一般是表级锁，Innodb是有行级锁和表级锁。行级锁使用的是索引，如果没有索引，则会升级为表级锁。
+
+#### Mysql的数据库query优化
+Mysql的Query Tree使用LEX和YACC分析工具实现。Mysql Query Tree实现生成的详细信息可参考《Expert Mysql》。
+
+Mysql的join
+>目前只有nest loop join这一种方式
+
+Mysql的排序
+> 1. 索引本身是有序的；
+> 2. 将要排序的字段取出来排序，再根据指针去取数据；
+> 3. 一次性取出筛选字段和要排序的字段，排完序直接从内存里面取数据；(mysql4.1之后)
+
+Mysq建索引的原则
+1. 频繁查询条件的字段
+2. 唯一性太差的字段不适合单独创建索引
+3. 频繁更新的不适合建索引
+
+单键索引还是组合索引
+> 组合索引检索效率高，但由于包含的字段多，这些字段更新，都需要更新索引。
+
+Order By的优化
+1. 使用索引，索引是有序的
+2. 增大`max_length_for_sort_data`，使取出完整数据后返回，减少io
+3. 减少返回的字段（同上）
+4. 增大`sort_buffer_size`，减少排序过程中mysql对数据的分段，分段会使mysql不得不使用临时表
+
+Group By的实现与优化
+1. 使用松散(Loose)索引实现group by
+    - Mysql完全使用索引实现group by时，不需要扫描全部索引
+    - `idx_gid_uid_time(g_id,u_id,create_time)`; `select gid,uid,max(create_time) group by gid,uid`
+2. 使用了紧凑索引实现group by（即全索引扫描）
+3. 使用临时表实现group by
+
+优化建议
+1. 尽量使用索引
+2. 不能用索引时，增加`sort_buffer_size`。不要大结果集的group by，因为如果超过系统设置的临时表大小，会把临时表数据copy到磁盘上操作
+3. 无法复用索引时避免filesort操作的小技巧：在sql后面加一个`order by null`;
+
+Distinct的实现与优化
+1. distinct的实现与Group by类似，区别在于不能用索引时不一定需要filesort.
+
+#### Mysql Schema设计的性能优化
+
+#### Mysql Server的性能优化
+1. 日志打开与否
+2. 主从复制的设置
+2. Query Cache的使用
+    - cache后面的表有任何变化都会导致cache失效
+    - 通过sql hint的形式(`SQL_CACHE`/`SQL_NO_CACHE`)指定mysql是否使用cache
+
+#### Mysql 主从同步
+复制方案：
+1. Slave的io线程连上主库，请求从指定日志文件指定位置之后的日志内容
+2. Master接收请求，返回相关信息
+3. Slave的io线程收到信息，写到Relay Log的最末端
+4. Slave的sql线程检测到Relay Log中新增加的内容后，解析该log的真实sql，并在自身执行
+
+复制级别：
+1. Row Level: 每一行的修改变更复制过去（不需要保持上下文，但有些变更数据量特别大）
+2. Statement Level: sql回放（需要保持上下文环境）
+
+常规的复制架构
+1. Dual Master复制架构(Master-Master)
+    - 双重主机备份，一般只写一台
+2. 级联复制架构(Master-Slaves-Slaves)
+    - Master上连太多的Slaves时，复制就占用太多资源，很容易引起延时
+    - 先在Master上挂少数Salves，再在Slaves上挂二级Salves
+3. Dual Master与级联复制结合架构(Master-Master-Slaves)
