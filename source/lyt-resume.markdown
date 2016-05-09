@@ -1,6 +1,6 @@
 ---
 layout: empty
-title: "刘娅婷-HR-求职简历 两年HR工作经验"
+title: "刘娅婷-HR-求职简历 3年HR工作经验"
 date: 2015-07-02 00:01:30 +0800
 published: true
 categories: 
