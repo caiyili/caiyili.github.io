@@ -80,3 +80,7 @@ description: "刘娅婷-HR-求职简历 3年HR工作经验"
 ### 自我评价
 ---
 执行力、沟通协调能力强，思维逻辑清晰，善于运用PDCA、5W2H、二八法则等工具，善于发现问题并提出改善意见。
+
+附生活照一张
+
+<img height="200px" src="/images/lyt-life.jpg">
