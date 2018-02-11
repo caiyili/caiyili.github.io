@@ -2,7 +2,7 @@
 layout: post
 title: "tmux使用笔记"
 date: 2015-08-11 20:57:36 +0800
-published: true
+published: false
 categories: 
 ---
 
