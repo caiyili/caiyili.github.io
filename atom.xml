@@ -4,7 +4,7 @@
   <title><![CDATA[伊利]]></title>
   <link href="http://caiyili.github.io/atom.xml" rel="self"/>
   <link href="http://caiyili.github.io/"/>
-  <updated>2018-02-11T16:01:00+08:00</updated>
+  <updated>2018-02-11T16:11:40+08:00</updated>
   <id>http://caiyili.github.io/</id>
   <author>
     <name><![CDATA[caiyili]]></name>
@@ -568,52 +568,6 @@ MyISAM一般是表级锁，Innodb是有行级锁和表级锁。行级锁使用�
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[ssh]]></title>
-    <link href="http://caiyili.github.io/blog/2016/01/04/ssh/"/>
-    <updated>2016-01-04T09:08:12+08:00</updated>
-    <id>http://caiyili.github.io/blog/2016/01/04/ssh</id>
-    <content type="html"><![CDATA[<p>ssh权威指南笔记</p>
-
-<h2>第一章 ssh简介</h2>
-
-<p>ssh是一种协议，涉及认证(authentication)、加密(encryption)、和网络上传输的完整性(integrity)</p>
-
-<!-- more -->
-
-
-<ul>
-<li>相关内容
-rsh命令族
-
-<blockquote><p>rsh/rlogin/rcp是ssh1客户端ssh/slogin/scp的前身.</p></blockquote></li>
-</ul>
-
-
-<p>PGP(Pretty Good Privacy)</p>
-
-<blockquote><p>是一个在多种计算机平台使用的能用加密程序。</p></blockquote>
-
-<p>IPSEC(Internet Protocol Security)</p>
-
-<blockquote><p>解决网络安全性的，由IETF工作组开发，包含在IP层实现的认证和加密.IPSEC可以从一个不可以网络安全地连接到远程网络中。
-也可以连接到整个网络，这就是VPN的思想.
-IPSEC可以使用Authentication Header的方法单独提供认证，也可以使用一种称为封装安全负载(Encapsulated Security Payload, ESP)的协议提供认证和加密。</p></blockquote>
-
-<p>SSL(Secure Socket Layer)</p>
-
-<blockquote><p>安全套接字层协议，是一种认证和加密技术。最初用来在web客户端和服务器之间增加HTTP协议的安全性。
-在IETF标准中的编号是RFC-2246，名为TLS(Transfer Layer Security)
-SSL通常使用一个数字证书(digital certificate)来表明自己身份。只有可信第三方存在，SSL才是安全的.</p></blockquote>
-
-<h2>第二章 ssh使用</h2>
-
-<p>ssh登录、scp、密钥认证、ssh-agent</p>
-
-<h2>第三章 ssh内幕</h2>
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[git]]></title>
     <link href="http://caiyili.github.io/blog/2015/11/02/git/"/>
     <updated>2015-11-02T21:57:09+08:00</updated>
@@ -782,48 +736,6 @@ SSL通常使用一个数字证书(digital certificate)来表明自己身份。�
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ssh user@host cat /path/to/file | diff /path/to/localfile -</span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[nginx模块]]></title>
-    <link href="http://caiyili.github.io/blog/2015/02/13/nginx/"/>
-    <updated>2015-02-13T17:51:07+08:00</updated>
-    <id>http://caiyili.github.io/blog/2015/02/13/nginx</id>
-    <content type="html"><![CDATA[<h3>几个nginx模块</h3>
-
-<ul>
-<li><code>ngx_http_split_clients_module</code>
-
-<ul>
-<li>可用于做分流量A/B test，根据ip分配流量。</li>
-</ul>
-</li>
-<li><code>ngx_http_geoip_module</code>
-
-<ul>
-<li>根据ip确定地域等信息。依赖于<code>MaxMind</code>数据库文件。</li>
-</ul>
-</li>
-<li><code>ngx_http_empty_gif_module</code>
-
-<ul>
-<li>提供一个1小像素的小图，一般用作统计。</li>
-</ul>
-</li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[zero-width-space]]></title>
-    <link href="http://caiyili.github.io/blog/2015/02/03/zero-width-space/"/>
-    <updated>2015-02-03T10:42:26+08:00</updated>
-    <id>http://caiyili.github.io/blog/2015/02/03/zero-width-space</id>
-    <content type="html"><![CDATA[<p>零宽字符<code>\u200B</code> <a href="http://www.fileformat.info/info/unicode/char/200B/index.htm">http://www.fileformat.info/info/unicode/char/200B/index.htm</a></p>
-
-<p>取反字符<code>\u200E</code> <a href="http://www.fileformat.info/info/unicode/char/200E/index.htm">http://www.fileformat.info/info/unicode/char/200E/index.htm</a></p>
 ]]></content>
   </entry>
   
