@@ -2,7 +2,7 @@
 layout: post
 title: "ssh"
 date: 2016-01-04 09:08:12 +0800
-published: true
+published: false
 categories: ["ssh"]
 ---
 
