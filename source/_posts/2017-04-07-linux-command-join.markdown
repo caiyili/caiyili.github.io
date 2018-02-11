@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "linux-command-join"
+title: "linux join 命令的使用"
 date: 2017-04-07 20:14:13 +0800
 published: true
 categories: ["shell", "join"]
@@ -9,6 +9,8 @@ categories: ["shell", "join"]
 ## join命令的使用
 
 有时候，我们可能需要对多个文件进行类似`mysql`的`join`操作，`linux`的`join`命令可以帮助我们实现。
+
+<!-- more -->
 
 先看下`join`命令的帮助文档：
 
