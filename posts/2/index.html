@@ -9,8 +9,7 @@
   <meta name="author" content="caiyili">
 
   
-  <meta name="description" content="生成ctags文件 ctags生成指定语言的tags，ctags -R --languages=php
-可支持php命名空间的ctags patch https://github.com/shawncplus/phpcomplete.vim/wiki/Patched-ctags &hellip;">
+  <meta name="description" content="">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,68 +83,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/02/02/ctags-vim/">vim与tags</a></h1>
-    
-    
-      
-      <p class="meta">
-        
-
-
-
-
-2015-02-02 13:09:12 +0800
-        
-      </p>
-      
-    
-  </header>
-
-
-  <div class="entry-content"><h3>生成<code>ctags</code>文件</h3>
-
-<ul>
-<li><code>ctags</code>生成指定语言的<code>tags</code>，<code>ctags -R --languages=php</code></li>
-<li>可支持php命名空间的ctags patch <a href="https://github.com/shawncplus/phpcomplete.vim/wiki/Patched-ctags">https://github.com/shawncplus/phpcomplete.vim/wiki/Patched-ctags</a></li>
-</ul>
-
-
-<h3>在<code>vim</code>外部直接打开并定位到某一函数/类</h3>
-
-<ul>
-<li><code>vim -t getInstance</code> 打开函数名为<code>getInstance</code>的文件并自动跳转到这个函数( 要在<code>tags</code>文件存在的目录)。</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vim -t getInstance
-</span><span class='line'>vim -t /getInst 
-</span><span class='line'>vim -t /^getInst</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>如果有多个会让你选择，打开后可以用<code>:tn</code>,<code>:tp</code>,<code>:ts</code>选择前一个、后一个、列表选择</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/02/02/ctags-vim/">查看全文</a>
-    </footer>
-  
-
-
-    </article>
   
   
     <article>

@@ -4,7 +4,7 @@
   <title><![CDATA[伊利]]></title>
   <link href="http://caiyili.github.io/atom.xml" rel="self"/>
   <link href="http://caiyili.github.io/"/>
-  <updated>2018-02-11T14:01:50+08:00</updated>
+  <updated>2018-02-11T16:01:00+08:00</updated>
   <id>http://caiyili.github.io/</id>
   <author>
     <name><![CDATA[caiyili]]></name>
@@ -781,31 +781,6 @@ SSL通常使用一个数字证书(digital certificate)来表明自己身份。�
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ssh user@host cat /path/to/file | diff /path/to/localfile -</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[http/1.1]]></title>
-    <link href="http://caiyili.github.io/blog/2015/02/26/http/"/>
-    <updated>2015-02-26T10:32:21+08:00</updated>
-    <id>http://caiyili.github.io/blog/2015/02/26/http</id>
-    <content type="html"><![CDATA[<ul>
-<li>MIME
-
-<ul>
-<li>Multipurpose Internet Mail Extensions</li>
-<li>多用途互联网邮件扩展类型</li>
-</ul>
-</li>
-<li>GMT
-
-<ul>
-<li>Greenwich Mean Time</li>
-<li>格林尼治时间</li>
-</ul>
-</li>
-</ul>
 
 ]]></content>
   </entry>
