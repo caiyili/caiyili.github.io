@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[]]></title>
+  <title><![CDATA[伊利]]></title>
   <link href="http://caiyili.github.io/atom.xml" rel="self"/>
   <link href="http://caiyili.github.io/"/>
-  <updated>2016-05-09T16:04:42+08:00</updated>
+  <updated>2018-02-11T13:37:10+08:00</updated>
   <id>http://caiyili.github.io/</id>
   <author>
     <name><![CDATA[caiyili]]></name>
@@ -12,6 +12,168 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[linux-command-join]]></title>
+    <link href="http://caiyili.github.io/blog/2017/04/07/linux-command-join/"/>
+    <updated>2017-04-07T20:14:13+08:00</updated>
+    <id>http://caiyili.github.io/blog/2017/04/07/linux-command-join</id>
+    <content type="html"><![CDATA[<h2>join命令的使用</h2>
+
+<p>有时候，我们可能需要对多个文件进行类似<code>mysql</code>的<code>join</code>操作，<code>linux</code>的<code>join</code>命令可以帮助我们实现。</p>
+
+<p>先看下<code>join</code>命令的帮助文档：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>join [-i][-a&lt;1或2&gt;][-e&lt;字符串&gt;][-o&lt;格式&gt;][-t&lt;字符&gt;][-v&lt;1或2&gt;][-1&lt;栏位&gt;][-2&lt;栏位&gt;][--help][--version][文件1][文件2]
+</span><span class='line'>
+</span><span class='line'>-a&lt;1或2&gt; 除了显示原来的输出内容之外，还显示指令文件中没有相同栏位的行。
+</span><span class='line'>-e&lt;字符串&gt; 若[文件1]与[文件2]中找不到指定的栏位，则在输出中填入选项中的字符串。
+</span><span class='line'>-i或--igore-case 比较栏位内容时，忽略大小写的差异。
+</span><span class='line'>-o&lt;格式&gt; 按照指定的格式来显示结果。
+</span><span class='line'>-t&lt;字符&gt; 使用栏位的分隔字符。
+</span><span class='line'>-v&lt;1或2&gt; 跟-a相同，但是只显示文件中没有相同栏位的行。
+</span><span class='line'>-1&lt;栏位&gt; 连接[文件1]指定的栏位。
+</span><span class='line'>-2&lt;栏位&gt; 连接[文件2]指定的栏位。
+</span><span class='line'>--help 显示帮助。
+</span><span class='line'>--version 显示版本信息。</span></code></pre></td></tr></table></div></figure>
+
+
+<p>需要注意的是，两个文件要关联的列，必须是排好序的，在<code>join</code>的帮忙文档里有这个提示。</p>
+
+<blockquote><p>Important: FILE1 and FILE2 must be sorted on the join fields.  E.g., use ‘sort -k 1b,1’ if ‘join’ has no options.  Note, comparisons honor the rules specified by ‘LC_COLLATE’.<br/>
+If the input is not sorted and some lines cannot be joined, a warning message will be given.</p></blockquote>
+
+<p>比如有如下两文件</p>
+
+<ul>
+<li><code>room_user.txt</code> number号对应<code>user_id</code>的信息</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>160719547073 878110
+</span><span class='line'>160724952431  86
+</span><span class='line'>16082441307553    5033669
+</span><span class='line'>16082641610921    3279165
+</span><span class='line'>16082741569921    5033669
+</span><span class='line'>16092049685147    216444
+</span><span class='line'>16092053864843    216444
+</span><span class='line'>16092053944715    216444</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><code>user_info.txt</code> 用户信息</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>86   37151288    1581124978  老齐  齐华
+</span><span class='line'>378140    41545878    1877133072  蒙智  智
+</span><span class='line'>402724    66743288    1710031217  岑sir  岑
+</span><span class='line'>216444    91080968    1001362269  牛牛老师    牛莉
+</span><span class='line'>449475    62210648    1021949151  王一老师    王一
+</span><span class='line'>575000    43516818    1012348103  希姐  王于
+</span><span class='line'>628525    51932118    1892710438  湛Sky  黄兰
+</span><span class='line'>1107410   79346968    1523486315  Nancy   龚霞
+</span><span class='line'>1753240   43787538    1681681549  郭老  郭强</span></code></pre></td></tr></table></div></figure>
+
+
+<p>现需要把两个文件关联起来，即<code>room_user.txt</code>中的第二列与<code>user_info.txt</code>中的第一列关联。</p>
+
+<ol>
+<li>先把两个文件按关联字段排序</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sort -k 2 -n -o room_user.txt room_user.txt
+</span><span class='line'>sort -k 1 -n -o user_info.txt user_info.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>如果第一个文件中用户ID不在第二个文件中则过滤的话（即类似数据库的内联接）</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>join -1 2 -2 1 room_user.txt user_info.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>如果需要指定输出列</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>join -1 2 -2 1 -o 1.1 -o 1.2 -o 2.2 -o 2.3 -o 2.4 -o 2.5 room_user.txt user_info.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>如果保留文件1中所有列，关联不上的标记为NULL</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>join -a 1 -e NULL -1 2 -2 1 -o 1.1 -o 1.2 -o 2.2 -o 2.3 -o 2.4 -o 2.5 room_user.txt user_info.txt
+</span><span class='line'>
+</span><span class='line'>-a &lt;1|2&gt; 是指定保留哪个文件中没有关联上的，类似`mysql`中的`left join`
+</span><span class='line'>-e &lt;string&gt; 是指定没有关联上的字段显示什么字符串</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>如果要查找文件1中不存在的用户（即<code>user_id</code>在第二个文件中不存在）</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>join -v 1 -1 2 -2 1 -o 1.2 room_user.txt user_info.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>用这个方法也可以来对比两个文件的差异</p>
+
+<ol>
+<li>指定分隔符号</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>join -t $'\t' -v 1 -1 2 -2 1 -o 1.2 room_user.txt user_info.txt</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如要指定tab分隔符号，需要用<code>$'\t'</code>这种方式。关于转义符号，参考<a href="http://www.gnu.org/software/bash/manual/bashref.html#ANSI_002dC-Quoting">这里</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[mysql]]></title>
@@ -617,22 +779,6 @@ SSL通常使用一个数字证书(digital certificate)来表明自己身份。�
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ssh user@host cat /path/to/file | diff /path/to/localfile -</span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[tmux使用笔记]]></title>
-    <link href="http://caiyili.github.io/blog/2015/08/11/tmux/"/>
-    <updated>2015-08-11T20:57:36+08:00</updated>
-    <id>http://caiyili.github.io/blog/2015/08/11/tmux</id>
-    <content type="html"><![CDATA[<p>之前使用tmux，有一点感觉很不方便，就是输出的东西，要查看时总得进入copy模式。没法使用鼠标直接向上翻。<br/>
-今天无意中发现可以配置这个，参考<a href="http://www.opstool.com/article/253">这里</a></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>set-window-option -g mode-mouse on</span></code></pre></td></tr></table></div></figure>
-
-
-<p>其实就是鼠标往上滑的时候自动进入了copy模式</p>
 ]]></content>
   </entry>
   
