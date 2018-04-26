@@ -4,7 +4,7 @@
   <title><![CDATA[伊利]]></title>
   <link href="http://caiyili.github.io/atom.xml" rel="self"/>
   <link href="http://caiyili.github.io/"/>
-  <updated>2018-04-26T13:58:47+08:00</updated>
+  <updated>2018-04-26T19:14:50+08:00</updated>
   <id>http://caiyili.github.io/</id>
   <author>
     <name><![CDATA[caiyili]]></name>
@@ -12,6 +12,108 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[vim提权保存]]></title>
+    <link href="http://caiyili.github.io/blog/2018/04/26/vim-sudo-save/"/>
+    <updated>2018-04-26T15:42:40+08:00</updated>
+    <id>http://caiyili.github.io/blog/2018/04/26/vim-sudo-save</id>
+    <content type="html"><![CDATA[<p>使用<code>VIM</code>时经常会遇到一种情况，就是修改完一个文件后，发现没有权限保存。这个时候我们通常有两种选择</p>
+
+<ol>
+<li>退出<code>vim</code>，用<code>sudo vim &lt;filepath&gt;</code>打开重新修改。</li>
+<li>先把当前内容保存在一个可写的临时文件里面，然后再使用<code>sudo</code>提升权限把临时文件复制到需要修改的文件。</li>
+</ol>
+
+
+<p>有没有办法直接在<code>vim</code>里面，把当前权限提升，然后修改呢？可以，网上给的方式一般是这样的：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>:w !sudo tee %</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但是为什么可以这么写呢？本文主要解释下这行命令的原理。</p>
+
+<!-- more -->
+
+
+<p>在解释上面的命令前，先说一下解决这个问题的思路。</p>
+
+<p>我们要更新的文件保存不了，是因为当前的用户权限不够。
+如果用<code>root</code>权限使用<code>vim</code>打开文件，就不会有问题，所以问题是怎样能够在不重新打开<code>vim</code>的情况下去修改这个文件呢？
+如上面所说，第一种是使用<code>sudo vim</code>打开文件；第二种是在<code>vim</code>里面调用外部<code>shell</code>命令，然后在执行这个命令时，使用<code>sudo</code>去执行。</p>
+
+<p>因为我们不想重新打开<code>vim</code>，自然只能选择第二种方式，在<code>vim</code>里调用<code>shell</code>命令，然后把当前<code>vim</code>缓冲区的内容传给<code>shell</code>命令。</p>
+
+<p>比如，我们可以在<code>vim</code>里执行以下命令：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>:w /tmp/buffer.tmp
+</span><span class='line'>:!sudo cp /tmp/buffer.tmp %   ;这里的'%'会替换成当前文件的路径</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们先把当前内容保存在一个临时文件里，然后执行一段<code>shell</code>命令，把临时文件<code>copy</code>到当前路径，覆盖当前文件内容。</p>
+
+<p>这里还要用到临时文件，能不能不通过临时文件来传呢？可以的，我们可以使用管道。
+在<code>vim</code>里面，我们可以通过<code>:%!{cmd}</code> 把当前缓冲区的内容作为<code>stdin</code>传给<code>shell</code>命令，然后把命令的结果再写回到当前缓存区。</p>
+
+<p>例如，如果我们要给当前打开的文件排序，只需要运行以下命令</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>:%!sort -k1 -n</span></code></pre></td></tr></table></div></figure>
+
+
+<p>按这个思路，我们把当前缓冲区的内容传给<code>cat</code>命令，结果再写到当前文件不就可以么</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>:%!sudo cat &gt; %</span></code></pre></td></tr></table></div></figure>
+
+
+<p>很遗憾，我们会得到一个<code>Permission denied</code>的结果。为什么呢？其实上面的命令相当于执行了以下<code>shell</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo cat &gt; $filepath &lt; $buffer</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们的<code>sudo</code>是加给cat这个命令的，内容重定向到<code>$filepath</code>还是普通用户权限。
+所以该命令需要改进一下，用 <code>sudo bash -c "cat &gt; $filepath"</code>这种方式运行，给整个子<code>shell</code>提权</p>
+
+<p>另外，由于文件名可能会有空格之类的符号，我们需要在文件名两边加上引号。也就是这样：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>%!sudo bash -c "cat &gt; '%'"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这其实是一种解决方案，但是比较麻烦，我们再看看网上给出的比较简洁的一个版本</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>:w !sudo tee %</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这里关键点在，<code>:w</code>后面可以接<code>shell</code>命令么？我们用<code>:h :w</code>查看一下帮助文档，发现确实有这样一个用法</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>:[range]w[rite] [++opt] !{cmd} 执行命令 {cmd}，以 [range] 指定的行作为它的标准输入...":w" 命令缺省的 [range] 是整个缓冲区 (1,$)。</span></code></pre></td></tr></table></div></figure>
+
+
+<p>也就是<code>:w</code>后面接<code>!{cmd}</code>命令时，就是把当前缓存区的所有内容传给后面的<code>shell</code>命令，这里我们用<code>tee</code>命令，它会把<code>stdin</code>里面的内容保存一份到后面接的文件路径里。
+因为<code>sudo</code>对<code>tee</code>命令提权了，因此<code>tee</code>命令可以写到当前文件。这就比<code>cat</code>命令好用一点。</p>
+
+<p>总结一下：</p>
+
+<ol>
+<li>用<code>:w</code>命令后加<code>!{cmd}</code>，这样默认就是整个缓冲区的内容传给<code>shell</code>，相比<code>:%!{cmd}</code>的用法来说，不需要选择范围.。</li>
+<li>用<code>tee</code>命令复制<code>stdin</code>的内容到当前文件，只需要在前面用<code>sudo</code>提权就可以，相比<code>cat</code>命令来说就不需要使用<code>bash -c "cat &gt; "</code>的方式来执行了。</li>
+</ol>
+
+
+<p>所以，上面的命令里，保存文件并不是<code>:w</code>命令去完成的，而是后面的<code>shell</code>完成的，<code>tee</code>的作用也只是把<code>stdin</code>里的内容保存到文件。
+正常情况下<code>tee</code>一般用于把当前<code>stdin</code>的数据保存一份到文件，同时输入到<code>stdout</code>，可供管道中下一个命令使用，但实际我们这里并没有用于输出到<code>stdout</code>的功能。</p>
+
+<p>PS: stackoverflow上有关于这个问题的讨论 <a href="https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work">https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[linux join 命令的使用]]></title>

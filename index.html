@@ -9,7 +9,8 @@
   <meta name="author" content="caiyili">
 
   
-  <meta name="description" content="join命令的使用 有时候，我们可能需要对多个文件进行类似mysql的join操作，linux的join命令可以帮助我们实现。 ">
+  <meta name="description" content="使用VIM时经常会遇到一种情况，就是修改完一个文件后，发现没有权限保存。这个时候我们通常有两种选择 退出vim，用sudo vim &lt;filepath&gt;打开重新修改。
+先把当前内容保存在一个可写的临时文件里面，然后再使用sudo提升权限把临时文件复制到需要修改的文件。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +84,56 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/04/26/vim-sudo-save/">vim提权保存</a></h1>
+    
+    
+      
+      <p class="meta">
+        
+
+
+
+
+2018-04-26 15:42:40 +0800
+        
+      </p>
+      
+    
+  </header>
+
+
+  <div class="entry-content"><p>使用<code>VIM</code>时经常会遇到一种情况，就是修改完一个文件后，发现没有权限保存。这个时候我们通常有两种选择</p>
+
+<ol>
+<li>退出<code>vim</code>，用<code>sudo vim &lt;filepath&gt;</code>打开重新修改。</li>
+<li>先把当前内容保存在一个可写的临时文件里面，然后再使用<code>sudo</code>提升权限把临时文件复制到需要修改的文件。</li>
+</ol>
+
+
+<p>有没有办法直接在<code>vim</code>里面，把当前权限提升，然后修改呢？可以，网上给的方式一般是这样的：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>:w !sudo tee %</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但是为什么可以这么写呢？本文主要解释下这行命令的原理。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2018/04/26/vim-sudo-save/">查看全文</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
