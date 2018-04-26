@@ -4,7 +4,7 @@
   <title><![CDATA[Category: vim | 伊利]]></title>
   <link href="http://caiyili.github.io/blog/categories/vim/atom.xml" rel="self"/>
   <link href="http://caiyili.github.io/"/>
-  <updated>2018-04-19T14:48:27+08:00</updated>
+  <updated>2018-04-26T11:14:16+08:00</updated>
   <id>http://caiyili.github.io/</id>
   <author>
     <name><![CDATA[caiyili]]></name>
@@ -21,79 +21,6 @@
     <content type="html"><![CDATA[<p>vim使用</p>
 
 <p>vim-ppt地址： <a href="http://yilli.net/vim-ppt.html">http://yilli.net/vim-ppt.html</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[vim与tags]]></title>
-    <link href="http://caiyili.github.io/blog/2015/02/02/ctags-vim/"/>
-    <updated>2015-02-02T13:09:12+08:00</updated>
-    <id>http://caiyili.github.io/blog/2015/02/02/ctags-vim</id>
-    <content type="html"><![CDATA[<h3>生成<code>ctags</code>文件</h3>
-
-<ul>
-<li><code>ctags</code>生成指定语言的<code>tags</code>，<code>ctags -R --languages=php</code></li>
-<li>可支持php命名空间的ctags patch <a href="https://github.com/shawncplus/phpcomplete.vim/wiki/Patched-ctags">https://github.com/shawncplus/phpcomplete.vim/wiki/Patched-ctags</a></li>
-</ul>
-
-
-<h3>在<code>vim</code>外部直接打开并定位到某一函数/类</h3>
-
-<ul>
-<li><code>vim -t getInstance</code> 打开函数名为<code>getInstance</code>的文件并自动跳转到这个函数( 要在<code>tags</code>文件存在的目录)。
-<code>
-vim -t getInstance
-vim -t /getInst
-vim -t /^getInst
-</code></li>
-<li>如果有多个会让你选择，打开后可以用<code>:tn</code>,<code>:tp</code>,<code>:ts</code>选择前一个、后一个、列表选择</li>
-</ul>
-
-
-<!-- more -->
-
-
-<h3>在<code>vim</code>内部使用tags</h3>
-
-<ul>
-<li><p><code>tag</code> 系列 <em>直接跳转到其中一个匹配的tag</em></p>
-
-<ul>
-<li><code>tag {tag-regexp}</code></li>
-<li><code>tn[ext]</code> (0tn 表示跳转到当前已经在的tag,但可以在状态栏显示当前是第几个tag)</li>
-<li><code>tp[revious]</code></li>
-<li><code>tr[ewind]</code></li>
-<li><code>tN[ext]</code> == <code>tp</code></li>
-<li><code>tf[irst]</code></li>
-<li><code>tl[ast]</code></li>
-</ul>
-</li>
-<li><p><code>tselect</code> 系列 <em>选择tag列表</em></p>
-
-<ul>
-<li><code>ts[elect] {tag-regexp}</code></li>
-<li><code>sts[elect] {tag-regexp}</code> 在split窗口打开</li>
-</ul>
-</li>
-<li><p><code>tjump</code>系列 <em>匹配一个就直接跳转，多个就让选择</em></p>
-
-<ul>
-<li><code>tj[ump] {tag-regexp}</code></li>
-<li><code>stj[ump] {tag-regexp}</code> 在split窗口中打开</li>
-</ul>
-</li>
-<li><p><code>tag-preview</code>系列 <em>在一个preview的窗口中打开</em></p>
-
-<ul>
-<li>比如想看一个函数的使用，可以 <code>:ptj /cn_tr</code>，在一个preview窗口中打开这个函数</li>
-<li><code>pts[elect]</code></li>
-<li><code>ptj[ump]</code></li>
-<li><code>pta[g]</code></li>
-<li><code>ptn</code>,<code>ptp</code>,<code>ptf</code>,<code>ptl</code>&hellip;等</li>
-</ul>
-</li>
-</ul>
-
 ]]></content>
   </entry>
   
