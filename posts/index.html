@@ -29,19 +29,19 @@
 
     
     
-      <link href="/index.xml" rel="alternate" type="application/rss+xml" title="YILI" />
-      <link href="/index.xml" rel="feed" type="application/rss+xml" title="YILI" />
+      <link href="/posts/index.xml" rel="alternate" type="application/rss+xml" title="YILI" />
+      <link href="/posts/index.xml" rel="feed" type="application/rss+xml" title="YILI" />
       
     
     
-    <meta property="og:title" content="YILI" />
+    <meta property="og:title" content="Posts" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="http://yilli.net/" />
+<meta property="og:url" content="http://yilli.net/posts/" />
 
-<meta itemprop="name" content="YILI">
+<meta itemprop="name" content="Posts">
 <meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="YILI"/>
+<meta name="twitter:title" content="Posts"/>
 <meta name="twitter:description" content=""/>
 
 	
@@ -75,7 +75,7 @@
 
       <div class="tc-l pv3 ph3 ph4-ns">
         <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
-          YILI
+          Posts
         </h1>
         
       </div>
@@ -85,46 +85,21 @@
 
     <main class="pb7" role="main">
       
- <article class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray">
-    
-  </article>
-  
-  
-  
-  
-  
-  
-  
-    
-    
-
-    <div class="pa3 pa4-ns w-100 w-70-ns center">
+  <article class="pa3 pa4-ns nested-copy-line-height">
+    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray"></section>
+    <section class="flex-ns flex-wrap justify-around mt5">
       
-       
-          <h1 class="flex-none">
-            Recent Posts
-          </h1>
-        
-
-      
-
-      <section class="w-100 mw8">
-        
-        
-          <div class="relative w-100 mb4">
-            
-<article class="bb b--black-10">
-  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
-    <div class="flex flex-column flex-row-ns">
-      
-      <div class="blah w-100">
-        <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="/posts/export-ynote-markdown-file/" class="color-inherit dim link">
-            Export Ynote Markdown File
-            </a>
-        </h1>
-        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          如何导出网易云笔记的markdown文件 之前在网易云笔记中记录的日常工作，想导出到iCloud中，但网易云笔记又没提供这种功能。
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/export-ynote-markdown-file/" class="link black dim">
+        Export Ynote Markdown File
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      如何导出网易云笔记的markdown文件 之前在网易云笔记中记录的日常工作，想导出到iCloud中，但网易云笔记又没提供这种功能。
 其实我们写的是markdown文件，理论上把这个文档复制出来就可以了，但关键是，网易云笔记把这些文件存在哪了呢？
 所以问题就变成了，查找网易云笔记把markdown文件存在哪个目录了。
 查找文档存储路径 在网上搜了一下这个问题，并没有找到答案，所以就只能自己查找了。
@@ -144,22 +119,13 @@ sqlite3 ./weixinobU7VjhaCZpyxS-C4EvXybgbIBZI/ynote-data/weixinobU7VjhaCZpyxS-C4E
 db_state resource todo typeorm_metadata double_chain resource_entry todo_order user note root todo_type note_and_note_book share_link todo_type_order note_book tag todo_version 很明显，那个note表就非常可疑，查了一下，果然文件名和路径的映射关系就在这里面。
 最后，我们来个完整的命令
 echo &#34;select title, entryPath from note&#34; | \ sqlite3 ./weixinobU7VjhaCZpyxS-C4EvXybgbIBZI/ynote-data/weixinobU7VjhaCZpyxS-C4EvXybgbIBZI.db | \ while read line; do title=${line/|*}; filepath=${line#*|}; echo &#34;title=$title filepath=$filepath&#34;; cp &#34;$filepath&#34; &#34;$HOME/Desktop/ynote/$title.
-        </div>
-          <a href="/posts/export-ynote-markdown-file/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-        
-      </div>
     </div>
   </div>
-</article>
+</div>
 
-          </div>
-        
-      </section>
-
+        </div>
       
-
-      </div>
-  
+    </section></article>
 
     </main>
     <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
