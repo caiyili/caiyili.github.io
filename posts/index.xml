@@ -8,12 +8,12 @@
     <language>en-us</language>
     <lastBuildDate>Fri, 01 Jul 2022 22:29:03 +0800</lastBuildDate><atom:link href="http://yilli.net/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Export Ynote Markdown File</title>
+      <title>如何导出网易云笔记的markdown文件</title>
       <link>http://yilli.net/posts/export-ynote-markdown-file/</link>
       <pubDate>Fri, 01 Jul 2022 22:29:03 +0800</pubDate>
       
       <guid>http://yilli.net/posts/export-ynote-markdown-file/</guid>
-      <description>如何导出网易云笔记的markdown文件 之前在网易云笔记中记录的日常工作，想导出到iCloud中，但网易云笔记又没提供这种功能。
+      <description>之前在网易云笔记中记录的日常工作，想导出到iCloud中，但网易云笔记又没提供这种功能。
 其实我们写的是markdown文件，理论上把这个文档复制出来就可以了，但关键是，网易云笔记把这些文件存在哪了呢？
 所以问题就变成了，查找网易云笔记把markdown文件存在哪个目录了。
 查找文档存储路径 在网上搜了一下这个问题，并没有找到答案，所以就只能自己查找了。
