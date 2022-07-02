@@ -1,12 +1,8 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>如何导出网易云笔记的markdown文件 | YILI</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="之前在网易云笔记中记录的日常工作，想导出到iCloud中，但网易云笔记又没提供这种功能。
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>如何导出网易云笔记的markdown文件 - YILI</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="之前在网易云笔记中记录的日常工作，想导出到iCloud中，但网易云笔记又没提供这种功能。
 其实我们写的是markdown文件，理论上把这个文档复制出来就可以了，但关键是，网易云笔记把这些文件存在哪了呢？
 所以问题就变成了，查找网易云笔记把markdown文件存在哪个目录了。
 查找文档存储路径 在网上搜了一下这个问题，并没有找到答案，所以就只能自己查找了。
@@ -25,30 +21,9 @@ sqlite3 ./weixinobU7VjhaCZpyxS-C4EvXybgbIBZI/ynote-data/weixinobU7VjhaCZpyxS-C4E
 .tables 输出
 db_state resource todo typeorm_metadata double_chain resource_entry todo_order user note root todo_type note_and_note_book share_link todo_type_order note_book tag todo_version 很明显，那个note表就非常可疑，查了一下，果然文件名和路径的映射关系就在这里面。
 最后，我们来个完整的命令
-echo &#34;select title, entryPath from note&#34; | \ sqlite3 ./weixinobU7VjhaCZpyxS-C4EvXybgbIBZI/ynote-data/weixinobU7VjhaCZpyxS-C4EvXybgbIBZI.db | \ while read line; do title=${line/|*}; filepath=${line#*|}; echo &#34;title=$title filepath=$filepath&#34;; cp &#34;$filepath&#34; &#34;$HOME/Desktop/ynote/$title.">
-    <meta name="generator" content="Hugo 0.101.0" />
-    
-    
-    
-    
-      <meta name="robots" content="noindex, nofollow">
-    
-
-    
-<link rel="stylesheet" href="/ananke/css/main.min.css" >
-
-
-
-    
-    
-    
-      
-
-    
-
-    
-    
-    <meta property="og:title" content="如何导出网易云笔记的markdown文件" />
+echo &#34;select title, entryPath from note&#34; | \ sqlite3 ./weixinobU7VjhaCZpyxS-C4EvXybgbIBZI/ynote-data/weixinobU7VjhaCZpyxS-C4EvXybgbIBZI.db | \ while read line; do title=${line/|*}; filepath=${line#*|}; echo &#34;title=$title filepath=$filepath&#34;; cp &#34;$filepath&#34; &#34;$HOME/Desktop/ynote/$title." />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="如何导出网易云笔记的markdown文件" />
 <meta property="og:description" content="之前在网易云笔记中记录的日常工作，想导出到iCloud中，但网易云笔记又没提供这种功能。
 其实我们写的是markdown文件，理论上把这个文档复制出来就可以了，但关键是，网易云笔记把这些文件存在哪了呢？
 所以问题就变成了，查找网易云笔记把markdown文件存在哪个目录了。
@@ -71,33 +46,10 @@ db_state resource todo typeorm_metadata double_chain resource_entry todo_order u
 echo &#34;select title, entryPath from note&#34; | \ sqlite3 ./weixinobU7VjhaCZpyxS-C4EvXybgbIBZI/ynote-data/weixinobU7VjhaCZpyxS-C4EvXybgbIBZI.db | \ while read line; do title=${line/|*}; filepath=${line#*|}; echo &#34;title=$title filepath=$filepath&#34;; cp &#34;$filepath&#34; &#34;$HOME/Desktop/ynote/$title." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://yilli.net/posts/export-ynote-markdown-file/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-07-01T22:29:03+08:00" />
-<meta property="article:modified_time" content="2022-07-01T22:29:03+08:00" />
+<meta property="article:published_time" content="2022-07-01T18:17:57+08:00" />
+<meta property="article:modified_time" content="2022-07-01T18:17:57+08:00" />
 
-<meta itemprop="name" content="如何导出网易云笔记的markdown文件">
-<meta itemprop="description" content="之前在网易云笔记中记录的日常工作，想导出到iCloud中，但网易云笔记又没提供这种功能。
-其实我们写的是markdown文件，理论上把这个文档复制出来就可以了，但关键是，网易云笔记把这些文件存在哪了呢？
-所以问题就变成了，查找网易云笔记把markdown文件存在哪个目录了。
-查找文档存储路径 在网上搜了一下这个问题，并没有找到答案，所以就只能自己查找了。
-我们根据关键词，进行全局搜索。先猜测一下，因为这个是个人的数据，理论上应该是在mac用户的目录下，所以就不需要从根目录开始搜索了，就从$HOME目录开始搜索
-发现这个文件是存在$HOME/Library/Application Support/ynote-desktop/weixinobU7VjhaCZpyxS-C4EvXybgbIBZI/ynote-data/file/0/WEB5a9a1fd7667b36ac70d75f6a61c2a870 这个路径下，打开这个文件，确认就是一篇完整的markdown文档。可以看出来，他的数据都存在$HOME/Library/Application Support/ynote-desktop 这个目录下，而具体的markdown内容存在weixin.../ynote-data/file/这个目录下。
-PS: 为啥网易云笔记存的文档路径上带weixin？
-如何找到每个文档对应的文件名 文档存放位置是找到了，但他的文件名都是hash值，并不是我们的创建文档时的文件名，应该是在另外一个地方维护了这个对应关系。那么文件名和路径对应关系是存在哪呢？
-先推测一下，一般有2种方式
-用一个类似json格式的文本文件来维护 用数据库来维护 如果是用文本文件维护的话，那我们找一个路径全局搜索一下，应该能搜索到，先尝试一下
-如上图所示，确实有搜索到，但搜索出来的结果都是日志，其实把这个日志处理下，也能提取出文件名，但是&hellip;太麻烦了。
-既然不是用文件来维护的，那很可能就是数据库，他会选择用什么数据库呢？
-一个他要能离线使用，大概率就是sqlite数据库了，那我们尝试找一下这个数据库文件。 我们查找目录下所有的.db结尾的文件，并列出来大小，方便判断。
-find . -type f -name &#39;*.db&#39; | xargs ls -alh 看起来./databases/Databases.db很可疑，不过我进去看了一下，并没有什么有用的信息。所以我又试了./weixinobU7VjhaCZpyxS-C4EvXybgbIBZI/ynote-data/weixinobU7VjhaCZpyxS-C4EvXybgbIBZI.db这个，嘿，发现真的就在这个文件里。
-先连上数据库
-sqlite3 ./weixinobU7VjhaCZpyxS-C4EvXybgbIBZI/ynote-data/weixinobU7VjhaCZpyxS-C4EvXybgbIBZI.db 查看下有哪些表
-.tables 输出
-db_state resource todo typeorm_metadata double_chain resource_entry todo_order user note root todo_type note_and_note_book share_link todo_type_order note_book tag todo_version 很明显，那个note表就非常可疑，查了一下，果然文件名和路径的映射关系就在这里面。
-最后，我们来个完整的命令
-echo &#34;select title, entryPath from note&#34; | \ sqlite3 ./weixinobU7VjhaCZpyxS-C4EvXybgbIBZI/ynote-data/weixinobU7VjhaCZpyxS-C4EvXybgbIBZI.db | \ while read line; do title=${line/|*}; filepath=${line#*|}; echo &#34;title=$title filepath=$filepath&#34;; cp &#34;$filepath&#34; &#34;$HOME/Desktop/ynote/$title."><meta itemprop="datePublished" content="2022-07-01T22:29:03+08:00" />
-<meta itemprop="dateModified" content="2022-07-01T22:29:03+08:00" />
-<meta itemprop="wordCount" content="86">
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="如何导出网易云笔记的markdown文件"/>
 <meta name="twitter:description" content="之前在网易云笔记中记录的日常工作，想导出到iCloud中，但网易云笔记又没提供这种功能。
 其实我们写的是markdown文件，理论上把这个文档复制出来就可以了，但关键是，网易云笔记把这些文件存在哪了呢？
@@ -121,79 +73,38 @@ db_state resource todo typeorm_metadata double_chain resource_entry todo_order u
 echo &#34;select title, entryPath from note&#34; | \ sqlite3 ./weixinobU7VjhaCZpyxS-C4EvXybgbIBZI/ynote-data/weixinobU7VjhaCZpyxS-C4EvXybgbIBZI.db | \ while read line; do title=${line/|*}; filepath=${line#*|}; echo &#34;title=$title filepath=$filepath&#34;; cp &#34;$filepath&#34; &#34;$HOME/Desktop/ynote/$title."/>
 
 	
-  </head>
+        <link href="http://yilli.net/css/fonts.b685ac6f654695232de7b82a9143a46f9e049c8e3af3a21d9737b01f4be211d1.css" rel="stylesheet">
+	
 
-  <body class="ma0 avenir bg-near-white">
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://yilli.net/css/main.d1574b43a51792a446cd761d6f9b1c9abb39ed2c36ca6984f74aef729eb9f245.css" />
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://yilli.net/">YILI</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
 
-    
-   
-  
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">如何导出网易云笔记的markdown文件</h1>
+			<div class="meta">Posted on Jul 1, 2022</div>
+		</div>
+		
 
-  <header>
-    <div class="bg-black">
-      <nav class="pv3 ph3 ph4-ns" role="navigation">
-  <div class="flex-l justify-between items-center center">
-    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
-      
-        YILI
-      
-    </a>
-    <div class="flex-l items-center">
-      
-
-      
-      
-<div class="ananke-socials">
-  
-</div>
-
-    </div>
-  </div>
-</nav>
-
-    </div>
-  </header>
-
-
-
-    <main class="pb7" role="main">
-      
-  
-  <article class="flex-l flex-wrap justify-between mw8 center ph3">
-    <header class="mt4 w-100">
-      <aside class="instapaper_ignoref b helvetica tracked">
-          
-        POSTS
-      </aside>
-      
-
-
-
-
-
-
-
-
-
-
-  <div id="sharing" class="mt3 ananke-socials">
-    
-  </div>
-
-
-      <h1 class="f1 athelas mt3 mb1">如何导出网易云笔记的markdown文件</h1>
-      
-      
-      
-      <time class="f6 mv4 dib tracked" datetime="2022-07-01T22:29:03+08:00">July 1, 2022</time>
-      
-
-      
-      
-    </header>
-    <div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>之前在网易云笔记中记录的日常工作，想导出到iCloud中，但网易云笔记又没提供这种功能。</p>
+		<section class="body">
+			<p>之前在网易云笔记中记录的日常工作，想导出到iCloud中，但网易云笔记又没提供这种功能。</p>
 <p>其实我们写的是markdown文件，理论上把这个文档复制出来就可以了，但关键是，网易云笔记把这些文件存在哪了呢？</p>
 <p>所以问题就变成了，查找网易云笔记把markdown文件存在哪个目录了。</p>
+<!-- raw HTML omitted -->
 <h2 id="查找文档存储路径">查找文档存储路径</h2>
 <p>在网上搜了一下这个问题，并没有找到答案，所以就只能自己查找了。</p>
 <p>我们根据关键词，进行全局搜索。先猜测一下，因为这个是个人的数据，理论上应该是在mac用户的目录下，所以就不需要从根目录开始搜索了，就从<code>$HOME</code>目录开始搜索</p>
@@ -244,37 +155,25 @@ note_book           tag                 todo_version
 </span></span></code></pre></div><p>提取完之后，再整理整理，就可以复制到iCloud中去了。
 最后效果：</p>
 <p><img src="assets/IMG_3.png" alt="图片"></p>
-<ul class="pa0">
-  
-</ul>
-<div class="mt6 instapaper_ignoref">
-      
-      
-      </div>
-    </div>
 
-    <aside class="w-30-l mt6-l">
+		</section>
 
-
-
-
-</aside>
-
-  </article>
-
-    </main>
-    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
-  <div class="flex justify-between">
-  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://yilli.net/" >
-    &copy;  YILI 2022 
-  </a>
-    <div>
-<div class="ananke-socials">
-  
-</div>
-</div>
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2022  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
   </div>
 </footer>
 
-  </body>
+
+</div>
+    </body>
 </html>
