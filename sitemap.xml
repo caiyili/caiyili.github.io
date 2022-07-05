@@ -2,6 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://yilli.net/about/</loc>
+    <lastmod>2022-07-05T19:49:14+08:00</lastmod>
+  </url><url>
     <loc>http://yilli.net/posts/</loc>
     <lastmod>2022-07-01T18:17:57+08:00</lastmod>
   </url><url>
@@ -35,15 +38,19 @@
     <loc>http://yilli.net/posts/2015-09-06-ssh/</loc>
     <lastmod>2015-09-06T22:16:48+08:00</lastmod>
   </url><url>
-    <loc>http://yilli.net/categories/cat/</loc>
+    <loc>http://yilli.net/tags/cat/</loc>
     <lastmod>2015-02-02T13:20:18+08:00</lastmod>
   </url><url>
-    <loc>http://yilli.net/categories/less/</loc>
+    <loc>http://yilli.net/tags/less/</loc>
     <lastmod>2015-02-02T13:20:18+08:00</lastmod>
   </url><url>
-    <loc>http://yilli.net/posts/2015-02-02-cat-with-color/</loc>
+    <loc>http://yilli.net/tags/shell/</loc>
     <lastmod>2015-02-02T13:20:18+08:00</lastmod>
   </url><url>
     <loc>http://yilli.net/tags/</loc>
+    <lastmod>2015-02-02T13:20:18+08:00</lastmod>
+  </url><url>
+    <loc>http://yilli.net/posts/less-with-syntax-highlight/</loc>
+    <lastmod>2015-02-02T13:20:18+08:00</lastmod>
   </url>
 </urlset>

@@ -8,6 +8,15 @@
     <language>zh-cn</language>
     <lastBuildDate>Fri, 01 Jul 2022 18:17:57 +0800</lastBuildDate><atom:link href="http://yilli.net/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>About</title>
+      <link>http://yilli.net/about/</link>
+      <pubDate>Tue, 05 Jul 2022 19:49:14 +0800</pubDate>
+      
+      <guid>http://yilli.net/about/</guid>
+      <description>//这里什么都没有</description>
+    </item>
+    
+    <item>
       <title>如何导出网易云笔记的markdown文件</title>
       <link>http://yilli.net/posts/export-ynote-markdown-file/</link>
       <pubDate>Fri, 01 Jul 2022 18:17:57 +0800</pubDate>
@@ -24,12 +33,11 @@
       <pubDate>Fri, 07 Apr 2017 20:14:13 +0800</pubDate>
       
       <guid>http://yilli.net/posts/2017-04-07-linux-command-join/</guid>
-      <description>&lt;h2 id=&#34;join命令的使用&#34;&gt;join命令的使用&lt;/h2&gt;
-&lt;p&gt;有时候，我们可能需要对多个文件进行类似&lt;code&gt;mysql&lt;/code&gt;的&lt;code&gt;join&lt;/code&gt;操作，&lt;code&gt;linux&lt;/code&gt;的&lt;code&gt;join&lt;/code&gt;命令可以帮助我们实现。&lt;/p&gt;</description>
+      <description>&lt;p&gt;有时候，我们可能需要对多个文件进行类似&lt;code&gt;mysql&lt;/code&gt;的&lt;code&gt;join&lt;/code&gt;操作，&lt;code&gt;linux&lt;/code&gt;的&lt;code&gt;join&lt;/code&gt;命令可以帮助我们实现。&lt;/p&gt;</description>
     </item>
     
     <item>
-      <title>git</title>
+      <title>gitlab code review</title>
       <link>http://yilli.net/posts/2015-11-02-git/</link>
       <pubDate>Mon, 02 Nov 2015 21:57:09 +0800</pubDate>
       
@@ -38,7 +46,7 @@
     </item>
     
     <item>
-      <title>vim</title>
+      <title>vim ppt</title>
       <link>http://yilli.net/posts/2015-09-06-vim/</link>
       <pubDate>Sun, 06 Sep 2015 23:18:42 +0800</pubDate>
       
@@ -53,23 +61,18 @@ vim-ppt地址： http://yilli.net/vim-ppt.html</description>
       <pubDate>Sun, 06 Sep 2015 22:16:48 +0800</pubDate>
       
       <guid>http://yilli.net/posts/2015-09-06-ssh/</guid>
-      <description>&lt;h2 id=&#34;sshsecure-shell&#34;&gt;ssh(Secure Shell)&lt;/h2&gt;
-&lt;h3 id=&#34;ssh简介&#34;&gt;ssh简介&lt;/h3&gt;
-&lt;p&gt;传统网络服务程序(ftp/telnet/&amp;hellip;)本质上是不安全的，使用明文传输口令和数据，可以被截获。&lt;br&gt;
+      <description>&lt;p&gt;传统网络服务程序(ftp/telnet/&amp;hellip;)本质上是不安全的，使用明文传输口令和数据，可以被截获。&lt;br&gt;
 安全验证方式也有其弱点，容易受到“中间人”攻击。&lt;/p&gt;</description>
     </item>
     
     <item>
-      <title>让less&amp;cat具有语法高亮功能</title>
-      <link>http://yilli.net/posts/2015-02-02-cat-with-color/</link>
+      <title>如何让less具有语法高亮功能</title>
+      <link>http://yilli.net/posts/less-with-syntax-highlight/</link>
       <pubDate>Mon, 02 Feb 2015 13:20:18 +0800</pubDate>
       
-      <guid>http://yilli.net/posts/2015-02-02-cat-with-color/</guid>
-      <description>&lt;h3 id=&#34;让cat支持语法高亮&#34;&gt;让cat支持语法高亮&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Colored up cat!&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# You must install Pygments first &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;alias c&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;pygmentize -O style=monokai -f console256 -g&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;其实是用pygmentize代替cat。这样查看一个文件&lt;code&gt;c index.php&lt;/code&gt;就是带语法高亮的了。&lt;/p&gt;</description>
+      <guid>http://yilli.net/posts/less-with-syntax-highlight/</guid>
+      <description>&lt;p&gt;有时候我们会用&lt;code&gt;less&lt;/code&gt;命令来看代码，但他们没有语法高亮功能。
+怎么能让他们像IDE一样有语法高亮功能呢？&lt;/p&gt;</description>
     </item>
     
   </channel>

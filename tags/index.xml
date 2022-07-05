@@ -5,6 +5,34 @@
     <link>http://yilli.net/tags/</link>
     <description>Recent content in Tags on YILI</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language><atom:link href="http://yilli.net/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 02 Feb 2015 13:20:18 +0800</lastBuildDate><atom:link href="http://yilli.net/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>cat</title>
+      <link>http://yilli.net/tags/cat/</link>
+      <pubDate>Mon, 02 Feb 2015 13:20:18 +0800</pubDate>
+      
+      <guid>http://yilli.net/tags/cat/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>less</title>
+      <link>http://yilli.net/tags/less/</link>
+      <pubDate>Mon, 02 Feb 2015 13:20:18 +0800</pubDate>
+      
+      <guid>http://yilli.net/tags/less/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>shell</title>
+      <link>http://yilli.net/tags/shell/</link>
+      <pubDate>Mon, 02 Feb 2015 13:20:18 +0800</pubDate>
+      
+      <guid>http://yilli.net/tags/shell/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

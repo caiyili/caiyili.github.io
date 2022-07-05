@@ -13,8 +13,7 @@
       <pubDate>Fri, 07 Apr 2017 20:14:13 +0800</pubDate>
       
       <guid>http://yilli.net/posts/2017-04-07-linux-command-join/</guid>
-      <description>&lt;h2 id=&#34;join命令的使用&#34;&gt;join命令的使用&lt;/h2&gt;
-&lt;p&gt;有时候，我们可能需要对多个文件进行类似&lt;code&gt;mysql&lt;/code&gt;的&lt;code&gt;join&lt;/code&gt;操作，&lt;code&gt;linux&lt;/code&gt;的&lt;code&gt;join&lt;/code&gt;命令可以帮助我们实现。&lt;/p&gt;</description>
+      <description>&lt;p&gt;有时候，我们可能需要对多个文件进行类似&lt;code&gt;mysql&lt;/code&gt;的&lt;code&gt;join&lt;/code&gt;操作，&lt;code&gt;linux&lt;/code&gt;的&lt;code&gt;join&lt;/code&gt;命令可以帮助我们实现。&lt;/p&gt;</description>
     </item>
     
   </channel>

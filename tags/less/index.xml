@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>less on YILI</title>
+    <link>http://yilli.net/tags/less/</link>
+    <description>Recent content in less on YILI</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 02 Feb 2015 13:20:18 +0800</lastBuildDate><atom:link href="http://yilli.net/tags/less/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何让less具有语法高亮功能</title>
+      <link>http://yilli.net/posts/less-with-syntax-highlight/</link>
+      <pubDate>Mon, 02 Feb 2015 13:20:18 +0800</pubDate>
+      
+      <guid>http://yilli.net/posts/less-with-syntax-highlight/</guid>
+      <description>&lt;p&gt;有时候我们会用&lt;code&gt;less&lt;/code&gt;命令来看代码，但他们没有语法高亮功能。
+怎么能让他们像IDE一样有语法高亮功能呢？&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

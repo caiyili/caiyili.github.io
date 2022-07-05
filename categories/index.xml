@@ -34,23 +34,5 @@
       <description></description>
     </item>
     
-    <item>
-      <title>cat</title>
-      <link>http://yilli.net/categories/cat/</link>
-      <pubDate>Mon, 02 Feb 2015 13:20:18 +0800</pubDate>
-      
-      <guid>http://yilli.net/categories/cat/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>less</title>
-      <link>http://yilli.net/categories/less/</link>
-      <pubDate>Mon, 02 Feb 2015 13:20:18 +0800</pubDate>
-      
-      <guid>http://yilli.net/categories/less/</guid>
-      <description></description>
-    </item>
-    
   </channel>
 </rss>
