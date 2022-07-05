@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>ssh - YILI</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="ssh(Secure Shell)
+ssh简介
+传统网络服务程序(ftp/telnet/&hellip;)本质上是不安全的，使用明文传输口令和数据，可以被截获。
+安全验证方式也有其弱点，容易受到“中间人”攻击。" />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="ssh" />
+<meta property="og:description" content="ssh(Secure Shell)
+ssh简介
+传统网络服务程序(ftp/telnet/&hellip;)本质上是不安全的，使用明文传输口令和数据，可以被截获。
+安全验证方式也有其弱点，容易受到“中间人”攻击。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://yilli.net/posts/2015-09-06-ssh/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2015-09-06T22:16:48+08:00" />
+<meta property="article:modified_time" content="2015-09-06T22:16:48+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ssh"/>
+<meta name="twitter:description" content="ssh(Secure Shell)
+ssh简介
+传统网络服务程序(ftp/telnet/&hellip;)本质上是不安全的，使用明文传输口令和数据，可以被截获。
+安全验证方式也有其弱点，容易受到“中间人”攻击。"/>
+
+	
+        <link href="http://yilli.net/css/fonts.b685ac6f654695232de7b82a9143a46f9e049c8e3af3a21d9737b01f4be211d1.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://yilli.net/css/main.d1574b43a51792a446cd761d6f9b1c9abb39ed2c36ca6984f74aef729eb9f245.css" />
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://yilli.net/">YILI</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">ssh</h1>
+			<div class="meta">Posted on Sep 6, 2015</div>
+		</div>
+		
+
+		<section class="body">
+			<h2 id="sshsecure-shell">ssh(Secure Shell)</h2>
+<h3 id="ssh简介">ssh简介</h3>
+<p>传统网络服务程序(ftp/telnet/&hellip;)本质上是不安全的，使用明文传输口令和数据，可以被截获。<br>
+安全验证方式也有其弱点，容易受到“中间人”攻击。</p>
+<p>ssh可以:</p>
+<ul>
+<li>把把传输的数据进行安全加密。</li>
+<li>数据经过压缩传输，更快。</li>
+</ul>
+<p>ssh应用</p>
+<ul>
+<li>slogin/ssh/scp/sftp</li>
+</ul>
+<h3 id="ssh远程登录">ssh远程登录</h3>
+<ul>
+<li>基于口令(用户名/密码认证)</li>
+<li>基于密匙(公钥/私钥认证)
+<ul>
+<li>ssh-keygen 生成密匙对</li>
+<li>对私钥的加密，防止私钥被盗。</li>
+<li>ssh-agent/ssh-add 密匙高速缓存</li>
+<li>~/.ssh/config 管理链接</li>
+</ul>
+</li>
+</ul>
+<p>总结：</p>
+<pre tabindex="0"><code>telnet/ftp  : 不安全    
+    |  
+ssh ：加密传输，密码认证麻烦
+    |  
+密匙认证(ssh-keygen)：私钥丢失的话危害极大  
+    |  
+私匙加密：每次输入麻烦  
+    |  
+ssh-agent：高速缓存解密后的key  
+    |  
+keychain(永久存储解密后的密钥)
+    | 
+共享链接
+</code></pre><h3 id="ssh_config-管理链接">ssh_config 管理链接</h3>
+<ul>
+<li>可以给需要链接的远程机器取别名，登录更方便</li>
+<li>需要连接到同一台机器多次时，可以配置链接共享，减少链接资源以及每次链接等待的时间</li>
+</ul>
+<p>~/.ssh/config配置示例</p>
+<pre tabindex="0"><code>Host *
+    ControlMaster auto
+    ControlPath /tmp/ssh_%h_%p_%r.rc
+Host vpc
+    HostName vpc.xxx.com
+    Port 22
+    User caiyili
+    IdentityFile ~/.ssh/caiyili.pem
+
+Host dev
+    HostName 172.16.2.9
+    User caiyili
+    Port 22
+    ForwardAgent no
+    ProxyCommand ssh -i ~/.ssh/caiyili.pem caiyili@vpc.xxx.com -W %h:%p
+</code></pre><h3 id="远程命令执行">远程命令执行</h3>
+<ul>
+<li>多台机器上执行同一命令</li>
+</ul>
+<pre tabindex="0"><code>#!/bin/sh
+
+cmd=${1:-&#34;pwd&#34;}
+for m in `cat machine.txt`; do 
+    echo &#34;=====$m cmd:&#39;$cmd&#39;====&#34;
+    ssh $m &#34;$cmd&#34;
+done
+</code></pre><ul>
+<li>diff本机和远程机器文件</li>
+</ul>
+<pre tabindex="0"><code>ssh user@host cat /path/to/file | diff /path/to/localfile -
+</code></pre>
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2022  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+</div>
+    </body>
+</html>

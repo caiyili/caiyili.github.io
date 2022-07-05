@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>让less&amp;cat具有语法高亮功能 - YILI</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="让cat支持语法高亮
+# Colored up cat!
+# You must install Pygments first 
+alias c=&#39;pygmentize -O style=monokai -f console256 -g&#39;
+其实是用pygmentize代替cat。这样查看一个文件c index.php就是带语法高亮的了。" />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="让less&amp;cat具有语法高亮功能" />
+<meta property="og:description" content="让cat支持语法高亮
+# Colored up cat!
+# You must install Pygments first 
+alias c=&#39;pygmentize -O style=monokai -f console256 -g&#39;
+其实是用pygmentize代替cat。这样查看一个文件c index.php就是带语法高亮的了。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://yilli.net/posts/2015-02-02-cat-with-color/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2015-02-02T13:20:18+08:00" />
+<meta property="article:modified_time" content="2015-02-02T13:20:18+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="让less&amp;cat具有语法高亮功能"/>
+<meta name="twitter:description" content="让cat支持语法高亮
+# Colored up cat!
+# You must install Pygments first 
+alias c=&#39;pygmentize -O style=monokai -f console256 -g&#39;
+其实是用pygmentize代替cat。这样查看一个文件c index.php就是带语法高亮的了。"/>
+
+	
+        <link href="http://yilli.net/css/fonts.b685ac6f654695232de7b82a9143a46f9e049c8e3af3a21d9737b01f4be211d1.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://yilli.net/css/main.d1574b43a51792a446cd761d6f9b1c9abb39ed2c36ca6984f74aef729eb9f245.css" />
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://yilli.net/">YILI</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">让less&amp;cat具有语法高亮功能</h1>
+			<div class="meta">Posted on Feb 2, 2015</div>
+		</div>
+		
+
+		<section class="body">
+			<h3 id="让cat支持语法高亮">让cat支持语法高亮</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># Colored up cat!</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># You must install Pygments first </span>
+</span></span><span style="display:flex;"><span>alias c<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;pygmentize -O style=monokai -f console256 -g&#39;</span>
+</span></span></code></pre></div><p>其实是用pygmentize代替cat。这样查看一个文件<code>c index.php</code>就是带语法高亮的了。</p>
+<p>首先要安装pygments，实际上下载一个就可以。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>wget https://pypi.python.org/packages/source/P/Pygments/Pygments-2.0.2.tar.gz#md5<span style="color:#f92672">=</span>238587a1370d62405edabd0794b3ec4a
+</span></span></code></pre></div><p>解压后就有一个<code>pygmentize</code>的脚本，就可以直接使用了。<br>
+高亮后的结果可以用more翻页。</p>
+<h3 id="让less支持语法高亮">让less支持语法高亮</h3>
+<p>如果让<code>less</code>命令支持语法高亮，可以参考这篇文章<a href="http://blog.kuaiwan.com/less-with-syntax-highlight-and-line-number.html">点击这里</a>，
+这里面是结合<code>source-highlight</code>使<code>less</code>具有语法高亮功能。<br>
+不过我尝试安装<code>source-highlight</code>失败了，因为要先安装<code>boost</code>，比较麻烦。。。<br>
+看它的实现原理是，<code>less</code>支持一个叫做<code>input preprocessor</code>的东西，在<code>less</code>处理前对文件进行预处理，既然这样，那应该也可以用
+<code>pygmentize</code>进行预处理吧，于是我改成了<code>pygmentize</code>。试了一下，果然可以，比安装<code>source-highlight</code>简单多了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># less hightlight</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#export LESSOPEN=&#34;| /usr/share/source-highlight/src-hilite-lesspipe.sh %s&#34;</span>
+</span></span><span style="display:flex;"><span>export LESSOPEN<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;| pygmentize %s&#34;</span>
+</span></span><span style="display:flex;"><span>export LESS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34; -R -N &#34;</span>
+</span></span></code></pre></div><p>另外用<code>less</code>打开一个文件，按<code>v</code>可以直接进入以<code>vim</code>编辑的模式。</p>
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2022  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+</div>
+    </body>
+</html>

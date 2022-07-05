@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>linux join 命令的使用 - YILI</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="join命令的使用
+有时候，我们可能需要对多个文件进行类似mysql的join操作，linux的join命令可以帮助我们实现。" />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="linux join 命令的使用" />
+<meta property="og:description" content="join命令的使用
+有时候，我们可能需要对多个文件进行类似mysql的join操作，linux的join命令可以帮助我们实现。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://yilli.net/posts/2017-04-07-linux-command-join/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2017-04-07T20:14:13+08:00" />
+<meta property="article:modified_time" content="2017-04-07T20:14:13+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="linux join 命令的使用"/>
+<meta name="twitter:description" content="join命令的使用
+有时候，我们可能需要对多个文件进行类似mysql的join操作，linux的join命令可以帮助我们实现。"/>
+
+	
+        <link href="http://yilli.net/css/fonts.b685ac6f654695232de7b82a9143a46f9e049c8e3af3a21d9737b01f4be211d1.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="http://yilli.net/css/main.d1574b43a51792a446cd761d6f9b1c9abb39ed2c36ca6984f74aef729eb9f245.css" />
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="http://yilli.net/">YILI</a>
+	</div>
+	<nav>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">linux join 命令的使用</h1>
+			<div class="meta">Posted on Apr 7, 2017</div>
+		</div>
+		
+
+		<section class="body">
+			<h2 id="join命令的使用">join命令的使用</h2>
+<p>有时候，我们可能需要对多个文件进行类似<code>mysql</code>的<code>join</code>操作，<code>linux</code>的<code>join</code>命令可以帮助我们实现。</p>
+<p>先看下<code>join</code>命令的帮助文档：</p>
+<pre tabindex="0"><code>join [-i][-a&lt;1或2&gt;][-e&lt;字符串&gt;][-o&lt;格式&gt;][-t&lt;字符&gt;][-v&lt;1或2&gt;][-1&lt;栏位&gt;][-2&lt;栏位&gt;][--help][--version][文件1][文件2]
+
+-a&lt;1或2&gt; 除了显示原来的输出内容之外，还显示指令文件中没有相同栏位的行。
+-e&lt;字符串&gt; 若[文件1]与[文件2]中找不到指定的栏位，则在输出中填入选项中的字符串。
+-i或--igore-case 比较栏位内容时，忽略大小写的差异。
+-o&lt;格式&gt; 按照指定的格式来显示结果。
+-t&lt;字符&gt; 使用栏位的分隔字符。
+-v&lt;1或2&gt; 跟-a相同，但是只显示文件中没有相同栏位的行。
+-1&lt;栏位&gt; 连接[文件1]指定的栏位。
+-2&lt;栏位&gt; 连接[文件2]指定的栏位。
+--help 显示帮助。
+--version 显示版本信息。
+</code></pre><p>需要注意的是，两个文件要关联的列，必须是排好序的，在<code>join</code>的帮忙文档里有这个提示。</p>
+<blockquote>
+<p>Important: FILE1 and FILE2 must be sorted on the join fields.  E.g., use ‘sort -k 1b,1’ if ‘join’ has no options.  Note, comparisons honor the rules specified by ‘LC_COLLATE’.<br>
+If the input is not sorted and some lines cannot be joined, a warning message will be given.</p>
+</blockquote>
+<p>比如有如下两文件</p>
+<ul>
+<li><code>room_user.txt</code> number号对应<code>user_id</code>的信息</li>
+</ul>
+<pre tabindex="0"><code>160719547073	878110
+160724952431	86
+16082441307553	5033669
+16082641610921	3279165
+16082741569921	5033669
+16092049685147	216444
+16092053864843	216444
+16092053944715	216444
+</code></pre><ul>
+<li><code>user_info.txt</code> 用户信息</li>
+</ul>
+<pre tabindex="0"><code>86	37151288	1581124978	老齐	齐华
+378140	41545878	1877133072	蒙智	智
+402724	66743288	1710031217	岑sir	岑
+216444	91080968	1001362269	牛牛老师	牛莉
+449475	62210648	1021949151	王一老师	王一
+575000	43516818	1012348103	希姐	王于
+628525	51932118	1892710438	湛Sky	黄兰
+1107410	79346968	1523486315	Nancy	龚霞
+1753240	43787538	1681681549	郭老	郭强
+</code></pre><p>现需要把两个文件关联起来，即<code>room_user.txt</code>中的第二列与<code>user_info.txt</code>中的第一列关联。</p>
+<ol>
+<li>先把两个文件按关联字段排序</li>
+</ol>
+<pre tabindex="0"><code>sort -k 2 -n -o room_user.txt room_user.txt
+sort -k 1 -n -o user_info.txt user_info.txt
+</code></pre><ol start="2">
+<li>如果第一个文件中用户ID不在第二个文件中则过滤的话（即类似数据库的内联接）</li>
+</ol>
+<pre tabindex="0"><code>join -1 2 -2 1 room_user.txt user_info.txt
+</code></pre><ol start="3">
+<li>如果需要指定输出列</li>
+</ol>
+<pre tabindex="0"><code>join -1 2 -2 1 -o 1.1 -o 1.2 -o 2.2 -o 2.3 -o 2.4 -o 2.5 room_user.txt user_info.txt
+</code></pre><ol start="4">
+<li>如果保留文件1中所有列，关联不上的标记为NULL</li>
+</ol>
+<pre tabindex="0"><code>join -a 1 -e NULL -1 2 -2 1 -o 1.1 -o 1.2 -o 2.2 -o 2.3 -o 2.4 -o 2.5 room_user.txt user_info.txt
+
+-a &lt;1|2&gt; 是指定保留哪个文件中没有关联上的，类似`mysql`中的`left join`
+-e &lt;string&gt; 是指定没有关联上的字段显示什么字符串
+</code></pre><ol start="5">
+<li>如果要查找文件1中不存在的用户（即<code>user_id</code>在第二个文件中不存在）</li>
+</ol>
+<pre tabindex="0"><code>join -v 1 -1 2 -2 1 -o 1.2 room_user.txt user_info.txt
+</code></pre><p>用这个方法也可以来对比两个文件的差异</p>
+<ol start="6">
+<li>指定分隔符号</li>
+</ol>
+<pre tabindex="0"><code>join -t $&#39;\t&#39; -v 1 -1 2 -2 1 -o 1.2 room_user.txt user_info.txt
+</code></pre><p>如要指定tab分隔符号，需要用<code>$'\t'</code>这种方式。关于转义符号，参考<a href="http://www.gnu.org/software/bash/manual/bashref.html#ANSI_002dC-Quoting">这里</a></p>
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2022  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+</div>
+    </body>
+</html>

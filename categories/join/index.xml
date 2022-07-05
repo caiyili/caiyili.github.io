@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>join on YILI</title>
+    <link>http://yilli.net/categories/join/</link>
+    <description>Recent content in join on YILI</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 07 Apr 2017 20:14:13 +0800</lastBuildDate><atom:link href="http://yilli.net/categories/join/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>linux join 命令的使用</title>
+      <link>http://yilli.net/posts/2017-04-07-linux-command-join/</link>
+      <pubDate>Fri, 07 Apr 2017 20:14:13 +0800</pubDate>
+      
+      <guid>http://yilli.net/posts/2017-04-07-linux-command-join/</guid>
+      <description>&lt;h2 id=&#34;join命令的使用&#34;&gt;join命令的使用&lt;/h2&gt;
+&lt;p&gt;有时候，我们可能需要对多个文件进行类似&lt;code&gt;mysql&lt;/code&gt;的&lt;code&gt;join&lt;/code&gt;操作，&lt;code&gt;linux&lt;/code&gt;的&lt;code&gt;join&lt;/code&gt;命令可以帮助我们实现。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
