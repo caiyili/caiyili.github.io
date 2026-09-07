@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>2024 Notes - YILI</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="2024.09.09 A Comprehensive Guide to Zap Logging https://betterstack.com/community/guides/logging/go/zap/ 2024.07.18 neural networks and deep learning 3Blue1Brown 推荐的学习机器学习的网站
+http://neuralnetworksanddeeplearning.com/
+https://colah.github.io/posts/2014-03-NN-Manifolds-Topology
+https://distill.pub/2017/momentum/
+Intuitive crutches for higher dimensional thinking https://mathoverflow.net/questions/25983/intuitive-crutches-for-higher-dimensional-thinking
+2024.07.16 k8s network https://tech.new-work.se/a-reason-for-unexplained-connection-timeouts-on-kubernetes-docker-abd041cf7e02
+https://kubernetes.io/blog/2019/03/29/kube-proxy-subtleties-debugging-an-intermittent-connection-reset/
+2024.07.15 通义千问文档 https://qwen.readthedocs.io/zh-cn/latest/getting_started/quickstart.html
+2024.07.02 Huggingface mirror export HF_ENDPOINT=https://hf-mirror.com 2024.06.26 SRS https://ossrs.io/lts/zh-cn/docs/v5/doc/getting-started 2024.06.17 Can Whisper be used for real-time streaming ASR ? https://www.youtube.com/watch?v=_spinzpEeFM 2024.06.04 MediaRecorder supported mime https://stackoverflow.com/questions/41739837/all-mime-types-supported-by-mediarecorder-in-firefox-and-chrome https://source.chromium.org/chromium/chromium/src/&#43;/main:third_party/blink/web_tests/fast/mediarecorder/MediaRecorder-isTypeSupported.html?q=MediaRecorder-isTypeSupported&amp;ss=chromium 2024.05.30 python websockets https://websockets.readthedocs.io/en/stable/howto/quickstart.html 2024.05.24 00 预训练语言模型的前世今生 https://www.cnblogs.com/nickchen121/p/16470569.html 2024.05.08 install code-server https://github." />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="2024 Notes" />
+<meta property="og:description" content="2024.09.09 A Comprehensive Guide to Zap Logging https://betterstack.com/community/guides/logging/go/zap/ 2024.07.18 neural networks and deep learning 3Blue1Brown 推荐的学习机器学习的网站
+http://neuralnetworksanddeeplearning.com/
+https://colah.github.io/posts/2014-03-NN-Manifolds-Topology
+https://distill.pub/2017/momentum/
+Intuitive crutches for higher dimensional thinking https://mathoverflow.net/questions/25983/intuitive-crutches-for-higher-dimensional-thinking
+2024.07.16 k8s network https://tech.new-work.se/a-reason-for-unexplained-connection-timeouts-on-kubernetes-docker-abd041cf7e02
+https://kubernetes.io/blog/2019/03/29/kube-proxy-subtleties-debugging-an-intermittent-connection-reset/
+2024.07.15 通义千问文档 https://qwen.readthedocs.io/zh-cn/latest/getting_started/quickstart.html
+2024.07.02 Huggingface mirror export HF_ENDPOINT=https://hf-mirror.com 2024.06.26 SRS https://ossrs.io/lts/zh-cn/docs/v5/doc/getting-started 2024.06.17 Can Whisper be used for real-time streaming ASR ? https://www.youtube.com/watch?v=_spinzpEeFM 2024.06.04 MediaRecorder supported mime https://stackoverflow.com/questions/41739837/all-mime-types-supported-by-mediarecorder-in-firefox-and-chrome https://source.chromium.org/chromium/chromium/src/&#43;/main:third_party/blink/web_tests/fast/mediarecorder/MediaRecorder-isTypeSupported.html?q=MediaRecorder-isTypeSupported&amp;ss=chromium 2024.05.30 python websockets https://websockets.readthedocs.io/en/stable/howto/quickstart.html 2024.05.24 00 预训练语言模型的前世今生 https://www.cnblogs.com/nickchen121/p/16470569.html 2024.05.08 install code-server https://github." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://caiyili.github.io/notes/2024-notes/" /><meta property="article:section" content="notes" />
+<meta property="article:published_time" content="2026-09-07T17:11:36+08:00" />
+<meta property="article:modified_time" content="2026-09-07T17:11:36+08:00" />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="2024 Notes"/>
+<meta name="twitter:description" content="2024.09.09 A Comprehensive Guide to Zap Logging https://betterstack.com/community/guides/logging/go/zap/ 2024.07.18 neural networks and deep learning 3Blue1Brown 推荐的学习机器学习的网站
+http://neuralnetworksanddeeplearning.com/
+https://colah.github.io/posts/2014-03-NN-Manifolds-Topology
+https://distill.pub/2017/momentum/
+Intuitive crutches for higher dimensional thinking https://mathoverflow.net/questions/25983/intuitive-crutches-for-higher-dimensional-thinking
+2024.07.16 k8s network https://tech.new-work.se/a-reason-for-unexplained-connection-timeouts-on-kubernetes-docker-abd041cf7e02
+https://kubernetes.io/blog/2019/03/29/kube-proxy-subtleties-debugging-an-intermittent-connection-reset/
+2024.07.15 通义千问文档 https://qwen.readthedocs.io/zh-cn/latest/getting_started/quickstart.html
+2024.07.02 Huggingface mirror export HF_ENDPOINT=https://hf-mirror.com 2024.06.26 SRS https://ossrs.io/lts/zh-cn/docs/v5/doc/getting-started 2024.06.17 Can Whisper be used for real-time streaming ASR ? https://www.youtube.com/watch?v=_spinzpEeFM 2024.06.04 MediaRecorder supported mime https://stackoverflow.com/questions/41739837/all-mime-types-supported-by-mediarecorder-in-firefox-and-chrome https://source.chromium.org/chromium/chromium/src/&#43;/main:third_party/blink/web_tests/fast/mediarecorder/MediaRecorder-isTypeSupported.html?q=MediaRecorder-isTypeSupported&amp;ss=chromium 2024.05.30 python websockets https://websockets.readthedocs.io/en/stable/howto/quickstart.html 2024.05.24 00 预训练语言模型的前世今生 https://www.cnblogs.com/nickchen121/p/16470569.html 2024.05.08 install code-server https://github."/>
+
+	
+        <link href="https://caiyili.github.io/css/fonts.b685ac6f654695232de7b82a9143a46f9e049c8e3af3a21d9737b01f4be211d1.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://caiyili.github.io/css/main.d1574b43a51792a446cd761d6f9b1c9abb39ed2c36ca6984f74aef729eb9f245.css" />
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://caiyili.github.io/">YILI</a>
+	</div>
+	<nav>
+		
+		<a href="/posts">All posts</a>
+		
+		<a href="/notes">Notes</a>
+		
+		<a href="/tags">Tags</a>
+		
+		<a href="/about">About</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">2024 Notes</h1>
+			<div class="meta">Posted on Sep 7, 2026</div>
+		</div>
+		
+
+		<section class="body">
+			<h2 id="20240909">2024.09.09</h2>
+<h3 id="a-comprehensive-guide-to-zap-logging">A Comprehensive Guide to Zap Logging</h3>
+<ul>
+<li><a href="https://betterstack.com/community/guides/logging/go/zap/">https://betterstack.com/community/guides/logging/go/zap/</a></li>
+</ul>
+<h2 id="20240718">2024.07.18</h2>
+<h3 id="neural-networks-and-deep-learning">neural networks and deep learning</h3>
+<p>3Blue1Brown 推荐的学习机器学习的网站</p>
+<blockquote>
+<p><a href="http://neuralnetworksanddeeplearning.com/">http://neuralnetworksanddeeplearning.com/</a></p>
+<p><a href="https://colah.github.io/posts/2014-03-NN-Manifolds-Topology">https://colah.github.io/posts/2014-03-NN-Manifolds-Topology</a></p>
+<p><a href="https://distill.pub/2017/momentum/">https://distill.pub/2017/momentum/</a></p>
+</blockquote>
+<h3 id="intuitive-crutches-for-higher-dimensional-thinking">Intuitive crutches for higher dimensional thinking</h3>
+<blockquote>
+<p><a href="https://mathoverflow.net/questions/25983/intuitive-crutches-for-higher-dimensional-thinking">https://mathoverflow.net/questions/25983/intuitive-crutches-for-higher-dimensional-thinking</a></p>
+</blockquote>
+<h2 id="20240716">2024.07.16</h2>
+<h3 id="k8s-network">k8s network</h3>
+<blockquote>
+<p><a href="https://tech.new-work.se/a-reason-for-unexplained-connection-timeouts-on-kubernetes-docker-abd041cf7e02">https://tech.new-work.se/a-reason-for-unexplained-connection-timeouts-on-kubernetes-docker-abd041cf7e02</a></p>
+<p><a href="https://kubernetes.io/blog/2019/03/29/kube-proxy-subtleties-debugging-an-intermittent-connection-reset/">https://kubernetes.io/blog/2019/03/29/kube-proxy-subtleties-debugging-an-intermittent-connection-reset/</a></p>
+</blockquote>
+<h2 id="20240715">2024.07.15</h2>
+<h3 id="通义千问文档">通义千问文档</h3>
+<blockquote>
+<p><a href="https://qwen.readthedocs.io/zh-cn/latest/getting_started/quickstart.html">https://qwen.readthedocs.io/zh-cn/latest/getting_started/quickstart.html</a></p>
+</blockquote>
+<h2 id="20240702">2024.07.02</h2>
+<h3 id="huggingface-mirror">Huggingface mirror</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export HF_ENDPOINT<span style="color:#f92672">=</span>https://hf-mirror.com
+</span></span></code></pre></div><h2 id="20240626">2024.06.26</h2>
+<h3 id="srs">SRS</h3>
+<ul>
+<li><a href="https://ossrs.io/lts/zh-cn/docs/v5/doc/getting-started">https://ossrs.io/lts/zh-cn/docs/v5/doc/getting-started</a></li>
+</ul>
+<h2 id="20240617">2024.06.17</h2>
+<h3 id="can-whisper-be-used-for-real-time-streaming-asr-">Can Whisper be used for real-time streaming ASR ?</h3>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=_spinzpEeFM">https://www.youtube.com/watch?v=_spinzpEeFM</a></li>
+</ul>
+<h2 id="20240604">2024.06.04</h2>
+<h3 id="mediarecorder-supported-mime">MediaRecorder supported mime</h3>
+<ul>
+<li><a href="https://stackoverflow.com/questions/41739837/all-mime-types-supported-by-mediarecorder-in-firefox-and-chrome">https://stackoverflow.com/questions/41739837/all-mime-types-supported-by-mediarecorder-in-firefox-and-chrome</a></li>
+<li><a href="https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/web_tests/fast/mediarecorder/MediaRecorder-isTypeSupported.html?q=MediaRecorder-isTypeSupported&amp;ss=chromium">https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/web_tests/fast/mediarecorder/MediaRecorder-isTypeSupported.html?q=MediaRecorder-isTypeSupported&amp;ss=chromium</a></li>
+</ul>
+<h2 id="20240530">2024.05.30</h2>
+<h3 id="python-websockets">python websockets</h3>
+<ul>
+<li><a href="https://websockets.readthedocs.io/en/stable/howto/quickstart.html">https://websockets.readthedocs.io/en/stable/howto/quickstart.html</a></li>
+</ul>
+<h2 id="20240524">2024.05.24</h2>
+<h3 id="00-预训练语言模型的前世今生">00 预训练语言模型的前世今生</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/nickchen121/p/16470569.html">https://www.cnblogs.com/nickchen121/p/16470569.html</a></li>
+</ul>
+<h2 id="20240508">2024.05.08</h2>
+<h3 id="install-code-server">install code-server</h3>
+<ul>
+<li><a href="https://github.com/coder/code-server/issues/347">https://github.com/coder/code-server/issues/347</a></li>
+</ul>
+<h2 id="20240506">2024.05.06</h2>
+<h3 id="kubernets-pod-qos">kubernets pod QoS</h3>
+<ul>
+<li><a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#guaranteed">https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#guaranteed</a></li>
+<li><a href="https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/">https://kubernetes.io/docs/tasks/configure-pod-container/quality-service-pod/</a></li>
+</ul>
+<h3 id="configure-kubernetes-memory-limits-for-java-app">configure Kubernetes memory limits for java app</h3>
+<ul>
+<li><a href="https://medium.com/@mark.andreev/how-to-configure-kubernetes-memory-limits-for-java-application-ec0cc5a68c24">https://medium.com/@mark.andreev/how-to-configure-kubernetes-memory-limits-for-java-application-ec0cc5a68c24</a></li>
+</ul>
+<h2 id="20240430">2024.04.30</h2>
+<h3 id="self-supervised-learning">self supervised learning</h3>
+<ul>
+<li><a href="https://neptune.ai/blog/self-supervised-learning">https://neptune.ai/blog/self-supervised-learning</a></li>
+</ul>
+<h3 id="illustrated-transformer">Illustrated transformer</h3>
+<ul>
+<li><a href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></li>
+</ul>
+<h3 id="attention-visualization">Attention Visualization</h3>
+<ul>
+<li><a href="https://poloclub.github.io/dodrio/">https://poloclub.github.io/dodrio/</a></li>
+</ul>
+<h3 id="go-enums">go enums</h3>
+<ul>
+<li><a href="https://blog.devtrovert.com/p/go-enums-the-right-way-to-implement">https://blog.devtrovert.com/p/go-enums-the-right-way-to-implement</a></li>
+</ul>
+<h2 id="20240426">2024.04.26</h2>
+<h3 id="word2vec">Word2vec</h3>
+<ul>
+<li>图解 Word2vec：<a href="https://cloud.tencent.com/developer/article/1430171">https://cloud.tencent.com/developer/article/1430171</a></li>
+<li>英文原文：<a href="https://jalammar.github.io/illustrated-word2vec/">https://jalammar.github.io/illustrated-word2vec/</a></li>
+</ul>
+<h2 id="20240416">2024.04.16</h2>
+<h3 id="ice-test">ice test</h3>
+<p>测试 ICE server 是否是通的</p>
+<ul>
+<li><a href="https://icetest.atec-systems.com/">https://icetest.atec-systems.com/</a></li>
+<li><a href="https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/">https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/</a></li>
+</ul>
+<h3 id="ice-交互流程介绍">ICE 交互流程介绍</h3>
+<ul>
+<li><a href="https://webrtc.mthli.com/basic/ice-stun-turn/">https://webrtc.mthli.com/basic/ice-stun-turn/</a></li>
+</ul>
+<h2 id="20240410">2024.04.10</h2>
+<h3 id="pytorch">PyTorch</h3>
+<ul>
+<li><a href="https://github.com/MorvanZhou/PyTorch-Tutorial">https://github.com/MorvanZhou/PyTorch-Tutorial</a></li>
+</ul>
+<h2 id="20240403">2024.04.03</h2>
+<h3 id="bert">BERT</h3>
+<ul>
+<li>用 PyTorch 和 BERT 进行文本分类: <a href="https://zhuanlan.zhihu.com/p/524487313">https://zhuanlan.zhihu.com/p/524487313</a></li>
+</ul>
+<h2 id="20240401">2024.04.01</h2>
+<h3 id="dind-image-cache">DinD image cache</h3>
+<ul>
+<li><a href="https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/">https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/</a></li>
+<li><a href="https://stackoverflow.com/questions/35556649/how-can-i-let-the-gitlab-ci-runner-dind-image-cache-intermediate-images">https://stackoverflow.com/questions/35556649/how-can-i-let-the-gitlab-ci-runner-dind-image-cache-intermediate-images</a></li>
+</ul>
+<h2 id="20240328">2024.03.28</h2>
+<h3 id="conda-使用指南">Conda 使用指南</h3>
+<ul>
+<li>Conda 使用指南：<a href="https://zhuanlan.zhihu.com/p/44398592">https://zhuanlan.zhihu.com/p/44398592</a></li>
+<li>Conda 源使用：<a href="https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/">https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/</a></li>
+</ul>
+<h3 id="openai-whisper-webservice">openai whisper webservice</h3>
+<ul>
+<li><a href="https://github.com/openai/whisper/discussions/132">https://github.com/openai/whisper/discussions/132</a></li>
+</ul>
+<blockquote>
+<p><code>docker run -d -p 9000:9000 -e ASR_MODEL=base onerahmet/openai-whisper-asr-webservice:latest</code></p>
+</blockquote>
+<h2 id="20240327">2024.03.27</h2>
+<h3 id="kubernetes-metrics">Kubernetes Metrics</h3>
+<ul>
+<li><a href="https://blog.freshtracks.io/a-deep-dive-into-kubernetes-metrics-b190cc97f0f6">https://blog.freshtracks.io/a-deep-dive-into-kubernetes-metrics-b190cc97f0f6</a></li>
+</ul>
+<h2 id="20240925">2024.09.25</h2>
+<h3 id="hugging-face-course">Hugging Face Course</h3>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=ftWlj4FBHTg&amp;list=PLo2EIpI_JMQvWfQndUesu0nPBAtZ9gP1o&amp;index=3">https://www.youtube.com/watch?v=ftWlj4FBHTg&amp;list=PLo2EIpI_JMQvWfQndUesu0nPBAtZ9gP1o&amp;index=3</a></li>
+</ul>
+<h2 id="20240319">2024.03.19</h2>
+<h3 id="webrtc-samples">WebRTC samples</h3>
+<ul>
+<li><a href="https://webrtc.github.io/samples/">https://webrtc.github.io/samples/</a></li>
+</ul>
+<h3 id="turn">TURN</h3>
+<p>Traversal Using Relays around NAT</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Glossary/TURN">https://developer.mozilla.org/en-US/docs/Glossary/TURN</a></li>
+</ul>
+<blockquote>
+<p>TURN (Traversal Using Relays around NAT) is a protocol enbling a computer
+to receive and send data from behind a Network Address Translator(NAT) OR FIREWALL.
+TURN is used by WEbRTC to allow any two devices on the Internet to enter
+a peer-to-peer connection.</p>
+</blockquote>
+<h3 id="stun">STUN</h3>
+<p>Session Traversal Utilities for NAT</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Glossary/STUN">https://developer.mozilla.org/en-US/docs/Glossary/STUN</a></li>
+</ul>
+<blockquote>
+<p>STUN (Session Traversal Utilities for NAT) is an auxiliary protocol for transmitting data
+around a NAT (Network Address Translator).
+STUN returns the IP address, port, and connectivity status of a networked computer
+behind a NAT.</p>
+</blockquote>
+<h3 id="ice">ICE</h3>
+<p>Interactive Connectivity Establishment</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Glossary/ICE">https://developer.mozilla.org/en-US/docs/Glossary/ICE</a></li>
+</ul>
+<blockquote>
+<p>The framework algorithm looks for the lowest-latency path for connecting the two peers,
+trying these options in order:</p>
+<ol>
+<li>Direct UDP connection (In this case - and only this case - a <code>STUN</code> server is used
+to find the network-facing address of a peer</li>
+<li>Direct TCP connection, via the HTTP port</li>
+<li>Direct TCP connection, via the HTTPS port</li>
+<li>Indirect connection via a relay/<code>TURN</code> server ( if a direct connection fails,
+e.g., if on peer is behind a firewall that blocks NAT traversal)</li>
+</ol>
+</blockquote>
+<h2 id="20240229">2024.02.29</h2>
+<h3 id="keycloak-themes">keycloak themes</h3>
+<ul>
+<li><a href="https://www.keycloak.org/docs/23.0.7/server_development/#_themes">https://www.keycloak.org/docs/23.0.7/server_development/#_themes</a></li>
+</ul>
+<h2 id="20240222">2024.02.22</h2>
+<h3 id="what-is-aiops">What is AIOps?</h3>
+<ul>
+<li><a href="https://www.ibm.com/topics/aiops">https://www.ibm.com/topics/aiops</a></li>
+</ul>
+<h3 id="get-started-aiops-example">Get started AIOps example</h3>
+<ul>
+<li><a href="https://techbeacon.com/enterprise-it/get-started-aiops-real-world-example">https://techbeacon.com/enterprise-it/get-started-aiops-real-world-example</a></li>
+</ul>
+<h2 id="20240110">2024.01.10</h2>
+<h3 id="怎样传递环境变量给-makefile">怎样传递环境变量给 makefile</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-makefile" data-lang="makefile"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">include</span> <span style="color:#960050;background-color:#1e0010">.env</span>
+</span></span></code></pre></div><blockquote>
+<p><a href="https://dev.to/serhatteker/get-environment-variables-from-a-file-into-makefile-2m5l">https://dev.to/serhatteker/get-environment-variables-from-a-file-into-makefile-2m5l</a></p>
+</blockquote>
+<h2 id="20240104">2024.01.04</h2>
+<h3 id="go---use-environment-variables">go - use environment variables</h3>
+<p>Go 的项目，用 yaml 做配置文件，怎样能够在 yaml 中引用环境变量</p>
+<p>最简单的方式，直接使用 os.ExpandEnv 就可以</p>
+<blockquote>
+<p><a href="https://stackoverflow.com/a/77702957/2298696">https://stackoverflow.com/a/77702957/2298696</a></p>
+</blockquote>
+<h3 id="php-errors-from-dmesg">php errors from dmesg</h3>
+<blockquote>
+<p><a href="https://stackoverflow.com/questions/39528592/how-to-understand-php-errors-from-dmesg">https://stackoverflow.com/questions/39528592/how-to-understand-php-errors-from-dmesg</a></p>
+</blockquote>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2026  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+</div>
+    </body>
+</html>

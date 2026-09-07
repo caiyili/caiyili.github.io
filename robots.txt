@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: http://caiyili.github.io/sitemap.xml
+Sitemap: https://caiyili.github.io/sitemap.xml

@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>2023 Notes - YILI</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="2023.12.28 go 综合测试指南 https://blog.jetbrains.com/zh-hans/go/2023/01/03/comprehensive-guide-to-testing-in-go/ 2023.12.27 ipvs 内核参数调整 https://blog.csdn.net/shudaqi2010/article/details/88867859 iptables or ipvs https://www.tigera.io/blog/comparing-kube-proxy-modes-iptables-or-ipvs/ github 加速 https://cloud.tencent.com/developer/article/2213558 2023.12.20 k8s nodeport and iptables https://ronaknathani.com/blog/2020/07/kubernetes-nodeport-and-iptables-rules/ Customize sonar rules in vscode https://community.sonarsource.com/t/changing-the-variable-name-regex-in-vscode-sonarlint/56456 2023.12.14 httpbin https://httpbin.org/ 2023.12.21 exposing prometheus https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/exposing-prometheus-and-alertmanager.md http basic auth verify https://httpbin.org/basic-auth/user/passwd user:passwd k8s ingress-nginx basic auth https://kubernetes.github.io/ingress-nginx/examples/auth/basic/ 2023.12.08 llamafile - run a LLM on your own computer https://simonwillison.net/2023/Nov/29/llamafile/ 2023.12.06 python c api https://docs.python.org/3/c-api/veryhigh.html 2023.12.04 Memory Leak Issue in Nginx PCRE2 https://hg.nginx.org/nginx/rev/533bc2336df4 https://mailman.nginx.org/pipermail/nginx-devel/2023-September/3Z5FIKUDRN2WBSL3JWTZJ7SXDA6YIWPB.html 2023." />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="2023 Notes" />
+<meta property="og:description" content="2023.12.28 go 综合测试指南 https://blog.jetbrains.com/zh-hans/go/2023/01/03/comprehensive-guide-to-testing-in-go/ 2023.12.27 ipvs 内核参数调整 https://blog.csdn.net/shudaqi2010/article/details/88867859 iptables or ipvs https://www.tigera.io/blog/comparing-kube-proxy-modes-iptables-or-ipvs/ github 加速 https://cloud.tencent.com/developer/article/2213558 2023.12.20 k8s nodeport and iptables https://ronaknathani.com/blog/2020/07/kubernetes-nodeport-and-iptables-rules/ Customize sonar rules in vscode https://community.sonarsource.com/t/changing-the-variable-name-regex-in-vscode-sonarlint/56456 2023.12.14 httpbin https://httpbin.org/ 2023.12.21 exposing prometheus https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/exposing-prometheus-and-alertmanager.md http basic auth verify https://httpbin.org/basic-auth/user/passwd user:passwd k8s ingress-nginx basic auth https://kubernetes.github.io/ingress-nginx/examples/auth/basic/ 2023.12.08 llamafile - run a LLM on your own computer https://simonwillison.net/2023/Nov/29/llamafile/ 2023.12.06 python c api https://docs.python.org/3/c-api/veryhigh.html 2023.12.04 Memory Leak Issue in Nginx PCRE2 https://hg.nginx.org/nginx/rev/533bc2336df4 https://mailman.nginx.org/pipermail/nginx-devel/2023-September/3Z5FIKUDRN2WBSL3JWTZJ7SXDA6YIWPB.html 2023." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://caiyili.github.io/notes/2023-notes/" /><meta property="article:section" content="notes" />
+<meta property="article:published_time" content="2026-09-07T17:11:36+08:00" />
+<meta property="article:modified_time" content="2026-09-07T17:11:36+08:00" />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="2023 Notes"/>
+<meta name="twitter:description" content="2023.12.28 go 综合测试指南 https://blog.jetbrains.com/zh-hans/go/2023/01/03/comprehensive-guide-to-testing-in-go/ 2023.12.27 ipvs 内核参数调整 https://blog.csdn.net/shudaqi2010/article/details/88867859 iptables or ipvs https://www.tigera.io/blog/comparing-kube-proxy-modes-iptables-or-ipvs/ github 加速 https://cloud.tencent.com/developer/article/2213558 2023.12.20 k8s nodeport and iptables https://ronaknathani.com/blog/2020/07/kubernetes-nodeport-and-iptables-rules/ Customize sonar rules in vscode https://community.sonarsource.com/t/changing-the-variable-name-regex-in-vscode-sonarlint/56456 2023.12.14 httpbin https://httpbin.org/ 2023.12.21 exposing prometheus https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/exposing-prometheus-and-alertmanager.md http basic auth verify https://httpbin.org/basic-auth/user/passwd user:passwd k8s ingress-nginx basic auth https://kubernetes.github.io/ingress-nginx/examples/auth/basic/ 2023.12.08 llamafile - run a LLM on your own computer https://simonwillison.net/2023/Nov/29/llamafile/ 2023.12.06 python c api https://docs.python.org/3/c-api/veryhigh.html 2023.12.04 Memory Leak Issue in Nginx PCRE2 https://hg.nginx.org/nginx/rev/533bc2336df4 https://mailman.nginx.org/pipermail/nginx-devel/2023-September/3Z5FIKUDRN2WBSL3JWTZJ7SXDA6YIWPB.html 2023."/>
+
+	
+        <link href="https://caiyili.github.io/css/fonts.b685ac6f654695232de7b82a9143a46f9e049c8e3af3a21d9737b01f4be211d1.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://caiyili.github.io/css/main.d1574b43a51792a446cd761d6f9b1c9abb39ed2c36ca6984f74aef729eb9f245.css" />
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://caiyili.github.io/">YILI</a>
+	</div>
+	<nav>
+		
+		<a href="/posts">All posts</a>
+		
+		<a href="/notes">Notes</a>
+		
+		<a href="/tags">Tags</a>
+		
+		<a href="/about">About</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">2023 Notes</h1>
+			<div class="meta">Posted on Sep 7, 2026</div>
+		</div>
+		
+
+		<section class="body">
+			<h2 id="20231228">2023.12.28</h2>
+<h3 id="go-综合测试指南">go 综合测试指南</h3>
+<ul>
+<li><a href="https://blog.jetbrains.com/zh-hans/go/2023/01/03/comprehensive-guide-to-testing-in-go/">https://blog.jetbrains.com/zh-hans/go/2023/01/03/comprehensive-guide-to-testing-in-go/</a></li>
+</ul>
+<h2 id="20231227">2023.12.27</h2>
+<h3 id="ipvs-内核参数调整">ipvs 内核参数调整</h3>
+<ul>
+<li><a href="https://blog.csdn.net/shudaqi2010/article/details/88867859">https://blog.csdn.net/shudaqi2010/article/details/88867859</a></li>
+</ul>
+<h3 id="iptables-or-ipvs">iptables or ipvs</h3>
+<ul>
+<li><a href="https://www.tigera.io/blog/comparing-kube-proxy-modes-iptables-or-ipvs/">https://www.tigera.io/blog/comparing-kube-proxy-modes-iptables-or-ipvs/</a></li>
+</ul>
+<h3 id="github-加速">github 加速</h3>
+<ul>
+<li><a href="https://cloud.tencent.com/developer/article/2213558">https://cloud.tencent.com/developer/article/2213558</a></li>
+</ul>
+<h2 id="20231220">2023.12.20</h2>
+<h3 id="k8s-nodeport-and-iptables">k8s nodeport and iptables</h3>
+<ul>
+<li><a href="https://ronaknathani.com/blog/2020/07/kubernetes-nodeport-and-iptables-rules/">https://ronaknathani.com/blog/2020/07/kubernetes-nodeport-and-iptables-rules/</a></li>
+</ul>
+<h3 id="customize-sonar-rules-in-vscode">Customize sonar rules in vscode</h3>
+<ul>
+<li><a href="https://community.sonarsource.com/t/changing-the-variable-name-regex-in-vscode-sonarlint/56456">https://community.sonarsource.com/t/changing-the-variable-name-regex-in-vscode-sonarlint/56456</a></li>
+</ul>
+<h2 id="20231214">2023.12.14</h2>
+<h3 id="httpbin">httpbin</h3>
+<ul>
+<li><a href="https://httpbin.org/">https://httpbin.org/</a></li>
+</ul>
+<h2 id="20231221">2023.12.21</h2>
+<h3 id="exposing-prometheus">exposing prometheus</h3>
+<ul>
+<li><a href="https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/exposing-prometheus-and-alertmanager.md">https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/exposing-prometheus-and-alertmanager.md</a></li>
+</ul>
+<h3 id="http-basic-auth-verify">http basic auth verify</h3>
+<ul>
+<li><a href="https://httpbin.org/basic-auth/user/passwd">https://httpbin.org/basic-auth/user/passwd</a>
+<ul>
+<li>user:passwd</li>
+</ul>
+</li>
+</ul>
+<h3 id="k8s-ingress-nginx-basic-auth">k8s ingress-nginx basic auth</h3>
+<ul>
+<li><a href="https://kubernetes.github.io/ingress-nginx/examples/auth/basic/">https://kubernetes.github.io/ingress-nginx/examples/auth/basic/</a></li>
+</ul>
+<h2 id="20231208">2023.12.08</h2>
+<h3 id="llamafile---run-a-llm-on-your-own-computer">llamafile - run a LLM on your own computer</h3>
+<ul>
+<li><a href="https://simonwillison.net/2023/Nov/29/llamafile/">https://simonwillison.net/2023/Nov/29/llamafile/</a></li>
+</ul>
+<h2 id="20231206">2023.12.06</h2>
+<h3 id="python-c-api">python c api</h3>
+<ul>
+<li><a href="https://docs.python.org/3/c-api/veryhigh.html">https://docs.python.org/3/c-api/veryhigh.html</a></li>
+</ul>
+<h2 id="20231204">2023.12.04</h2>
+<h3 id="memory-leak-issue-in-nginx-pcre2">Memory Leak Issue in Nginx PCRE2</h3>
+<ul>
+<li><a href="https://hg.nginx.org/nginx/rev/533bc2336df4">https://hg.nginx.org/nginx/rev/533bc2336df4</a></li>
+<li><a href="https://mailman.nginx.org/pipermail/nginx-devel/2023-September/3Z5FIKUDRN2WBSL3JWTZJ7SXDA6YIWPB.html">https://mailman.nginx.org/pipermail/nginx-devel/2023-September/3Z5FIKUDRN2WBSL3JWTZJ7SXDA6YIWPB.html</a></li>
+</ul>
+<h2 id="20231201">2023.12.01</h2>
+<h3 id="install-curl-with-http3-on-mac">install curl with http3 on mac</h3>
+<div class="highlight fold"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Clean up any old version of curl you may have already tried to install</span>
+</span></span><span style="display:flex;"><span>brew remove -f curl
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Download the curl ruby install script provided by cloudflare</span>
+</span></span><span style="display:flex;"><span>wget https://raw.githubusercontent.com/cloudflare/homebrew-cloudflare/master/curl.rb
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Install curl via that script from the latest git repos</span>
+</span></span><span style="display:flex;"><span>brew install --HEAD -s curl.rb
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Tell your cli to use the curl version just installed (if you&#39;re using zsh, othwerise you might need `~/.bashrc`)</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#39;export PATH=&#34;/usr/local/opt/curl/bin:$PATH&#34;&#39;</span> &gt;&gt; ~/.zshrc
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Reload your config</span>
+</span></span><span style="display:flex;"><span>source ~/.zshrc
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Double check it&#39;s using the right curl</span>
+</span></span><span style="display:flex;"><span>which curl <span style="color:#75715e"># Should output &#34;/usr/local/opt/curl/bin/curl&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Double check http3</span>
+</span></span><span style="display:flex;"><span>$ curl --version | grep HTTP3
+</span></span><span style="display:flex;"><span>  Features: alt-svc AsynchDNS brotli HTTP2 HTTP3 IDN IPv6 Largefile libz MultiSSL NTLM NTLM_WB SSL UnixSockets zstd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Try curl on any HTTP/3 enabled sites.</span>
+</span></span><span style="display:flex;"><span>curl --http3 https://blog.cloudflare.com -I
+</span></span></code></pre></div><ul>
+<li><a href="https://dev.to/gjrdiesel/installing-curl-with-http3-on-macos-2di2">https://dev.to/gjrdiesel/installing-curl-with-http3-on-macos-2di2</a></li>
+</ul>
+<h3 id="nginx-http3-configuration">nginx http3 configuration</h3>
+<ul>
+<li><a href="https://www.nginx.com/blog/binary-packages-for-preview-nginx-quic-http3-implementation/#configuration">https://www.nginx.com/blog/binary-packages-for-preview-nginx-quic-http3-implementation/#configuration</a></li>
+</ul>
+<h2 id="20231123">2023.11.23</h2>
+<h3 id="webtransport-ietf-105">WebTransport IETF 105</h3>
+<ul>
+<li><a href="https://datatracker.ietf.org/meeting/105/materials/slides-105-dispatch-webtransport-00">https://datatracker.ietf.org/meeting/105/materials/slides-105-dispatch-webtransport-00</a></li>
+</ul>
+<h2 id="20231122">2023.11.22</h2>
+<h3 id="怎样让浏览器第一个请求就用-http3">怎样让浏览器第一个请求就用 HTTP/3</h3>
+<blockquote>
+<p>In 2020 a new internet standard draft has been published, that defines a way for browsers to decide what HTTP version to use even for the first request.
+This way is using the new HTTPS and SVCB DNS record types.</p>
+</blockquote>
+<ul>
+<li><a href="https://superuser.com/questions/1659248/how-does-browser-know-which-version-of-http-it-should-use-when-sending-a-request">https://superuser.com/questions/1659248/how-does-browser-know-which-version-of-http-it-should-use-when-sending-a-request</a></li>
+<li><a href="https://datatracker.ietf.org/doc/html/draft-ietf-dnsop-svcb-https-12">https://datatracker.ietf.org/doc/html/draft-ietf-dnsop-svcb-https-12</a></li>
+<li><a href="https://blog.cloudflare.com/speeding-up-https-and-http-3-negotiation-with-dns/">https://blog.cloudflare.com/speeding-up-https-and-http-3-negotiation-with-dns/</a></li>
+</ul>
+<h2 id="20231113">2023.11.13</h2>
+<h3 id="webtransport">webtransport</h3>
+<ul>
+<li><a href="https://www.livevideostack.cn/news/%E5%88%A9%E7%94%A8webtransport%E8%BF%9B%E8%A1%8C%E7%8E%B0%E5%9C%BA%E8%A7%86%E9%A2%91%E6%B5%81%E6%B3%A8%E5%85%A5/">https://www.livevideostack.cn/news/%E5%88%A9%E7%94%A8webtransport%E8%BF%9B%E8%A1%8C%E7%8E%B0%E5%9C%BA%E8%A7%86%E9%A2%91%E6%B5%81%E6%B3%A8%E5%85%A5/</a></li>
+</ul>
+<h3 id="升级-gcc-版本">升级 gcc 版本</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ yum install centos-release-scl
+</span></span><span style="display:flex;"><span>$ yum list | grep devtoolset | grep gcc 
+</span></span><span style="display:flex;"><span>$ yum install devtoolset-9-gcc*
+</span></span><span style="display:flex;"><span>$ scl enable devtoolset-9 bash
+</span></span><span style="display:flex;"><span>$ gcc -v
+</span></span></code></pre></div><ul>
+<li><a href="https://blog.csdn.net/qq_25231683/article/details/128865257">https://blog.csdn.net/qq_25231683/article/details/128865257</a></li>
+</ul>
+<h2 id="20231107">2023.11.07</h2>
+<h3 id="innodb-table">innodb table</h3>
+<ul>
+<li><a href="https://dba.stackexchange.com/questions/64134/deleting-reclaiming-space-from-innodb-table">https://dba.stackexchange.com/questions/64134/deleting-reclaiming-space-from-innodb-table</a></li>
+</ul>
+<h2 id="20231106">2023.11.06</h2>
+<h3 id="smem-linux-memory-usage-statistics">smem linux memory usage statistics</h3>
+<ul>
+<li><a href="https://www.2daygeek.com/smem-linux-memory-usage-statistics-reporting-tool/">https://www.2daygeek.com/smem-linux-memory-usage-statistics-reporting-tool/</a></li>
+</ul>
+<h2 id="20231101">2023.11.01</h2>
+<h3 id="grafana-value-mapping">grafana value mapping</h3>
+<ul>
+<li><a href="https://community.grafana.com/t/how-to-rename-values-in-grafana-using-regex-based-value-mapping/53616/4">https://community.grafana.com/t/how-to-rename-values-in-grafana-using-regex-based-value-mapping/53616/4</a></li>
+</ul>
+<h3 id="pandas">pandas</h3>
+<ul>
+<li><a href="https://bobbyhadz.com/blog/value-error-cannot-set-dataframe-with-multiple-columns-to-single-column">https://bobbyhadz.com/blog/value-error-cannot-set-dataframe-with-multiple-columns-to-single-column</a></li>
+</ul>
+<h2 id="20231031">2023.10.31</h2>
+<h3 id="python-cli">python cli</h3>
+<ul>
+<li><a href="https://realpython.com/command-line-interfaces-python-argparse/#adding-subcommands-to-your-clis">https://realpython.com/command-line-interfaces-python-argparse/#adding-subcommands-to-your-clis</a></li>
+</ul>
+<h2 id="20231026">2023.10.26</h2>
+<h3 id="python-clickhouse-driver">python clickhouse-driver</h3>
+<ul>
+<li><a href="https://clickhouse-driver.readthedocs.io/en/latest/types.html">https://clickhouse-driver.readthedocs.io/en/latest/types.html</a></li>
+</ul>
+<h2 id="20231011">2023.10.11</h2>
+<h3 id="install-clickhouse-in-kubernetes">install ClickHouse in kubernetes</h3>
+<ul>
+<li>Altinity 提供的方法： <a href="https://docs.altinity.com/altinitykubernetesoperator/kubernetesquickstartguide/quickcluster/">https://docs.altinity.com/altinitykubernetesoperator/kubernetesquickstartguide/quickcluster/</a></li>
+<li>KubeSphere 提供的方法：<a href="https://kubesphere.io/zh/docs/v3.3/application-store/external-apps/deploy-clickhouse/">https://kubesphere.io/zh/docs/v3.3/application-store/external-apps/deploy-clickhouse/</a></li>
+</ul>
+<h2 id="20231009">2023.10.09</h2>
+<h3 id="pandas-cookbook">pandas cookbook</h3>
+<ul>
+<li><a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html#cookbook">https://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html#cookbook</a></li>
+</ul>
+<h2 id="20231007">2023.10.07</h2>
+<h3 id="argo-cd-image-updater">Argo CD Image Updater</h3>
+<p>自动把 k8s 中镜像更新到最新的 docker 镜像</p>
+<ul>
+<li><a href="https://argocd-image-updater.readthedocs.io/en/stable/">https://argocd-image-updater.readthedocs.io/en/stable/</a></li>
+<li><a href="https://stackoverflow.com/questions/73616877/argocd-what-need-be-done-after-build-a-new-image">https://stackoverflow.com/questions/73616877/argocd-what-need-be-done-after-build-a-new-image</a></li>
+</ul>
+<h2 id="20230928">2023.09.28</h2>
+<h3 id="keycloak-认证服务">Keycloak 认证服务</h3>
+<ul>
+<li>keycloak 认证服务文档：<a href="https://www.keycloak.org/docs/latest/authorization_services/index.html#_enforcer_overview">https://www.keycloak.org/docs/latest/authorization_services/index.html#_enforcer_overview</a></li>
+<li>python 接口：<a href="https://python-keycloak.readthedocs.io/en/latest/">https://python-keycloak.readthedocs.io/en/latest/</a></li>
+</ul>
+<h2 id="20230926">2023.09.26</h2>
+<h3 id="grafana-禁用-ldap-角色同步">Grafana 禁用 LDAP 角色同步</h3>
+<pre tabindex="0"><code>[auth.ldap]
+
+# Prevent synchronizing ldap users organization roles
+skip_org_role_sync = true
+</code></pre><ul>
+<li><a href="https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/ldap/">https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/ldap/</a></li>
+</ul>
+<h3 id="keycloak-授权服务">keycloak 授权服务</h3>
+<ul>
+<li><a href="https://www.keycloak.org/docs/latest/authorization_services/index.html">https://www.keycloak.org/docs/latest/authorization_services/index.html</a></li>
+</ul>
+<h3 id="keycloak-book">keycloak book</h3>
+<ul>
+<li><a href="https://guo218215-126-com.gitbooks.io/keycloakbook/content/">https://guo218215-126-com.gitbooks.io/keycloakbook/content/</a></li>
+</ul>
+<h2 id="20230925">2023.09.25</h2>
+<h3 id="oauth2-proxy-应用">oauth2-proxy 应用</h3>
+<ul>
+<li><a href="https://developer.okta.com/blog/2022/07/14/add-auth-to-any-app-with-oauth2-proxy">https://developer.okta.com/blog/2022/07/14/add-auth-to-any-app-with-oauth2-proxy</a></li>
+</ul>
+<h2 id="20230920">2023.09.20</h2>
+<h3 id="google-timeline-chart">google timeline chart</h3>
+<ul>
+<li><a href="https://developers.google.com/chart/interactive/docs/gallery/timeline?hl=zh-cn">https://developers.google.com/chart/interactive/docs/gallery/timeline?hl=zh-cn</a></li>
+</ul>
+<h2 id="20230915">2023.09.15</h2>
+<h3 id="tinyhtml---generate-html-in-python">tinyhtml - generate html in python</h3>
+<ul>
+<li><a href="https://www.askpython.com/python-modules/tinyhtml-module">https://www.askpython.com/python-modules/tinyhtml-module</a></li>
+<li><a href="https://www.geeksforgeeks.org/generate-html-using-tinyhtml-module-in-python/">https://www.geeksforgeeks.org/generate-html-using-tinyhtml-module-in-python/</a></li>
+</ul>
+<h2 id="20230908">2023.09.08</h2>
+<h3 id="make-gantt-chart-in-python-matplotlib">make gantt chart in python matplotlib</h3>
+<ul>
+<li><a href="https://www.datacamp.com/tutorial/how-to-make-gantt-chart-in-python-matplotlib">https://www.datacamp.com/tutorial/how-to-make-gantt-chart-in-python-matplotlib</a></li>
+<li><a href="https://matplotlib.org/stable/gallery/lines_bars_and_markers/broken_barh.html">https://matplotlib.org/stable/gallery/lines_bars_and_markers/broken_barh.html</a></li>
+</ul>
+<h2 id="20230906">2023.09.06</h2>
+<h3 id="flask-project-layout">Flask Project Layout</h3>
+<ul>
+<li><a href="https://flask.palletsprojects.com/en/2.3.x/tutorial/layout/">https://flask.palletsprojects.com/en/2.3.x/tutorial/layout/</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-structure-a-large-flask-application-with-flask-blueprints-and-flask-sqlalchemy">https://www.digitalocean.com/community/tutorials/how-to-structure-a-large-flask-application-with-flask-blueprints-and-flask-sqlalchemy</a></li>
+</ul>
+<h3 id="autopep8-off">autopep8 off</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># autopep8: off</span>
+</span></span><span style="display:flex;"><span>code block
+</span></span></code></pre></div><ul>
+<li><a href="https://github.com/hhatto/autopep8/issues/460">https://github.com/hhatto/autopep8/issues/460</a></li>
+</ul>
+<h2 id="20230901">2023.09.01</h2>
+<h3 id="clickhouse-materialized-views">ClickHouse Materialized Views</h3>
+<ul>
+<li><a href="https://img.baijiayun.com/0ewiki/attachments/3c715ad85f7926d930fc17a6b3a8932c.pdf">Everything_you_should_know_about_materialized_views_commented.pdf</a></li>
+</ul>
+<h2 id="20230830">2023.08.30</h2>
+<h3 id="flask-框架">flask 框架</h3>
+<ul>
+<li><a href="https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-ii-templates">https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-ii-templates</a></li>
+<li><a href="https://flask.palletsprojects.com/en/2.3.x/quickstart/#a-minimal-application">https://flask.palletsprojects.com/en/2.3.x/quickstart/#a-minimal-application</a></li>
+</ul>
+<h2 id="20230829">2023.08.29</h2>
+<h3 id="jedis-连接池配置">Jedis 连接池配置</h3>
+<ul>
+<li><a href="https://www.alibabacloud.com/help/en/redis/use-cases/jedispool-optimization">https://www.alibabacloud.com/help/en/redis/use-cases/jedispool-optimization</a></li>
+</ul>
+<h2 id="20230814">2023.08.14</h2>
+<h3 id="网络侧变量估计用户体验建模">网络侧变量估计用户体验建模</h3>
+<ul>
+<li><a href="https://qianxienyu.github.io/Qian_Xie_files/%E5%8D%8E%E8%B5%9B--%E7%BD%91%E7%BB%9C%E4%BE%A7%E5%8F%98%E9%87%8F%E4%BC%B0%E8%AE%A1%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%E5%BB%BA%E6%A8%A1.pdf">华赛&ndash;网络侧变量估计用户体验建模.pdf</a></li>
+</ul>
+<h2 id="20230810">2023.08.10</h2>
+<h3 id="markprompt">markprompt</h3>
+<ul>
+<li><a href="https://markprompt.com/docs#what-is-markprompt">https://markprompt.com/docs#what-is-markprompt</a></li>
+</ul>
+<h3 id="机器学习">机器学习</h3>
+<ul>
+<li>机器学习算法介绍之线性回归： <a href="https://zhuanlan.zhihu.com/p/225650671">https://zhuanlan.zhihu.com/p/225650671</a></li>
+<li>【机器学习】逻辑回归（非常详细）：<a href="https://zhuanlan.zhihu.com/p/74874291">https://zhuanlan.zhihu.com/p/74874291</a></li>
+</ul>
+<h2 id="20230809">2023.08.09</h2>
+<h3 id="is-the-docker-daemon-running">Is the docker daemon running?</h3>
+<p>在 k8s 中使用 docker dind 来构建镜像，因为 docker 镜像依赖 dind 镜像</p>
+<p>如果 runner 命令先于 dind 运行，会出现一个报错：</p>
+<pre tabindex="0"><code>error: no valid drivers found: Cannot connect to the Docker daemon at tcp://docker:2375. Is the docker daemon running?
+</code></pre><p>解决方案：在 before_script 中增加一个等待</p>
+<pre tabindex="0"><code>until docker info; do sleep 1; done
+</code></pre><blockquote>
+<ul>
+<li>
+<p><a href="https://gitlab.com/gitlab-org/gitlab-runner/-/issues/27215">https://gitlab.com/gitlab-org/gitlab-runner/-/issues/27215</a></p>
+</li>
+<li>
+<p><a href="https://gitlab.com/gitlab-org/gitlab-runner/-/issues/27300">https://gitlab.com/gitlab-org/gitlab-runner/-/issues/27300</a></p>
+</li>
+</ul>
+</blockquote>
+<h2 id="20230808">2023.08.08</h2>
+<h3 id="kafka-message-compression">Kafka Message Compression</h3>
+<ul>
+<li><a href="https://developer.ibm.com/articles/benefits-compression-kafka-messaging/">https://developer.ibm.com/articles/benefits-compression-kafka-messaging/</a></li>
+<li><a href="https://cwiki.apache.org/confluence/display/kafka/compression">https://cwiki.apache.org/confluence/display/kafka/compression</a></li>
+<li><a href="https://medium.com/@nishantparmar/kafka-message-compression-2b4aba3bcd01">https://medium.com/@nishantparmar/kafka-message-compression-2b4aba3bcd01</a></li>
+</ul>
+<h2 id="20230720">2023.07.20</h2>
+<h3 id="editorconfig">editorconfig</h3>
+<p>一种帮助管理编码分析的配置描述语法</p>
+<ul>
+<li><a href="https://editorconfig.org/">https://editorconfig.org/</a></li>
+</ul>
+<h3 id="php---setlocale">php - setlocale</h3>
+<ul>
+<li>起因：用 php 的 pathinfo 或者 basename 截取文件名，某些情况下中文可能会出现问题</li>
+<li>解决方案：官方文档也写了，这个函数跟本地语言设置有关系</li>
+</ul>
+<blockquote>
+<ul>
+<li><a href="https://www.php.net/manual/en/function.pathinfo.php">https://www.php.net/manual/en/function.pathinfo.php</a></li>
+</ul>
+<p>Caution
+pathinfo() is locale aware, so for it to parse a path containing multibyte characters correctly, the matching locale must be set using the setlocale() function.</p>
+</blockquote>
+<p>问题是，如果调用 setlocale 设置的话，参数应该怎么传呢？</p>
+<p>从 <a href="https://www.php.net/manual/en/function.setlocale.php#90919">https://www.php.net/manual/en/function.setlocale.php#90919</a> 这里看，其实要先看系统支持哪些</p>
+<p>比如我打包的镜像里是这样查的</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>root@efe5cf2582e0:/webroot/ewiki# locale -a
+</span></span><span style="display:flex;"><span>C
+</span></span><span style="display:flex;"><span>C.UTF-8
+</span></span><span style="display:flex;"><span>POSIX
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>root@efe5cf2582e0:/webroot/ewiki# ls /usr/lib/locale
+</span></span><span style="display:flex;"><span>C.UTF-8
+</span></span></code></pre></div><p>所以用法就是</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>setlocale<span style="color:#f92672">(</span>LC_ALL, <span style="color:#e6db74">&#39;C.UTF-8&#39;</span><span style="color:#f92672">)</span>;
+</span></span></code></pre></div><p>当然，这里有一个问题，如果在代码里设置了， 那换一个环境，他可能就不行了，所以最好是通过环境变量来设置，代码里不要设置了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>  <span style="color:#f92672">php</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">harbor.baijiayun.com/bdata/ewiki:v1.0.1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">.:/webroot/ewiki</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">wiki-repo:/webroot/ewiki/wiki-doc</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">ewiki</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">ewiki.php</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">LC_ALL</span>: <span style="color:#ae81ff">C.UTF-8</span>
+</span></span></code></pre></div><blockquote>
+<ul>
+<li><a href="https://stackoverflow.com/questions/4451664/make-php-pathinfo-return-the-correct-filename-if-the-filename-is-utf-8">https://stackoverflow.com/questions/4451664/make-php-pathinfo-return-the-correct-filename-if-the-filename-is-utf-8</a></li>
+</ul>
+</blockquote>
+<h2 id="20230719">2023.07.19</h2>
+<h3 id="how-to-install-clickhouse-on-centos-7">How to install clickhouse on centos 7</h3>
+<blockquote>
+<ul>
+<li><a href="https://www.rosehosting.com/blog/how-to-install-clickhouse-on-centos-7/">https://www.rosehosting.com/blog/how-to-install-clickhouse-on-centos-7/</a></li>
+</ul>
+</blockquote>
+<h2 id="20230714">2023.07.14</h2>
+<h3 id="gnu-command-argument-syntax">gnu command argument syntax</h3>
+<blockquote>
+<ul>
+<li><a href="https://www.gnu.org/software/libc/manual/html_node/Argument-Syntax.html">https://www.gnu.org/software/libc/manual/html_node/Argument-Syntax.html</a></li>
+</ul>
+</blockquote>
+<h2 id="20230713">2023.07.13</h2>
+<h3 id="zadig">Zadig</h3>
+<ul>
+<li>一个国产的 DevOps 平台：<a href="https://docs.koderover.com/zadig">https://docs.koderover.com/zadig</a></li>
+</ul>
+<h3 id="vscode-set-run-test-flags-and-environment">vscode set run test flags and environment</h3>
+<ul>
+<li>settings.json 中添加如下</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;go.testFlags&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;-gcflags&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;all=-N -l&#34;</span>
+</span></span><span style="display:flex;"><span>    ]<span style="color:#960050;background-color:#1e0010">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;go.testEnvVars&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;GOARCH&#34;</span>: <span style="color:#e6db74">&#34;amd64&#34;</span>,
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><blockquote>
+<ul>
+<li><a href="https://reuvenharrison.medium.com/using-visual-studio-code-to-debug-a-go-program-with-environment-variables-523fea268271">https://reuvenharrison.medium.com/using-visual-studio-code-to-debug-a-go-program-with-environment-variables-523fea268271</a></li>
+</ul>
+</blockquote>
+<h3 id="go-by-example">go by example</h3>
+<blockquote>
+<ul>
+<li><a href="https://gobyexample.com/">https://gobyexample.com/</a></li>
+</ul>
+</blockquote>
+<h2 id="20230712">2023.07.12</h2>
+<h3 id="dockerfile---disable-an-existing-entrypoint">Dockerfile - disable an existing ENTRYPOINT</h3>
+<pre tabindex="0"><code>ENTRYPOINT []
+</code></pre><h2 id="20230706">2023.07.06</h2>
+<h3 id="docker-compose-set-containers-timezones">docker-compose set containers timezones</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">TZ=Asia/Shanghai</span>
+</span></span></code></pre></div><blockquote>
+<p><a href="https://stackoverflow.com/questions/39172652/using-docker-compose-to-set-containers-timezones">https://stackoverflow.com/questions/39172652/using-docker-compose-to-set-containers-timezones</a></p>
+</blockquote>
+<h2 id="20230615">2023.06.15</h2>
+<h3 id="html-autocomplete">html autocomplete</h3>
+<blockquote>
+<ul>
+<li><a href="https://html.spec.whatwg.org/multipage/form-control-infrastructure.html">https://html.spec.whatwg.org/multipage/form-control-infrastructure.html</a></li>
+</ul>
+</blockquote>
+<h2 id="20230613">2023.06.13</h2>
+<h3 id="salesforce-grafana-stack">salesforce-grafana-stack</h3>
+<ul>
+<li><a href="https://grafana.com/go/grafanaconline/2021/salesforce-grafana-stack/">https://grafana.com/go/grafanaconline/2021/salesforce-grafana-stack/</a></li>
+</ul>
+<h2 id="20230612">2023.06.12</h2>
+<h3 id="grafana-dashboard-best-practices">Grafana dashboard best practices</h3>
+<blockquote>
+<ul>
+<li><a href="https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/best-practices/">https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/best-practices/</a></li>
+</ul>
+</blockquote>
+<p>这篇文档介绍了 <code>USE</code> 方法，<code>RED</code> 方法，还有 <code>The Four Golden Signals</code></p>
+<h3 id="grafana-报表设计指南">Grafana 报表设计指南</h3>
+<blockquote>
+<ul>
+<li><a href="https://grafana.com/blog/2022/06/06/grafana-dashboards-a-complete-guide-to-all-the-different-types-you-can-build">https://grafana.com/blog/2022/06/06/grafana-dashboards-a-complete-guide-to-all-the-different-types-you-can-build</a></li>
+</ul>
+</blockquote>
+<h2 id="20230606">2023.06.06</h2>
+<h3 id="设置-gitlab-runner-运行时的-serviceaccount">设置 gitlab runner 运行时的 serviceAccount</h3>
+<p>怎样指定 gitlab runner 运行时 pod 中的 serviceAccount 呢？</p>
+<p>根据官方文档，可以在 .gitlab-ci.yml 中设置</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">variables</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">KUBERNETES_SERVICE_ACCOUNT_OVERWRITE</span>: <span style="color:#ae81ff">ci-service-account</span>
+</span></span></code></pre></div><p>但是下面提示需要开启另外一个变量 <code>KUBERNETES_SERVICE_ACCOUNT_OVERWRITE_ALLOWED</code>，他的值是一个正则表达式。</p>
+<p>不过这个变量，直接在 .gitlab-ci.yml 中设置是不生效的，需要在 gitlab-runner chart values.yaml 中修改</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">envVars</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">KUBERNETES_SERVICE_ACCOUNT_OVERWRITE_ALLOWED</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;.*&#34;</span>
+</span></span></code></pre></div><ul>
+<li><a href="https://docs.gitlab.com/runner/executors/kubernetes.html#configuring-executor-service-account">https://docs.gitlab.com/runner/executors/kubernetes.html#configuring-executor-service-account</a></li>
+<li>Setting service account overwrite <a href="https://gitlab.com/gitlab-org/charts/gitlab-runner/-/issues/188">https://gitlab.com/gitlab-org/charts/gitlab-runner/-/issues/188</a></li>
+</ul>
+<h3 id="多平台构建和交叉编译">多平台构建和交叉编译</h3>
+<blockquote>
+<ul>
+<li><a href="https://www.docker.com/blog/faster-multi-platform-builds-dockerfile-cross-compilation-guide/">https://www.docker.com/blog/faster-multi-platform-builds-dockerfile-cross-compilation-guide/</a></li>
+</ul>
+</blockquote>
+<h3 id="python-项目容器化最佳实践">python 项目容器化最佳实践</h3>
+<p>从一个基本的 Dockerfile 讲起，讲了 python 项目要容器化需要考虑的点。</p>
+<blockquote>
+<ul>
+<li><a href="https://snyk.io/blog/best-practices-containerizing-python-docker/">https://snyk.io/blog/best-practices-containerizing-python-docker/</a></li>
+</ul>
+</blockquote>
+<h2 id="20230601">2023.06.01</h2>
+<h3 id="gitlab-ci-script-太长应该怎么处理">gitlab-ci script 太长应该怎么处理</h3>
+<p>参考官方文档：</p>
+<blockquote>
+<ul>
+<li><a href="https://docs.gitlab.com/ee/ci/yaml/script.html#split-long-commands">https://docs.gitlab.com/ee/ci/yaml/script.html#split-long-commands</a></li>
+</ul>
+</blockquote>
+<h3 id="gitlab-ci-pipeline-预填变量">gitlab-ci pipeline 预填变量</h3>
+<p>如果定义的全局变量，有 description，在手动运行的时候，就会生成对应的预填表单</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">variables</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">DEPLOY_CREDENTIALS</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">description</span>: <span style="color:#e6db74">&#34;The deployment credentials.&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">DEPLOY_ENVIRONMENT</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">description</span>: <span style="color:#e6db74">&#34;Select the deployment target. Valid options are: &#39;canary&#39;, &#39;staging&#39;, &#39;production&#39;, or a stable branch of your choice.&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;canary&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">DEPLOY_OPT</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;staging&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">options</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;production&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;staging&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;canary&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">description</span>: <span style="color:#e6db74">&#34;The deployment target. Set to &#39;staging&#39; by default.&#34;</span>    
+</span></span></code></pre></div><blockquote>
+<ul>
+<li><a href="https://docs.gitlab.com/ee/ci/pipelines/index.html#prefill-variables-in-manual-pipelines">https://docs.gitlab.com/ee/ci/pipelines/index.html#prefill-variables-in-manual-pipelines</a></li>
+</ul>
+</blockquote>
+<h3 id="sonar-导入第三方的报告">sonar 导入第三方的报告</h3>
+<blockquote>
+<ul>
+<li><a href="https://docs.sonarqube.org/9.7/analyzing-source-code/importing-external-issues/importing-third-party-issues/">https://docs.sonarqube.org/9.7/analyzing-source-code/importing-external-issues/importing-third-party-issues/</a></li>
+</ul>
+</blockquote>
+<h2 id="20230530">2023.05.30</h2>
+<h3 id="mongodb-安装">mongodb 安装</h3>
+<ul>
+<li><a href="https://www.mongodb.com/docs/manual/tutorial/install-mongodb-community-with-docker/">https://www.mongodb.com/docs/manual/tutorial/install-mongodb-community-with-docker/</a></li>
+</ul>
+<h2 id="20230529">2023.05.29</h2>
+<h3 id="gitlab-autodevops">gitlab AutoDevOps</h3>
+<ul>
+<li>怎样定制 AutoDevOps：<a href="https://docs.gitlab.com/ee/topics/autodevops/customize.html">https://docs.gitlab.com/ee/topics/autodevops/customize.html</a></li>
+<li>gitlab-ci.yml 中引用 <code>include</code> 语法：<a href="https://docs.gitlab.com/ee/ci/yaml/#includeproject">https://docs.gitlab.com/ee/ci/yaml/#includeproject</a></li>
+<li>gitlab 自带的模板：<a href="https://gitlab.com/gitlab-org/gitlab/-/tree/master/lib/gitlab/ci/templates">https://gitlab.com/gitlab-org/gitlab/-/tree/master/lib/gitlab/ci/templates</a></li>
+</ul>
+<h3 id="docker-buildx">docker buildx</h3>
+<blockquote>
+<ul>
+<li><a href="https://www.51cto.com/article/678858.html">使用 Docker Buildx 构建多种系统架构镜像</a></li>
+</ul>
+</blockquote>
+<h2 id="20230525">2023.05.25</h2>
+<h3 id="kubesphere-devops">KubeSphere DevOps</h3>
+<blockquote>
+<ul>
+<li><a href="https://www.kubesphere.io/zh/blogs/kubesphere-devops-pipeline-guide/">https://www.kubesphere.io/zh/blogs/kubesphere-devops-pipeline-guide/</a></li>
+</ul>
+</blockquote>
+<h2 id="20230524">2023.05.24</h2>
+<h3 id="envsubst-用法">envsubst 用法</h3>
+<pre tabindex="0"><code>envsubst [OPTION] [SHELL-FORMAT]
+</code></pre><blockquote>
+<p><code>SHELL-FORMAT</code> 参数可以用来指定哪些变量需要替换，没有指定的变量会保持原样。</p>
+</blockquote>
+<ul>
+<li>替换所有的环境变量</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ envsubst <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>printf <span style="color:#e6db74">&#39;${%s} &#39;</span> <span style="color:#66d9ef">$(</span>env | cut -d<span style="color:#e6db74">&#39;=&#39;</span> -f1<span style="color:#66d9ef">))</span><span style="color:#e6db74">&#34;</span> &lt; welcome.txt
+</span></span><span style="display:flex;"><span>Hello user joe in Lubuntu. It<span style="color:#960050;background-color:#1e0010">&#39;</span>s time to say $HELLO!
+</span></span></code></pre></div><blockquote>
+<ul>
+<li><a href="https://www.baeldung.com/linux/envsubst-command">https://www.baeldung.com/linux/envsubst-command</a></li>
+</ul>
+</blockquote>
+<h2 id="20230522">2023.05.22</h2>
+<h3 id="怎样检测-fpm-运行状态">怎样检测 fpm 运行状态？</h3>
+<p>php-fpm 对外提供的是 fastcgi 的接口，我们怎样判断这个服务是否正常呢？</p>
+<p>我们可以开启 <code>pm.status_path = /status</code>，把 fpm 的状态暴露出来，但他也还是通过 fastcgi 的形式暴露的。</p>
+<p>也就是一般前面还需要再配置一个 nginx 转发，把 http 的 <code>/status</code> 请求转到 fastcgi 的 <code>/status</code>。</p>
+<p>有没有不依赖 nginx 的方案呢？</p>
+<p>可以用 <code>cgi-fcgi</code> 这个命令</p>
+<p><code>cgi-fcgi</code> 这个命令是做什么的呢？他是一个应用程序，可以与一个 fastcgi 程序交互，得到一个 http 的形式的结果</p>
+<p>github 上有一个 php-fpm-healthcheck 的项目，就是基于这个命令，做了一些包装。</p>
+<blockquote>
+<ul>
+<li>
+<p><a href="https://manpages.ubuntu.com/manpages/bionic/man1/cgi-fcgi.1.html">https://manpages.ubuntu.com/manpages/bionic/man1/cgi-fcgi.1.html</a></p>
+</li>
+<li>
+<p><a href="https://github.com/renatomefi/php-fpm-healthcheck">https://github.com/renatomefi/php-fpm-healthcheck</a></p>
+</li>
+</ul>
+</blockquote>
+<h2 id="20230516">2023.05.16</h2>
+<h3 id="install-redis-using-helm">install redis using helm</h3>
+<blockquote>
+<ul>
+<li><a href="https://bitnami.com/stack/redis/helm">https://bitnami.com/stack/redis/helm</a></li>
+</ul>
+</blockquote>
+<h3 id="oauth2-proxy-502-问题">oauth2-proxy 502 问题</h3>
+<blockquote>
+<ul>
+<li><a href="https://github.com/oauth2-proxy/oauth2-proxy/issues/676">https://github.com/oauth2-proxy/oauth2-proxy/issues/676</a></li>
+</ul>
+<p>Another option is to switch to a Redis based session store &ndash; then the session cookie is much smaller at 200-300 bytes. But I understand the cookie sessions are much more convenient than adding a persistent store into the mix.</p>
+</blockquote>
+<h3 id="gitlab-runner-运行报超出限额">gitlab-runner 运行报超出限额</h3>
+<p>gitlab-runner 运行起来后总是报错，看 k8s 剩余资源是有的，调整请求参数也报错。</p>
+<p><img src="https://img.baijiayun.com/0ewiki/attachments/0bf11824869bdd28c66d8c30aad0642f.png" alt="image.png"></p>
+<p>最终排查结果是因为设置了项目级别的限额</p>
+<blockquote>
+<ul>
+<li><a href="https://github.com/kubesphere/kubesphere/issues/5062">https://github.com/kubesphere/kubesphere/issues/5062</a></li>
+</ul>
+</blockquote>
+<h2 id="20230515">2023.05.15</h2>
+<h3 id="ssl-证书内容解析">ssl 证书内容解析</h3>
+<pre tabindex="0"><code>openssl x509 -in baijiayun.crt -text -noout
+</code></pre><p>这个命令可以查看证书信息，包括过期时间、颁发机构等</p>
+<h3 id="keycloak-中各种概念的介绍">keycloak 中各种概念的介绍</h3>
+<blockquote>
+<ul>
+<li><a href="https://www.keycloak.org/docs/latest/server_admin/#core-concepts-and-terms">https://www.keycloak.org/docs/latest/server_admin/#core-concepts-and-terms</a></li>
+</ul>
+</blockquote>
+<h2 id="20230511">2023.05.11</h2>
+<h3 id="k8s-logging">k8s logging</h3>
+<p>一篇介绍 k8s 日志主题的文章</p>
+<blockquote>
+<ul>
+<li><a href="https://sematext.com/guides/kubernetes-logging/#popular-kubernetes-logging-topics">https://sematext.com/guides/kubernetes-logging/#popular-kubernetes-logging-topics</a></li>
+</ul>
+</blockquote>
+<h3 id="k8s-logging-architechure">k8s Logging Architechure</h3>
+<p>k8s 官方文档上关于日志的探讨</p>
+<blockquote>
+<ul>
+<li><a href="https://kubernetes.io/docs/concepts/cluster-administration/logging/">https://kubernetes.io/docs/concepts/cluster-administration/logging/</a></li>
+</ul>
+</blockquote>
+<h3 id="kubectl-cheat-sheet">kubectl Cheat Sheet</h3>
+<p>kubectl 常用的命令</p>
+<blockquote>
+<ul>
+<li><a href="https://kubernetes.io/docs/reference/kubectl/cheatsheet/">https://kubernetes.io/docs/reference/kubectl/cheatsheet/</a></li>
+</ul>
+</blockquote>
+<h2 id="20230509">2023.05.09</h2>
+<h3 id="怎样让把一个容器的目录共享给另一个容器">怎样让把一个容器的目录共享给另一个容器？</h3>
+<p>背景：php-fpm 和 nginx 可能都需要访问 php 的代码，我们把源代码打包到 php-fpm 的镜像中，运行的时候，怎样让 nginx 也访问到呢？</p>
+<ul>
+<li>docker-compose 的方式</li>
+</ul>
+<p>如下所示，用同一个 volumes</p>
+<div class="highlight fold"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;2.2&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">php</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">harbor.baijiayun.com/bdata/dashboard-service:latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">webroot:/webroot</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./storage:/webroot/dashboard-service/storage:rw</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./development/env.local:/webroot/dashboard-service/.env</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./development/logs:/apps/logs</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># - &lt;path-to-fe-root&gt;:/webroot/public/dashboard-fe</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">dashboard</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">dashboard.php</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">nginx</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">nginx:latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">webroot:/webroot</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./development/nginx.conf:/etc/nginx/nginx.conf</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./development/logs:/apps/logs</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># - &lt;path-to-fe-root&gt;:/webroot/public/dashboard-fe</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">depends_on</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">db</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">dashboard</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">80</span>:<span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">dashboard.nginx</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">webroot</span>:
+</span></span></code></pre></div><ul>
+<li>k8s 里面</li>
+</ul>
+<p>查了一下在 k8s 里面并不可以，但可以用 initContainers 的方式，把一个容器里的内容复制到共享卷</p>
+<blockquote>
+<ul>
+<li><a href="https://stackoverflow.com/questions/57061680/is-there-a-way-to-share-existing-data-between-containers-in-a-pod">https://stackoverflow.com/questions/57061680/is-there-a-way-to-share-existing-data-between-containers-in-a-pod</a></li>
+</ul>
+</blockquote>
+<h2 id="20230508">2023.05.08</h2>
+<h3 id="k8s-的网络模型">k8s 的网络模型</h3>
+<blockquote>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/YHH1xjgd48YHSVxUeXtUcg">https://mp.weixin.qq.com/s/YHH1xjgd48YHSVxUeXtUcg</a></li>
+</ul>
+</blockquote>
+<h2 id="20230506">2023.05.06</h2>
+<h3 id="chrome-文本片段功能">chrome 文本片段功能</h3>
+<p>在一个 url 中加上 <code>#:~:text=search</code> 可以让浏览器高亮指定的文本片段</p>
+<blockquote>
+<ul>
+<li>
+<p><a href="https://chromestatus.com/feature/4733392803332096">https://chromestatus.com/feature/4733392803332096</a></p>
+</li>
+<li>
+<p><a href="https://web.dev/i18n/en/text-fragments/">https://web.dev/i18n/en/text-fragments/</a></p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/62161819/what-exactly-is-the-text-location-hash-in-an-url">https://stackoverflow.com/questions/62161819/what-exactly-is-the-text-location-hash-in-an-url</a></p>
+</li>
+</ul>
+</blockquote>
+<h3 id="oauth2-proxy">oauth2-proxy</h3>
+<p>看 github 上 keycloak-proxy 停止维护了，说是因为 oauth2-proxy 提供了类似的功能</p>
+<ul>
+<li>oauth2-proxy 配置</li>
+</ul>
+<div class="highlight fold"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#a6e22e">http_address</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0.0.0.0:4180&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">cookie_secret</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;OQINaROshtE9TcZkNAm-5Zs2Pv3xaWytBmc5W7sPX7w=&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">email_domains</span><span style="color:#f92672">=</span><span style="color:#e6db74">[&#34;*&#34;]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">cookie_secure</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;false&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">upstreams</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://share.test-at.baijiayun.com&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">cookie_domains</span><span style="color:#f92672">=</span><span style="color:#e6db74">[&#34;share.test-at.baijiayun.com:4180&#34;] # Required so cookie can be read on all subdomains.</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">whitelist_domains</span><span style="color:#f92672">=</span><span style="color:#e6db74">[&#34;share.test-at.baijiayun.com:4180&#34;] # Required to allow redirection back to original requested target.</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">pass_host_header</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;false&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># keycloak provider</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">client_secret</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;abcd&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">client_id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;openresty&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">redirect_url</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://share.test-at.baijiayun.com:4180&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># in this case oauth2-proxy is going to visit</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># http://keycloak.localtest.me:9080/auth/realms/master/.well-known/openid-configuration for configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">oidc_issuer_url</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://keycloak.test-bdata-k8s.baijiayun.com/realms/bdata&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">provider</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;oidc&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">provider_display_name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Keycloak&#34;</span>
+</span></span></code></pre></div><ul>
+<li>
+<p>注意事项</p>
+<ul>
+<li>cookie_domain 要设置对</li>
+<li>redirect_url 是 oauth2-proxy 的地址，需要在 keycloak 上配置白名单</li>
+<li>keycloak 里用户的邮箱需要是验证通过的，否则这里不让登录（LDAP 的设置里可以标记成默认验证通过）</li>
+<li>oauth2-proxy 会默认把当前请求的 Host 发给 upstream，可以通过 <code>pass_host_header</code> 来控制</li>
+</ul>
+</li>
+<li>
+<p>验证：<a href="http://share.test-at.baijiayun.com:4180/json.php">http://share.test-at.baijiayun.com:4180/json.php</a></p>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li><a href="https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/oauth_provider/#keycloak-oidc-auth-provider">https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/oauth_provider/#keycloak-oidc-auth-provider</a></li>
+</ul>
+</blockquote>
+<h3 id="keycloak-proxy">keycloak-proxy</h3>
+<p>在一篇文章中，看到可以用 keycloak-proxy 给 prometheus 增加 SSO 登录。</p>
+<p>不过他 github 页面上写的，停止维护了，并建议用 oauth2-proxy，因此没有尝试</p>
+<blockquote>
+<ul>
+<li><a href="https://medium.com/@lukas.eichler/protecting-prometheus-with-oauth2-oidc-86d1c3f132b2">https://medium.com/@lukas.eichler/protecting-prometheus-with-oauth2-oidc-86d1c3f132b2</a></li>
+</ul>
+</blockquote>
+<h3 id="openresty-oidc">openresty oidc</h3>
+<ul>
+<li>测试：<a href="http://openidc-demo.test-at.baijiayun.com:8610/topics">http://openidc-demo.test-at.baijiayun.com:8610/topics</a></li>
+</ul>
+<div class="highlight fold"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-nginx" data-lang="nginx"><span style="display:flex;"><span><span style="color:#66d9ef">server</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">listen</span>  <span style="color:#ae81ff">8610</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">server_name</span> <span style="color:#e6db74">kaf-test.baijiayun.com</span> <span style="color:#e6db74">kaf-test.10.16.16.18.nip.io</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">access_log</span> <span style="color:#e6db74">/apps/log/nginx/kaf-test.baijiayun.com.access.log</span> <span style="color:#e6db74">main</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">error_log</span> <span style="color:#e6db74">/apps/log/nginx/kaf-test.baijiayun.com.error.log</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">resolver</span> <span style="color:#e6db74">local=on</span> <span style="color:#e6db74">ipv6=off</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">resolver_timeout</span> <span style="color:#e6db74">5s</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">set</span> $session_name <span style="color:#e6db74">nginx_session</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">set</span> $user <span style="color:#e6db74">&#34;none&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">location</span> <span style="color:#e6db74">/</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">access_by_lua_block</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">local</span> <span style="color:#e6db74">opts</span> = {
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">redirect_uri_path</span> = <span style="color:#e6db74">&#34;/redirect_uri&#34;,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">discovery</span> = <span style="color:#e6db74">&#34;http://keycloak.test-bdata-k8s.baijiayun.com/realms/bdata/.well-known/openid-configuration&#34;,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">client_id</span> = <span style="color:#e6db74">&#34;openresty&#34;,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">client_secret</span> = <span style="color:#e6db74">&#34;&#34;,</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">ngx.log(ngx.INFO,</span> <span style="color:#e6db74">&#34;start</span> <span style="color:#e6db74">to</span> <span style="color:#e6db74">auth&#34;)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">local</span> <span style="color:#e6db74">res,</span> <span style="color:#e6db74">err</span> = <span style="color:#e6db74">require(&#34;resty.openidc&#34;).authenticate(opts)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">ngx.log(ngx.INFO,</span> <span style="color:#e6db74">&#34;res&#34;,</span> <span style="color:#e6db74">res,</span> <span style="color:#e6db74">&#34;error&#34;,</span> <span style="color:#e6db74">err)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">ngx.req.set_header(&#34;Content-Type&#34;,</span> <span style="color:#e6db74">&#34;text/plain&#34;)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">if</span> <span style="color:#e6db74">err</span> <span style="color:#e6db74">then</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">ngx.status</span> = <span style="color:#ae81ff">500</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">ngx.say(&#34;error:&#34;</span> <span style="color:#e6db74">..</span> <span style="color:#e6db74">err)</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">ngx.exit(ngx.HTTP_INTERNAL_SERVER_ERROR)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">end</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">ngx.req.set_header(&#34;X-USER&#34;,</span> <span style="color:#e6db74">res.id_token.sub)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">ngx.var.user</span> = <span style="color:#e6db74">res.id_token.email</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">--</span> <span style="color:#e6db74">ngx.say(require(&#34;cjson&#34;).encode(res.id_token))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#960050;background-color:#1e0010">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">proxy_set_header</span> <span style="color:#e6db74">&#34;X-USER&#34;</span> $user;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://kaf-test.baijiayun.com</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><blockquote>
+<ul>
+<li>
+<p><a href="https://developers.redhat.com/blog/2018/10/08/configuring-nginx-keycloak-oauth-oidc#configuring_keycloak_and_nginx">https://developers.redhat.com/blog/2018/10/08/configuring-nginx-keycloak-oauth-oidc#configuring_keycloak_and_nginx</a></p>
+</li>
+<li>
+<p><a href="https://opm.openresty.org/package/burnes/lua-resty-openidc/">https://opm.openresty.org/package/burnes/lua-resty-openidc/</a></p>
+</li>
+</ul>
+</blockquote>
+<h2 id="20230505">2023.05.05</h2>
+<h3 id="yaml-文件的一些技巧">Yaml 文件的一些技巧</h3>
+<ul>
+<li>多行文本（Multi-line Strings）： <code>|</code> <code>|-</code> <code>|+</code> <code>&gt;</code> <code>&gt;-</code></li>
+<li>强类型声明（YAML node tags）：<code>!!str</code> <code>!!int</code></li>
+</ul>
+<blockquote>
+<ul>
+<li><a href="https://helm.sh/docs/chart_template_guide/yaml_techniques/">https://helm.sh/docs/chart_template_guide/yaml_techniques/</a></li>
+</ul>
+</blockquote>
+<h3 id="keycloak-部署及验证">keycloak 部署及验证</h3>
+<blockquote>
+<ul>
+<li>
+<p>快速部署 <a href="https://www.keycloak.org/getting-started/getting-started-kube">https://www.keycloak.org/getting-started/getting-started-kube</a></p>
+</li>
+<li>
+<p>keycloak 配置项 <a href="https://www.keycloak.org/server/configuration">https://www.keycloak.org/server/configuration</a></p>
+</li>
+<li>
+<p>生产环境配置 <a href="https://www.keycloak.org/server/configuration-production">https://www.keycloak.org/server/configuration-production</a></p>
+</li>
+</ul>
+</blockquote>
+<h2 id="20230504">2023.05.04</h2>
+<h3 id="docker-中初始进程问题">docker 中初始进程问题</h3>
+<p>以下这篇文章解释了为什么我们的 docker 镜像中需要一个 mini 版的初始化进程，也就是 pid=1 的进程。</p>
+<ul>
+<li><a href="https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/">https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/</a></li>
+</ul>
+<h3 id="dumb-init">dumb-init</h3>
+<p>今天在看 gitlab-runner 的 yaml 文件的时候，发现他的启动命令用的一个 <code>dumb-init</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">gitlab-runner</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">image</span>: <span style="color:#e6db74">&#39;registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v15.10.1&#39;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">command</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">/usr/bin/dumb-init</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#e6db74">&#39;--&#39;</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">/bin/bash</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">/configmaps/entrypoint</span>
+</span></span></code></pre></div><p>为什么要用 <code>dumb-init</code> 呢？搜索了一下，他的介绍是 <a href="https://github.com/Yelp/dumb-init">A Minimal init system for Linux containers</a></p>
+<p>stackoverflow 上有关于这个问题的讨论，https://stackoverflow.com/questions/37374310/how-critical-is-dumb-init-for-docker</p>
+<blockquote>
+<p>Something like dumb-init or tini can be used if you have a process that spawns new processes and you don&rsquo;t have good signal handlers implemented to catch child signals and stop your child if your process should be stopped etc.</p>
+<p>If your process doesn&rsquo;t spawn new processes (e.g. Node.js), then this may not be necessary.</p>
+</blockquote>
+<ul>
+<li><a href="https://engineeringblog.yelp.com/2016/01/dumb-init-an-init-for-docker.html">https://engineeringblog.yelp.com/2016/01/dumb-init-an-init-for-docker.html</a></li>
+</ul>
+<h2 id="20230428">2023.04.28</h2>
+<h3 id="知识文档">知识文档</h3>
+<p>发现一个开源的组织，整理各种文档笔记的，还不错</p>
+<ul>
+<li><a href="https://github.com/overnote">https://github.com/overnote</a></li>
+</ul>
+<h3 id="kubectl-explain">kubectl explain</h3>
+<ul>
+<li>之前一直有个疑问，k8s 的 yaml 文件结构这么复杂，怎么记得住他的结构呢？</li>
+<li>如果每次写的时候查手册，也太麻烦了吧。</li>
+<li>虽然现在有 chatGPT 方便多了，让他写个示例</li>
+<li>今天发现有一个命令叫 <code>kubectl explain</code> 可以直接查不同资源的 yaml 格式</li>
+<li>如果不知道有哪些资源，可以用 <code>kubectl api-resources</code> 列出来</li>
+<li>以下是一些示例</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kc explain pv
+</span></span><span style="display:flex;"><span>kc explain pv.spec
+</span></span><span style="display:flex;"><span>kc explain pv.spec.nfs
+</span></span></code></pre></div><ul>
+<li>不清楚层级你就从顶层一层层往下查</li>
+</ul>
+<h2 id="20230427">2023.04.27</h2>
+<h3 id="k8s-文档">k8s 文档</h3>
+<p>看着挺全的，先记录在这，后面有空再看看</p>
+<ul>
+<li><a href="https://awesome-kubernetes-notes.readthedocs.io/en/latest/awesome-kubernetes-notes.html#">https://awesome-kubernetes-notes.readthedocs.io/en/latest/awesome-kubernetes-notes.html#</a></li>
+</ul>
+<h3 id="怎样给-k8s-添加一条-dns-解析记录">怎样给 k8s 添加一条 DNS 解析记录？</h3>
+<p>要点总结：</p>
+<ul>
+<li>k8s 的 DNS 解析是由一个 CoreDNS 模块完成的</li>
+<li>CoreDNS 这个服务加载的配置文件，是在 ConfigMap 里，有一个 Corefile</li>
+<li>除了这个 CoreDNS 还有一个 NodeLocalDNS 服务，所以还需要改这个 NodeLocalDNS 的配置</li>
+<li>NodeLocalDNS 的配置文件跟 CoreDNS 类似，也是放在 ConfigMap 中管理的</li>
+<li>NodeLocalDNS 模块是能 DaemonSet 的形式运行在每个节点上（当然你也可以不启用这个）</li>
+<li>改完配置文件要重启
+<ul>
+<li>CoreDNS 重启方式，先缩减 pod 到 0，再扩回去</li>
+<li>NodeLocalDNS 重启方式：直接 kill 掉（DaemonSet 会自动启动起来）</li>
+</ul>
+</li>
+<li>验证有没有生效，可以用 <code>dig @&lt;dns-server&gt; host</code> 的方式，指定 DNS 服务器</li>
+<li>可以启动一个 dnstools 的容器来验证
+<ul>
+<li><code>kubectl run -it --rm --restart=Never --image=infoblox/dnstools:latest dnstools</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>相关步骤记录在 <a href="/BBS/Yili/k8s/add-custom-dns-entries.md">/BBS/Yili/k8s/add-custom-dns-entries.md</a></p>
+</blockquote>
+<h2 id="20230423">2023.04.23</h2>
+<h3 id="docker-rollout">docker-rollout</h3>
+<p>不停机的更新 Docker Compose 里面的某个服务</p>
+<blockquote>
+<p>参考：</p>
+</blockquote>
+<ul>
+<li><a href="https://github.com/Wowu/docker-rollout">https://github.com/Wowu/docker-rollout</a></li>
+</ul>
+<h3 id="使用-gitlab-作为-helm-的仓库">使用 gitlab 作为 helm 的仓库</h3>
+<p>在安装 gitlab runner 的时候，发现他的 helm charts 文件是在 gitlab 自己的仓库中维护的。</p>
+<p>那我们是不是也可以用 gitlab 仓库来作为我们的 helm 仓库呢？</p>
+<p>应该是可以的，参考文档如下：</p>
+<blockquote>
+<p>参考：</p>
+<ul>
+<li><a href="https://docs.gitlab.com/ee/user/packages/helm_repository/">https://docs.gitlab.com/ee/user/packages/helm_repository/</a></li>
+<li><a href="https://helm.sh/docs/topics/chart_repository/">https://helm.sh/docs/topics/chart_repository/</a></li>
+</ul>
+</blockquote>
+<h3 id="xdg-base-directory-specification">XDG Base Directory Specification</h3>
+<p>在看<a href="https://helm.sh/docs/faq/installing/#how-do-i-put-the-helm-client-files-somewhere-other-than-their-defaults">这个文档</a>时无意间看到一句话： <code>Helm uses the XDG structure for storing files.</code></p>
+<p>我心里一惊， <code>XDG</code> 是啥？<code>新东方</code> 么？后来一想，不对，那是 <code>XDF</code>。</p>
+<p>搜索了一下，原来这是一种文件组织结构规范，他规定了 linux 上应用程序的一些基本的目录结构规范。</p>
+<ul>
+<li><code>X</code> 是 Unix/Linux 系统中一个被广泛使用的前缀，它表示&quot;可扩展的&quot;或者&quot;交叉平台的&quot;。</li>
+<li><code>DG</code> 是 Desktop Group（桌面组）的缩写。</li>
+</ul>
+<blockquote>
+<p>参考：</p>
+</blockquote>
+<ul>
+<li><a href="https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html">https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html</a></li>
+</ul>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2026  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+</div>
+    </body>
+</html>

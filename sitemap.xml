@@ -2,55 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://yilli.net/about/</loc>
+    <loc>https://caiyili.github.io/notes/2023-notes/</loc>
+    <lastmod>2026-09-07T17:11:36+08:00</lastmod>
+  </url><url>
+    <loc>https://caiyili.github.io/notes/2024-notes/</loc>
+    <lastmod>2026-09-07T17:11:36+08:00</lastmod>
+  </url><url>
+    <loc>https://caiyili.github.io/notes/</loc>
+    <lastmod>2026-09-07T17:11:36+08:00</lastmod>
+  </url><url>
+    <loc>https://caiyili.github.io/</loc>
+    <lastmod>2026-09-07T17:11:36+08:00</lastmod>
+  </url><url>
+    <loc>https://caiyili.github.io/about/</loc>
     <lastmod>2022-07-05T19:49:14+08:00</lastmod>
   </url><url>
-    <loc>http://yilli.net/posts/</loc>
-    <lastmod>2022-07-01T18:17:57+08:00</lastmod>
+    <loc>https://caiyili.github.io/categories/</loc>
   </url><url>
-    <loc>http://yilli.net/</loc>
-    <lastmod>2022-07-01T18:17:57+08:00</lastmod>
-  </url><url>
-    <loc>http://yilli.net/posts/export-ynote-markdown-file/</loc>
-    <lastmod>2022-07-01T18:17:57+08:00</lastmod>
-  </url><url>
-    <loc>http://yilli.net/categories/</loc>
-    <lastmod>2017-04-07T20:14:13+08:00</lastmod>
-  </url><url>
-    <loc>http://yilli.net/categories/join/</loc>
-    <lastmod>2017-04-07T20:14:13+08:00</lastmod>
-  </url><url>
-    <loc>http://yilli.net/posts/2017-04-07-linux-command-join/</loc>
-    <lastmod>2017-04-07T20:14:13+08:00</lastmod>
-  </url><url>
-    <loc>http://yilli.net/categories/shell/</loc>
-    <lastmod>2017-04-07T20:14:13+08:00</lastmod>
-  </url><url>
-    <loc>http://yilli.net/posts/2015-11-02-git/</loc>
-    <lastmod>2015-11-02T21:57:09+08:00</lastmod>
-  </url><url>
-    <loc>http://yilli.net/categories/vim/</loc>
-    <lastmod>2015-09-06T23:18:42+08:00</lastmod>
-  </url><url>
-    <loc>http://yilli.net/posts/2015-09-06-vim/</loc>
-    <lastmod>2015-09-06T23:18:42+08:00</lastmod>
-  </url><url>
-    <loc>http://yilli.net/posts/2015-09-06-ssh/</loc>
-    <lastmod>2015-09-06T22:16:48+08:00</lastmod>
-  </url><url>
-    <loc>http://yilli.net/tags/cat/</loc>
-    <lastmod>2015-02-02T13:20:18+08:00</lastmod>
-  </url><url>
-    <loc>http://yilli.net/tags/less/</loc>
-    <lastmod>2015-02-02T13:20:18+08:00</lastmod>
-  </url><url>
-    <loc>http://yilli.net/tags/shell/</loc>
-    <lastmod>2015-02-02T13:20:18+08:00</lastmod>
-  </url><url>
-    <loc>http://yilli.net/tags/</loc>
-    <lastmod>2015-02-02T13:20:18+08:00</lastmod>
-  </url><url>
-    <loc>http://yilli.net/posts/less-with-syntax-highlight/</loc>
-    <lastmod>2015-02-02T13:20:18+08:00</lastmod>
+    <loc>https://caiyili.github.io/tags/</loc>
   </url>
 </urlset>
