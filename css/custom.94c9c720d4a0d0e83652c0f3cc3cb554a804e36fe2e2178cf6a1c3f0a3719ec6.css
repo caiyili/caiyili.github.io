@@ -1,0 +1,68 @@
+/* 首页文章预览的样式。主题 archie 对 .list-item / .description / .readmore
+   一条规则都没写，所以这里补全。通过 config.toml 的 params.customCSS 加载。 */
+
+.list-item {
+  margin-bottom: 2.5em;
+  padding-bottom: 1.5em;
+  border-bottom: 1px dotted #d0d0d0;
+}
+.list-item:last-of-type {
+  border-bottom: 0;
+}
+.list-item .title {
+  margin-top: 0;
+  margin-bottom: 0.2em;
+  font-size: 1.35rem;
+}
+.list-item time {
+  font-size: 0.85rem;
+}
+
+/* 预览区：正常渲染 Markdown，但整体缩小、限高，避免盖住列表 */
+.description {
+  margin: 0.9em 0 1em;
+  padding-left: 1.2ch;
+  border-left: 3px solid #ececec;
+  font-size: 0.95em;
+}
+.description > :first-child {
+  margin-top: 0;
+}
+.description > :last-child {
+  margin-bottom: 0;
+}
+.description p {
+  margin: 0.5em 0;
+}
+.description h1,
+.description h2,
+.description h3,
+.description h4,
+.description h5,
+.description h6 {
+  margin: 1em 0 0.3em;
+  font-size: 1rem;
+}
+.description ul,
+.description ol {
+  margin: 0.3em 0;
+}
+.description li {
+  margin: 0.15em 0;
+}
+.description pre {
+  max-height: 12em;
+  padding: 0.6em;
+  font-size: 0.85em;
+  overflow: auto;
+}
+.description img {
+  max-height: 200px;
+}
+.description blockquote {
+  margin: 0.5em 0;
+}
+
+.readmore {
+  font-size: 0.9rem;
+}
